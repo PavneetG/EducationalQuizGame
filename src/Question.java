@@ -1,7 +1,7 @@
 /*
  * Author: Lily Liu
  * Date: Monday, January 9, 2016
- * Description: Generic Question class.
+ * Description: Generic question class.
  */
 
 public class Question {
@@ -15,7 +15,12 @@ public class Question {
 	}
 
 	public static void main(String[] args) {
+		// self-testing
+		Question q = new Question("Is George Washington the first POTUS?");
+		System.out.println("Question 1: " + q.getQuestion());
 		
+		q.setQuestion("Is John Adams the second POTUS?");
+		System.out.println("Question 2: " + q.getQuestion());
 	}
 	
 	/*
