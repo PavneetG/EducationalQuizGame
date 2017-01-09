@@ -172,9 +172,7 @@ public class PlayerList {
 			case 'I':{ // inserts customer info manually 
 				String record = JOptionPane.showInputDialog(null,"Enter <name>,<userName>,<password>",
 						"Kevin Subhash,KevinSub99,123456");
-				System.out.println(record);
-				Player playerInfo = new Player();
-				playerInfo.updatePlayerData(record); // processes string
+				Player playerInfo = new Player(record);
 
 				if (!accounts.insert(playerInfo)){ // accounts is not added if not valid
 					JOptionPane.showMessageDialog(null, "Account not added");

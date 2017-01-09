@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.text.DecimalFormat;
 
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -92,6 +93,10 @@ public class Player {
 	public String getPassword ()
 	{
 	     return password; 
+	}
+	
+	public String toString(){ // method to change inputed variable to full form and return a string record
+		return (getName() + "," + getUserName() + "," + getPassword());
 	}
 
 	/**
