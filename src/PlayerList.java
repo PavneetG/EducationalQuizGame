@@ -66,14 +66,14 @@ public class PlayerList {
 	}	
 
 	public boolean delete(Player record){ // method used to delete a record
-		int  binary;
+		int  location;
 		insertSort(); // sorts all record before it deletes
 
-		binary = binarySearch(record.toString()); // calls binary search method
+		location = binarySearch(record.toString()); // calls binary search method
 
-		if(binary >= -1) // if statement for delete
+		if(location >= -1) // if statement for delete
 		{
-			list[binary] = list[size-1]; // deletes record and reduces size of record by 1
+			list[location] = list[size-1]; // deletes record and reduces size of record by 1
 			size--;
 			return true;
 		}
