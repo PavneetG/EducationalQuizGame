@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 /**
  * 
  */
@@ -10,19 +12,17 @@
 public class Statistics {
 
 	//creating private variables 
-	private int numQuizzes; 
-	
-	private int numCorrect; 
-	
-	private int numTotal; 
+	private int numQuizzes, numTotal, numCorrect; 
 	
 	private double overallPercentage; 
 	
 	private double averageTime; 
 	
-	private String [] quizRecords; 
+	private ArrayList<String> quizRecords = new ArrayList<String>(); 
 	
 	private String quizName; 
+	
+	
 
 	public Statistics() {
 		// TODO Auto-generated constructor stub

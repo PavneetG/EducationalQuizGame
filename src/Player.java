@@ -13,6 +13,7 @@ import javax.swing.JOptionPane;
 	 */
 public class Player {
 
+	//private variables for name, user name 
 	private String name; 
 	
 	private String userName; 
