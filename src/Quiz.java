@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 /* 
  * Date: January 9 2016
- * Author: Janujan Gathieswaran
+ * Author: Janujan Gathieswaran and Kevin Subhash
  * Description: The quiz class for creating quizzes, contributing questions and 
  * 				changing previously made quizzes and questions. 
  * Method List: 
