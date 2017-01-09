@@ -22,7 +22,6 @@ public class Statistics {
 	
 	private String quizName; 
 	
-	
 
 	public Statistics() {
 		// TODO Auto-generated constructor stub
@@ -82,7 +81,7 @@ public class Statistics {
 		this.quizName = quizName;
 	}
 
-	public String[] getQuizRecords() 
+	public ArrayList<String> getQuizRecords() 
 	{
 		return quizRecords;
 	}

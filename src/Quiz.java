@@ -13,8 +13,8 @@ public class Quiz {
 	//array list of questions
 	private ArrayList<Question> questions = new ArrayList<Question>();
 
-	//variables for size, number of questins correct and wrong
-	private int size, numCorrect, numWrong;
+	//variables for max size, number of questins correct and wrong
+	private int maxSize, numCorrect, numWrong;
 
 	//variable for the average time taken on questions
 	private double averageTime; 
@@ -24,7 +24,13 @@ public class Quiz {
 
 
 	public boolean add (Question question) {
-
+		if (questions.size() > maxSize) {
+			return false;
+		}
+		else {
+			questions.add(question);
+			return true;
+		}
 	}
 	public boolean change (Question question) {
 
