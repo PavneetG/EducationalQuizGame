@@ -25,8 +25,23 @@ public class Quiz {
 
 	//default constructor
 	public Quiz () {
-		quizID = "";
-
+//		quizID = "";
+//		category = "";
+//		quizName = "";
+		this ("", "", ""); //call overloaded constructor
+	}
+	public Quiz (String quizName) {
+		this ("", "", quizName);
+	}
+	//overloaded constructor
+	public Quiz (String quizID, String category, String quizName) {
+//		this.quizID = quizID;
+//		this.category = category;
+//		this.quizName = quizName;
+		
+		setQuizID (quizID);
+		setCategory(category);
+		changeQuizName(quizName);
 	}
 
 
@@ -59,10 +74,13 @@ public class Quiz {
 		this.quizName = newQuizName;
 		//need to store the quiz names onto file and check if quiz name already exists
 	}
-	public Question search (String searchType, String searchKey) {
-		for (int i = 0; i<=questions.size(); i++) {
-
+	public int search (String searchType, String searchKey) {
+		for (int i = 0; i<size; i++) {
+			if (questions.get(i).equals(searchKey)) {
+				return i;
+			}
 		}
+		return -1;
 	}
 	public String createRecord () {
 
@@ -94,6 +112,9 @@ public class Quiz {
 	public int maxSize() {
 		return maxSize;
 	}
+	public int getSize() {
+		return size; 
+	}
 	public int getNumCorrect() {
 		return numCorrect;
 	}
@@ -115,7 +136,7 @@ public class Quiz {
 	public String getQuizID() {
 		return quizID;
 	}
-
+	
 
 	//self-testing main
 	public static void main (String [] args) {
