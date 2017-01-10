@@ -50,30 +50,25 @@ public class QuestionMC extends Question {
 	}
 	
 	public boolean addOption(String o) {
-//		boolean isAdded = false; //no need for a variable
-		
 		if (size < maxSize) {
 			options.add(o);
 			size++;
 			return true;
-//			isAdded = true;
 		}
+		
 		return false;
-//		return isAdded;
 	}
 	
 	public boolean removeOption(String o) {
-		boolean isRemoved = false;
-		
 		int index = searchOptions(o);
 		
 		if (index > -1 && size > minSize) {
 			options.remove(index);
 			size--;
-			isRemoved = true;
+			return true;
 		}
 		
-		return isRemoved;
+		return false;
 	}
 	
 	public boolean checkAnswer(String a) {
@@ -81,17 +76,13 @@ public class QuestionMC extends Question {
 	}
 	
 	public int searchOptions(String o) {
-//		int index = -1; //variable not needed
-		
 		for (int i = 0; i < size; i++) {
 			if (options.get(i).equals(o)) {
-				return i;
-//				index = i;
-//				break;
+				return i; // found
 			}
 		}
-		return -1;
-//		return index;
+		
+		return -1; // not found
 	}
 	
 	public String toString() {

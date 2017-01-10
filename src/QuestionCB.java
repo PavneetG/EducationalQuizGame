@@ -1,10 +1,10 @@
-import java.util.ArrayList;
-
 /*
  * Author: Lily Liu
  * Date: Monday, January 9, 2016
  * Description: Checkbox question class.
  */
+
+import java.util.ArrayList;
 
 public class QuestionCB extends Question {
 	
@@ -54,27 +54,23 @@ public class QuestionCB extends Question {
 	}
 	
 	public boolean addOption(String o) {
-		boolean isAdded = false;
-		
 		if (size < maxSize) {
 			options.add(o);
 			size++;
-			isAdded = true;
+			return true;
 		}
 		
-		return isAdded;
+		return false;
 	}
 	
 	public boolean removeOption(String o) {
-		boolean isRemoved = false;
-		
 		if (size > minSize) {
 			options.remove(o);
 			size--;
-			isRemoved = true;
+			return true;
 		}
 		
-		return isRemoved;
+		return false;
 	}
 	
 	public boolean checkAnswer(ArrayList<String> a) {
