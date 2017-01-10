@@ -3,7 +3,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 /**
- * Author: Pavneet Gill
+ * Author: Janujan Gatheisawaran
  * Date: September 30,2016
  * Description: Saves encrypted and decrypted words into a file
  * MethodList
