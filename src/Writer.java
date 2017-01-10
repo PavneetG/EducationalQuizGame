@@ -3,19 +3,19 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 /**
- * @author Timi Onireti and Pavneet Gill
+ * Author: Pavneet Gill
  * Date: September 30,2016
  * Description: Saves encrypted and decrypted words into a file
  * MethodList
  *              saveFile (String fileName, String newPhrases[]) saves encrypted and decrypted words into file
  */
-public class TheFileSaverClass
+public class Writer 
 {
 
     private String fileName;
     private String phrases[];
     
-    public TheFileSaverClass (String fileName)
+    public Writer (String fileName) throws IOException
     {
       saveFile (fileName, phrases); 
     }
@@ -39,7 +39,6 @@ public class TheFileSaverClass
     }
     public static void main (String[] args) throws IOException
     {
-	// TODO Auto-generated method stubString output[];
 
 	//Testing
 	//-------------------------------------------------------------------------------------
@@ -47,7 +46,7 @@ public class TheFileSaverClass
 
 	String phrases[] = new String [5];  //declaring array of phrases with 5 elements
 
-	TheFileSaverClass saver = new TheFileSaverClass (); //creating TheFileSaveClass object
+	Writer saver = new Writer (fileName); //creating TheFileSaveClass object
 
 	for (int k = 0 ; k < phrases.length ; k++) //loop to fill array with phrase
 	{

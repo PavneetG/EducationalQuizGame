@@ -3,10 +3,10 @@ import java.io.FileReader;
 import java.io.IOException;
 import javax.swing.JOptionPane;
 
-public class TheLoaderClass {
+public class Loader {
 
 	/**
-	 * Author: Timi Onireti
+	 * Author: Pavneet Gill
 	 * Date: September 30,2016
 	 * Description: Loads the encrypted and decrypted words into a file
 	 * @param args
@@ -14,7 +14,6 @@ public class TheLoaderClass {
 
 	public String [] loadFile (String fileName) throws IOException {
 
-		
 		// open file for reading
 		FileReader fr = new FileReader (fileName);
 		
@@ -39,7 +38,7 @@ public class TheLoaderClass {
 		String output[];
 
 		//create a LoaderClass object
-		TheLoaderClass loader = new TheLoaderClass();
+		Loader loader = new Loader();
 
 		String fileN = JOptionPane.showInputDialog(null, "file", "PhrasesDecrypted.txt"); // displays input dialog for .txt file
 
