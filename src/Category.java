@@ -4,7 +4,9 @@
  * Description: This class separates the quizzes into different categories with the option to add delete and change them.
  */
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -21,11 +23,17 @@ public class Category {
 		size = 0;
 	}
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		// self-testing
-		Category c = new Category("Science");
+		/*
+		Category c = new Category("Science"); // writing
 		String title = "Astronomy";
 		System.out.println(c.add(title));
+		*/
+		
+		Category c = new Category("History"); // reading
+		c.readFromFile(c.getCategory() + ".txt");
+		System.out.println(c.getList());
 	}
 	
 	public String add(String title) {
@@ -36,7 +44,7 @@ public class Category {
 		*/
 		
 		list.add(title);
-		writeToFile(category + ".txt", "\n" + title);
+		writeToFile(category + ".txt", title + "\n");
 		
 		return title;
 	}
@@ -49,16 +57,39 @@ public class Category {
 		return true;
 	}
 	
-	public boolean writeToFile(String fileName, String contents) {
+	public boolean readFromFile(String fileName) {
 		try {
-		    FileWriter fstream = new FileWriter(fileName, true); // true tells to append data
-		    BufferedWriter out = new BufferedWriter(fstream);
-		    out.write(contents);
-		    out.close();
+			BufferedReader br = new BufferedReader(new FileReader(fileName));
+		    String line = br.readLine();
+
+		    while (line != null) {
+		        list.add(line); // add title to list
+		        line = br.readLine();
+		    }
+		    
+		    br.close();
+		    
 		    return true;
 		}
 		catch (IOException e) {
 			System.err.println("Error: " + e.getMessage());
+			
+			return false;
+		}
+	}
+	
+	public boolean writeToFile(String fileName, String contents) {
+		try {
+		    FileWriter fw = new FileWriter(fileName, true); // true tells to append data
+		    BufferedWriter bw = new BufferedWriter(fw);
+		    bw.write(contents);
+		    bw.close();
+		    
+		    return true;
+		}
+		catch (IOException e) {
+			System.err.println("Error: " + e.getMessage());
+			
 			return false;
 		}
 	}
