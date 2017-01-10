@@ -19,9 +19,7 @@ public class Writer
     {
       saveFile (fileName, phrases); 
     }
-    /**
-     * @param args
-     */
+ 
     public void saveFile (String fileName, String newPhrases[]) throws IOException
     {
 
