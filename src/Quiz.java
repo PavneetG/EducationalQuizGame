@@ -71,6 +71,7 @@ public class Quiz {
 		return false;
 	}
 	public boolean changeQuizName (String newQuizName) {
+		
 		this.quizName = newQuizName;
 		//need to store the quiz names onto file and check if quiz name already exists
 	}
@@ -137,7 +138,6 @@ public class Quiz {
 		return quizID;
 	}
 	
-
 	//self-testing main
 	public static void main (String [] args) {
 
