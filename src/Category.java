@@ -37,6 +37,9 @@ public class Category {
 		
 		c.change("American History", "World History"); // edit title and update file
 		System.out.println(c.getList());
+		
+		c.remove("British History"); // remove title and update file
+		System.out.println(c.getList());
 	}
 	
 	public String add(String title) {
@@ -49,6 +52,7 @@ public class Category {
 		*/
 		
 		list.add(newTitle);
+		size++;
 		writeToFile(category + ".txt", newTitle + "\n", true);
 		
 		return title;
@@ -57,7 +61,7 @@ public class Category {
 	public boolean change(String title, String newTitle) {
 		int index = search(title);
 		
-		if (index > -1) {
+		if (index > -1) { // found
 			list.set(index, newTitle); // update list
 			writeToFile(getCategory() + ".txt", toString(), false); // update file
 			
@@ -68,7 +72,17 @@ public class Category {
 	}
 	
 	public boolean remove(String title) {
-		return true;
+		int index = search(title);
+		
+		if (index > -1) { // found
+			list.remove(index); // remove item
+			size--;
+			writeToFile(getCategory() + ".txt", toString(), false); // update file
+			
+			return true;
+		}
+		
+		return false;
 	}
 	
 	public boolean readFromFile(String fileName) {
