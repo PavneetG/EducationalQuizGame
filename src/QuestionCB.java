@@ -10,17 +10,23 @@ public class QuestionCB extends Question {
 	
 	private ArrayList<String> options;
 	private ArrayList<String> answers;
-	private int size;
-	private int minSize;
-	private int maxSize;
+	private int oSize; // options
+	private int oMinSize;
+	private int oMaxSize;
+	private int aSize; // answers
+	private int aMinSize;
+	private int aMaxSize;
 
 	public QuestionCB(String q) {
 		super(q);
 		options = new ArrayList<String>();
 		answers = new ArrayList<String>();
-		size = 0;
-		minSize = 3;
-		maxSize = 5;
+		oSize = 0;
+		oMinSize = 3;
+		oMaxSize = 5;
+		aSize = 0;
+		aMinSize = 1;
+		aMaxSize = 5;
 	}
 	
 	public static void main(String[] args) {
@@ -28,25 +34,34 @@ public class QuestionCB extends Question {
 		QuestionCB q = new QuestionCB("What are the branches of government?");
 		System.out.println(q.getQuestion());
 		
+		// add options
 		String[] options = {"Executive", "Legislative", "Judicial", "Municipal"};
 		int oSize = options.length;
 		for (int i = 0; i < oSize; i++) {
 			q.addOption(options[i]);
 		}
 		System.out.println("\nOptions: " + q.getOptions());
-
+		
+		/*
+		// remove option
 		System.out.println("    remove municipal: " + q.removeOption("Municipal"));
 		System.out.println("    remove federal: " + q.removeOption("Federal"));
 		System.out.println("Options: " + q.getOptions());
+		*/
 		
-		q.getAnswers().add("Executive"); // correct answer
-		q.getAnswers().add("Legislative");
-		q.getAnswers().add("Judicial");
+		// add answers
+		String[] answers = {"Executive", "Legislative", "Judicial"};
+		int aSize = answers.length;
+		for (int i = 0; i < aSize; i++) {
+			q.addAnswer(answers[i]);
+		}
 		System.out.println("\nAnswers: " + q.getAnswers());
 		
-		ArrayList<String> input = new ArrayList<String>(); // user input
+		// user input
+		ArrayList<String> input = new ArrayList<String>();
 		input.add("Executive");
 		input.add("Legislative");
+		input.add("Judicial");
 		System.out.println("Input: " + input);
 		
 		System.out.println("\nIs correct: " + q.checkAnswer(input));
@@ -54,9 +69,9 @@ public class QuestionCB extends Question {
 	}
 	
 	public boolean addOption(String o) {
-		if (size < maxSize) {
+		if (oSize < oMaxSize) {
 			options.add(o);
-			size++;
+			oSize++;
 			return true;
 		}
 		
@@ -64,22 +79,32 @@ public class QuestionCB extends Question {
 	}
 	
 	public boolean removeOption(String o) {
-		if (size > minSize) {
+		if (oSize > oMinSize) {
 			options.remove(o);
-			size--;
+			oSize--;
 			return true;
 		}
 		
 		return false;
 	}
 	
-	public boolean checkAnswer(ArrayList<String> a) {
-		int numCorrect = 0;
-		int aSize = a.size();
+	public boolean addAnswer(String a) {
+		if (aSize < oMaxSize) {
+			answers.add(a);
+			aSize++;
+			return true;
+		}
 		
-		for (int i = 0; i < size; i++) {
-			for (int j = 0; j < aSize; j++) {
-				if (answers.get(i).equals(a.get(j))) {
+		return false;
+	}
+	
+	public boolean checkAnswer(ArrayList<String> input) {
+		int numCorrect = 0;
+		int size = input.size();
+		
+		for (int i = 0; i < aSize; i++) {
+			for (int j = 0; j < size; j++) {
+				if (answers.get(i).equals(input.get(j))) {
 					numCorrect++;
 					break;
 				}
@@ -91,11 +116,21 @@ public class QuestionCB extends Question {
 	}
 	
 	public String toString() {
-		String s = "";
+		// example: 3What are the branches of government?[Executive,Legislative,Judicial,Municipal]|[Executive,Legislative,Judicial]
 		
-		// **** define format ****
+		String s = 3 + getQuestion() + "[" + options.get(0);
 		
-		return s;
+		for (int i = 1; i < oSize; i++) {
+			s += "," + options.get(i);
+		}
+		
+		s += "]|[" + answers.get(0);
+		
+		for (int i = 1; i < aSize; i++) {
+			s += "," + answers.get(i);
+		}
+		
+		return s += "]";
 	}
 	
 	/*
@@ -112,16 +147,16 @@ public class QuestionCB extends Question {
 		return answers;
 	}
 	
-	public int getSize() {
-		return size;
+	public int getOSize() {
+		return oSize;
 	}
 	
-	public int getMinSize() {
-		return minSize;
+	public int getOMinSize() {
+		return oMinSize;
 	}
 	
-	public int getMaxSize() {
-		return maxSize;
+	public int getOMaxSize() {
+		return oMaxSize;
 	}
 	
 	/*
@@ -138,16 +173,16 @@ public class QuestionCB extends Question {
 		answers = a;
 	}
 	
-	public void setSize(int s) {
-		size = s;
+	public void setOSize(int s) {
+		oSize = s;
 	}
 	
 	public void setMinSize(int s) {
-		minSize = s;
+		oMinSize = s;
 	}
 	
 	public void setMaxSize(int s) {
-		maxSize = s;
+		oMaxSize = s;
 	}
 
 }

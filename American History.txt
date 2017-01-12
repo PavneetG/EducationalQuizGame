@@ -1,0 +1,6 @@
+1George Washington is the first POTUS.true
+1John Adams is the third POTUS.false
+2In what year was the Declaration of Independence signed?[1776,1789,1800]|1776
+2Which country was America's main ally in the Revolutionary War?[Britain,France,Canada]|France
+3Which administrations dealt with the Vietnam War?[Johnson,Kennedy,Nixon,Ford]|[Johnson,Kennedy,Nixon,Ford]
+3Which presidents are featured on paper currency?[Thomas Jefferson,Alexander Hamilton,James Madison]|[Thomas Jefferson,James Madison]

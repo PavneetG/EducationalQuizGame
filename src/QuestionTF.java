@@ -33,11 +33,9 @@ public class QuestionTF extends Question {
 	}
 	
 	public String toString() {
-		String s = "";
+		// example: 1George Washington is the first POTUS.true
 		
-		// **** define format ****
-		
-		return s;
+		return 1 + getQuestion() + answer;
 	}
 	
 	/*

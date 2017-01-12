@@ -86,11 +86,15 @@ public class QuestionMC extends Question {
 	}
 	
 	public String toString() {
-		String s = "";
+		// example: 2In what year was the Declaration of Independence signed?[1776,1789,1800]|1776
 		
-		// **** define format ****
+		String s = 2 + getQuestion() + "[" + options.get(0);
 		
-		return s;
+		for (int i = 1; i < size; i++) {
+			s += "," + options.get(i);
+		}
+		
+		return s += "]|" + answer;
 	}
 	
 	/*

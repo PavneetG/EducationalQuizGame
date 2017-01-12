@@ -35,7 +35,7 @@ public class Category {
 		c.readFromFile(c.getCategory() + ".txt");
 		System.out.println(c.getList());
 		
-		c.change("American History", "World History"); // edit title and update file
+		c.change("Canadian History", "World History"); // edit title and update file
 		System.out.println(c.getList());
 		
 		c.remove("British History"); // remove title and update file
