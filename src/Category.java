@@ -26,31 +26,45 @@ public class Category {
 	public static void main(String[] args) throws IOException {
 		// self-testing
 		/*
-		Category c = new Category("Science"); // writing
+		Category c = new Category("Science"); // add category and write to file
 		String title = "Astronomy";
 		System.out.println(c.add(title));
 		*/
 		
-		Category c = new Category("History"); // reading
+		Category c = new Category("History"); // read and load data from file
 		c.readFromFile(c.getCategory() + ".txt");
+		System.out.println(c.getList());
+		
+		c.change("American History", "World History"); // edit title and update file
 		System.out.println(c.getList());
 	}
 	
 	public String add(String title) {
+		String newTitle = title;
+		
 		/*
 		while (search(title) > -1) { // duplicate title
 			// change title
 		}
 		*/
 		
-		list.add(title);
-		writeToFile(category + ".txt", title + "\n");
+		list.add(newTitle);
+		writeToFile(category + ".txt", newTitle + "\n", true);
 		
 		return title;
 	}
 	
-	public boolean change(String title) {
-		return true;
+	public boolean change(String title, String newTitle) {
+		int index = search(title);
+		
+		if (index > -1) {
+			list.set(index, newTitle); // update list
+			writeToFile(getCategory() + ".txt", toString(), false); // update file
+			
+			return true;
+		}
+		
+		return false;
 	}
 	
 	public boolean remove(String title) {
@@ -64,6 +78,7 @@ public class Category {
 
 		    while (line != null) {
 		        list.add(line); // add title to list
+		        size++; // increase size
 		        line = br.readLine();
 		    }
 		    
@@ -78,9 +93,9 @@ public class Category {
 		}
 	}
 	
-	public boolean writeToFile(String fileName, String contents) {
+	public boolean writeToFile(String fileName, String contents, boolean append) {
 		try {
-		    FileWriter fw = new FileWriter(fileName, true); // true tells to append data
+		    FileWriter fw = new FileWriter(fileName, append); // true tells to append data
 		    BufferedWriter bw = new BufferedWriter(fw);
 		    bw.write(contents);
 		    bw.close();
@@ -102,6 +117,16 @@ public class Category {
 		}
 		
 		return -1; // not found
+	}
+	
+	public String toString() {
+		String str = list.get(0);
+		
+		for (int i = 1; i < size; i++) {
+			str += "\n" + list.get(i);
+		}
+		
+		return str;
 	}
 	
 	/*
