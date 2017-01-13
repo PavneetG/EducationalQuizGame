@@ -85,7 +85,7 @@ public class PlayerList {
 			Player item = list[top];
 			int i = top-1;
 			while (i >= 0){
-				if(item.getName().compareToIgnoreCase(list[i].getName())>0){ // compares the inputed name with names in current record
+				if(item.getName().compareToIgnoreCase(list[i].getName())>0){ // compares the inputed name with names in current account
 					break;
 				}
 				list[i+1] = list[i];
@@ -95,10 +95,10 @@ public class PlayerList {
 		}
 	}
 
-	public void rippleSort(){      // Created a Ripple Sort method that sorts account number
+	public void rippleSort(){      // Created a Ripple Sort method that sorts username
 		for(int i = 0; i <= size-2;i++){
 			for(int j = i+1; j <= size-1; j++){
-				if(list[i].getUserName().compareToIgnoreCase(list[j].getUserName()) > 0){ // compares inputed chequing account number with current account numbers
+				if(list[i].getUserName().compareToIgnoreCase(list[j].getUserName()) > 0){ // compares usernames
 					Player temp;
 					temp = list[i];
 					list[i] = list [j]; //swap order
@@ -108,16 +108,16 @@ public class PlayerList {
 		}
 	}
 
-	public int linearSearch(String searchKey){ // A linear search method that searches for customer name
+	public int linearSearch(String searchKey){ // A linear search method 
 		for(int i = 0; i < size; i++){
-			if(searchKey.equalsIgnoreCase(list[i].toString())){ // compares customer names
+			if(searchKey.equalsIgnoreCase(list[i].toString())){ 
 				return i;
 			}
 		}
 		return -1; // returns -1 if not found
 	}
 
-	public int binarySearch(String searchKey){ // binary search method that searches for customer name
+	public int binarySearch(String searchKey){ // binary search method that searches for account name
 		int low = 0;
 		int high = size - 1;
 		int middle;
@@ -137,8 +137,8 @@ public class PlayerList {
 		return -2;
 	}
 
-	public boolean change(Player oldR, Player newR){ // method used to change a record	
-		if(delete(oldR)){ // deletes old record and inserts new record
+	public boolean change(Player oldR, Player newR){ // method used to change an account
+		if(delete(oldR)){ // deletes old account and inserts new account
 			insert(newR); 
 			return true;
 		}
@@ -162,27 +162,27 @@ public class PlayerList {
 
 		while(true){
 
-			char command = (char) JOptionPane.showOptionDialog(null, "What Would You Like To Do With The Account Records?","Account Records",
+			char command = (char) JOptionPane.showOptionDialog(null, "What Would You Like To Do With The Player Accounts?","Player Accounts",
 					JOptionPane.DEFAULT_OPTION,JOptionPane.QUESTION_MESSAGE,null,button,button[0]);// Asks user some options with buttons
 
 			if(button[command].charAt(0) == 'Q'){ // starting switch case for each button
 				break;
 			}
 			switch (button[command].charAt(0)){
-			case 'I':{ // inserts customer info manually 
-				String record = JOptionPane.showInputDialog(null,"Enter <name>,<userName>,<password>",
+			case 'I':{ // inserts player info manually 
+				String info = JOptionPane.showInputDialog(null,"Enter <name>,<userName>,<password>",
 						"Kevin Subhash,KevinSub99,123456");
-				Player playerInfo = new Player(record);
+				Player playerInfo = new Player(info);
 
-				if (!accounts.insert(playerInfo)){ // accounts is not added if not valid
+				if (!accounts.insert(playerInfo)){ // account is not added if not valid
 					JOptionPane.showMessageDialog(null, "Account not added");
 				}
 				break;
 			}
-			case 'F':{ // inserts all customer info from txt file
-				String record = JOptionPane.showInputDialog(null, "Enter File Name", "Players.txt"); // prompts user for file name
+			case 'F':{ // inserts all player info from txt file
+				String file = JOptionPane.showInputDialog(null, "Enter File Name", "Players.txt"); // prompts user for file name
 
-				accounts.loadFile(record); // calls method to load file
+				accounts.loadFile(file); // calls method to load file
 
 				break;
 			}
@@ -193,13 +193,13 @@ public class PlayerList {
 			}
 			case 'P':{ // prints all records
 				for (int i = 0; i < accounts.getSize(); i++) { // loops until all record are printed
-					System.out.println("Record #" + (i+1) + " " + accounts.getList()[i]);
+					System.out.println("Account #" + (i+1) + " " + accounts.getList()[i]);
 				}
 				break;
 			}
-			case 'D':{ // deletes a customer record
+			case 'D':{ // deletes a player account
 				Player playerInfo = new Player();
-				String record = JOptionPane.showInputDialog(null,"Enter <name>,<userName>,<password>", //prompt user for account info to delete
+				String record = JOptionPane.showInputDialog(null,"Enter <name>,<userName>,<password>", //prompt user for player info to delete account
 						"Kevin Subhash,KevinSub99,123456");
 
 				playerInfo.updatePlayerData(record); // processes inputed string
@@ -211,12 +211,12 @@ public class PlayerList {
 				accounts.insertSort();
 				break;
 			}
-			case 'C':{ // changes a customer record into another
-				String oldRecord = JOptionPane.showInputDialog(null, "Enter Record to Change", "Kevin Subhash,KevinSub99,123456"); // prompts user for old account info
+			case 'C':{ // changes a player account into another
+				String oldRecord = JOptionPane.showInputDialog(null, "Enter Account to Change", "Kevin Subhash,KevinSub99,123456"); // prompts user for old account info
 				Player oldInfo = new Player();
 				oldInfo.updatePlayerData(oldRecord); // processes old account string
 
-				String newRecord = JOptionPane.showInputDialog(null, "Enter Record to Change to", "Janujan G.,JG100,789456"); // prompts user for new account info
+				String newRecord = JOptionPane.showInputDialog(null, "Enter Account to Change to", "Janujan G.,JG100,789456"); // prompts user for new account info
 				Player newInfo = new Player();
 				newInfo.updatePlayerData(newRecord); // processes new string info
 
