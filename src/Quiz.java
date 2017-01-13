@@ -63,11 +63,18 @@ public class Quiz {
 		return false;
 	}
 	public boolean change (Question oldQuestion, Question newQuestion) {
-		if (questions.contains(oldQuestion))
-		{
-			questions.set(questions.indexOf(oldQuestion), newQuestion);
-			return true;
+		//enhanced for loop
+		for (Question i:questions) {
+			if (i.getQuestion().equalsIgnoreCase(oldQuestion.getQuestion())) {
+				questions.set(questions.indexOf(i), newQuestion);
+				return true;
+			}
 		}
+//		if (questions.contains(oldQuestion))
+//		{
+//			questions.set(questions.indexOf(oldQuestion), newQuestion);
+//			return true;
+//		}
 		return false;	
 	}
 	public boolean remove (Question question) {
