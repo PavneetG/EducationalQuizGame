@@ -8,7 +8,7 @@ import javax.swing.JOptionPane;
  * 
  */
 
-/**Name: Pavneet Gill
+/**Name: Pavneet Gill & Kevin Subhash
 	 * Date: December 2016
 	 * Description: This program allow the creation of a plauer 
 	 */
@@ -26,7 +26,6 @@ public class Player {
 	private ImageIcon accountpic;
 	
 	public Player() {
-		// TODO Auto-generated constructor stub
 		this.name = ""; 
 		this.userName = ""; 
 		this.stats = null;
@@ -109,12 +108,12 @@ public class Player {
 				String playerInfo = ""; //creating variable for playerInfo 
 
 
-				playerInfo = JOptionPane.showInputDialog(null, "Enter:"+ "<name>,<userName>,<password>");
+				playerInfo = JOptionPane.showInputDialog(null, "Enter:"+ "<name>,<userName>,<password>","Kevin Subhash,KevinSub,489568");
 
 				//process Record
 				Player playerRecord = new Player(playerInfo); //creating a Customer constructor 
 
-				System.out.println(playerInfo); 
+				System.out.println(playerRecord); 
 				
 				System.out.println("Name: "+ playerRecord.getName()); 
 				
