@@ -50,5 +50,9 @@ public class Question {
 	public void setTime(double t) {
 		time = t;
 	}
+	
+	public String toString(){ // method to change inputed variable to full form and return a string record
+		return getQuestion();
+	}
 
 }

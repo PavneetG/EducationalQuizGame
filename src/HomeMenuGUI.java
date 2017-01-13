@@ -15,7 +15,7 @@ public class HomeMenuGUI extends JFrame {
 	public HomeMenuGUI() {
 		setSize(500,700);
 		setLocationRelativeTo(null);
-		setLayout(null);
+		getContentPane().setLayout(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setVisible(true);
 
@@ -23,5 +23,4 @@ public class HomeMenuGUI extends JFrame {
 	public static void main(String[] args) {
 		HomeMenuGUI homeMenu = new HomeMenuGUI ();
 	}
-
 }
