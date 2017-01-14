@@ -40,7 +40,7 @@ public class CreateAccount extends JFrame implements ActionListener{
 				btnClear3.setVisible(true);
 			}
 		});
-		textField.setBounds(59, 190, 193, 20);
+		textField.setBounds(71, 191, 193, 20);
 		getContentPane().add(textField);
 		textField.setColumns(10);
 		
@@ -51,7 +51,7 @@ public class CreateAccount extends JFrame implements ActionListener{
 			}
 		});
 		textField_1.setColumns(10);
-		textField_1.setBounds(59, 123, 193, 20);
+		textField_1.setBounds(71, 124, 193, 20);
 		getContentPane().add(textField_1);
 		
 		textField_2 = new JTextField();
@@ -61,7 +61,7 @@ public class CreateAccount extends JFrame implements ActionListener{
 			}
 		});
 		textField_2.setColumns(10);
-		textField_2.setBounds(59, 258, 193, 20);
+		textField_2.setBounds(71, 259, 193, 20);
 		getContentPane().add(textField_2);
 		
 		textField_4 = new JTextField();
@@ -71,74 +71,74 @@ public class CreateAccount extends JFrame implements ActionListener{
 			}
 		});
 		textField_4.setColumns(10);
-		textField_4.setBounds(59, 62, 193, 20);
+		textField_4.setBounds(71, 63, 193, 20);
 		getContentPane().add(textField_4);
 		
 		JLabel lblEnterAUsername = new JLabel("Enter a UserName");
-		lblEnterAUsername.setBounds(59, 109, 193, 14);
+		lblEnterAUsername.setBounds(71, 110, 193, 14);
 		getContentPane().add(lblEnterAUsername);
 		
 		JLabel lblEnterYourName = new JLabel("Enter Your Name");
-		lblEnterYourName.setBounds(59, 49, 193, 14);
+		lblEnterYourName.setBounds(71, 50, 193, 14);
 		getContentPane().add(lblEnterYourName);
 		
 		JLabel lblEnterPassword = new JLabel("Enter Password");
-		lblEnterPassword.setBounds(59, 176, 193, 14);
+		lblEnterPassword.setBounds(71, 177, 193, 14);
 		getContentPane().add(lblEnterPassword);
 		
 		JLabel lblComfirmPassword = new JLabel("Comfirm Password");
-		lblComfirmPassword.setBounds(59, 243, 193, 14);
+		lblComfirmPassword.setBounds(71, 244, 193, 14);
 		getContentPane().add(lblComfirmPassword);
 		
 		btnCreateAccount = new JButton("Create Account!");
-		btnCreateAccount.setBounds(95, 408, 144, 41);
+		btnCreateAccount.setBounds(96, 419, 144, 41);
 		getContentPane().add(btnCreateAccount);
 		btnCreateAccount.addActionListener(this);
 		
 		btnClear1 = new JButton("X");
-		btnClear1.setBounds(272, 122, 50, 23);
+		btnClear1.setBounds(284, 123, 50, 23);
 		getContentPane().add(btnClear1);
 		btnClear1.setVisible(false);
 		btnClear1.addActionListener(this);
 		
 		btnClear2 = new JButton("X");
-		btnClear2.setBounds(272, 61, 50, 23);
+		btnClear2.setBounds(284, 62, 50, 23);
 		getContentPane().add(btnClear2);
 		btnClear2.setVisible(false);
 		btnClear2.addActionListener(this);
 		
 		btnClear3 = new JButton("X");
-		btnClear3.setBounds(272, 189, 50, 23);
+		btnClear3.setBounds(284, 190, 50, 23);
 		getContentPane().add(btnClear3);
 		btnClear3.setVisible(false);
 		btnClear3.addActionListener(this);
 		
 		btnClear4 = new JButton("X");
-		btnClear4.setBounds(272, 257, 50, 23);
+		btnClear4.setBounds(284, 258, 50, 23);
 		getContentPane().add(btnClear4);
 		
-		lblPickAPicture = new JLabel("Pick A Picture");
-		lblPickAPicture.setBounds(140, 289, 82, 14);
+		lblPickAPicture = new JLabel("Select A Picture");
+		lblPickAPicture.setBounds(127, 290, 127, 14);
 		getContentPane().add(lblPickAPicture);
 		
 		label = new JLabel("New label");
-		label.setIcon(new ImageIcon("C:\\Users\\KEVIN\\Desktop\\ghfg.jpg"));
-		label.setBounds(37, 330, 60, 60);
+		label.setIcon(new ImageIcon("p1.jpg"));
+		label.setBounds(37, 337, 60, 60);
 		getContentPane().add(label);
 		
 		label_1 = new JLabel("New label");
-		label_1.setIcon(new ImageIcon("C:\\Users\\KEVIN\\Desktop\\apple-icon-60x60.png"));
-		label_1.setBounds(107, 330, 60, 60);
+		label_1.setIcon(new ImageIcon("p4.png"));
+		label_1.setBounds(107, 337, 60, 60);
 		getContentPane().add(label_1);
 		
 		label_2 = new JLabel("New label");
-		label_2.setIcon(new ImageIcon("C:\\Users\\KEVIN\\Desktop\\apple-touch-icon-60x60.png"));
-		label_2.setBounds(177, 330, 60, 60);
+		label_2.setIcon(new ImageIcon("p3.jpg"));
+		label_2.setBounds(177, 337, 60, 60);
 		getContentPane().add(label_2);
 		
 		label_3 = new JLabel("New label");
-		label_3.setIcon(new ImageIcon("C:\\Users\\KEVIN\\Desktop\\icon-grow-red.jpg"));
-		label_3.setBounds(247, 330, 60, 60);
+		label_3.setIcon(new ImageIcon("p2.png"));
+		label_3.setBounds(246, 337, 60, 60);
 		getContentPane().add(label_3);
 		
 		JRadioButton radioButton = new JRadioButton("");
