@@ -8,13 +8,14 @@ import java.util.ArrayList;
 
 public class QuestionCB extends Question {
 	
-	private ArrayList<String> options;
-	private ArrayList<String> answers;
-	private int oSize; // options
-	private int oMinSize;
-	private int oMaxSize;
-	private int aSize; // answers
-
+	private ArrayList<String> options; // all possible options
+	private ArrayList<String> answers; // correct answers
+	private int oSize; // number of options
+	private int oMinSize; // minimum number of options
+	private int oMaxSize; // maximum number of options
+	private int aSize; // number of answers
+	
+	// constructor for new question
 	public QuestionCB(String q) {
 		super(q);
 		options = new ArrayList<String>();
@@ -23,6 +24,17 @@ public class QuestionCB extends Question {
 		oMinSize = 3;
 		oMaxSize = 5;
 		aSize = 0;
+	}
+	
+	// constructor for existing question
+	public QuestionCB(String q, ArrayList<String> o, ArrayList<String> a, int oS, int aS) {
+		super(q);
+		options = o;
+		answers = a;
+		oSize = oS;
+		oMinSize = 3;
+		oMaxSize = 5;
+		aSize = aS;
 	}
 	
 	public static void main(String[] args) {

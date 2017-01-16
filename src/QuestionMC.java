@@ -8,17 +8,28 @@ import java.util.ArrayList;
 
 public class QuestionMC extends Question {
 
-	private ArrayList<String> options;
-	private String answer;
-	private int size;
-	private int minSize;
-	private int maxSize;
+	private ArrayList<String> options; // all possible options
+	private String answer; // correct answer
+	private int size; // number of options
+	private int minSize; // minimum number of options
+	private int maxSize; // maximum number of options
 	
+	// constructor for new question
 	public QuestionMC(String q) {
 		super(q);
 		options = new ArrayList<String>();
 		answer = "";
 		size = 0;
+		minSize = 3;
+		maxSize = 5;
+	}
+	
+	// constructor for existing question
+	public QuestionMC(String q, ArrayList<String> o, String a, int s) {
+		super(q);
+		options = o;
+		answer = a;
+		size = s;
 		minSize = 3;
 		maxSize = 5;
 	}

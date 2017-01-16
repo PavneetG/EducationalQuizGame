@@ -6,11 +6,18 @@
 
 public class QuestionTF extends Question {
 
-	private boolean answer;
+	private boolean answer; // correct answer
 	
+	// constructor for new question
 	public QuestionTF(String q) {
 		super(q);
 		answer = false;
+	}
+	
+	// constructor for existing question
+	public QuestionTF(String q, boolean a) {
+		super(q);
+		answer = a;
 	}
 
 	public static void main(String[] args) {
