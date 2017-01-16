@@ -200,6 +200,12 @@ public class Quiz {
 		return -1;
 	}
 	
+	/*
+	 * ==============================
+	 * Other Functions
+	 * ==============================
+	 */
+	
 	public boolean changeQuizName(String newQuizName) {
 		this.quizName = newQuizName;
 		// need to store the quiz names onto file and check if quiz name already exists
@@ -223,54 +229,6 @@ public class Quiz {
 		file2.close ();
 	}
 	
-	/*
-	 * ==============================
-	 * Getters
-	 * ==============================
-	 */
-	
-	public ArrayList<Question> getQuestions() {
-		return questions;
-	}
-	
-	public int getSize() {
-		return size; 
-	}
-	
-	public int getNumCorrect() {
-		return numCorrect;
-	}
-	
-	public int getNumWrong() {
-		return numWrong;
-	}
-	
-	public double getAverageTime() {
-		return averageTime;
-	}
-	
-	public String getCategory() {
-		return category;
-	}
-	
-	public String getQuizName() {
-		return quizName;
-	}
-	
-	public long getQuizID() {
-		return quizID;
-	}
-	
-	/*
-	 * ==============================
-	 * Setters
-	 * ==============================
-	 */
-
-	public void setQuizID (long quizID) {
-		this.quizID = quizID;
-	}
-
 	// method to generate account number
 	public long generateQuizID (){
 		// Reference to generate random 9 digit numbers
@@ -295,13 +253,97 @@ public class Quiz {
 		
 		// System.out.println(accountNum); //debug point for account number
 	}
+	
+	/*
+	 * ==============================
+	 * Getters
+	 * ==============================
+	 */
+	
+	public ArrayList<QuestionTF> getQuestionsTF() {
+		return questionsTF;
+	}
+	
+	public ArrayList<QuestionMC> getQuestionsMC() {
+		return questionsMC;
+	}
+	
+	public ArrayList<QuestionCB> getQuestionsCB() {
+		return questionsCB;
+	}
+	
+	public long getQuizID() {
+		return quizID;
+	}
+	
+	public String getCategory() {
+		return category;
+	}
+	
+	public String getQuizName() {
+		return quizName;
+	}
+	
+	public int getSize() {
+		return size; 
+	}
+	
+	public int getNumCorrect() {
+		return numCorrect;
+	}
+	
+	public int getNumWrong() {
+		return numWrong;
+	}
+	
+	public double getAverageTime() {
+		return averageTime;
+	}
+	
+	/*
+	 * ==============================
+	 * Setters
+	 * ==============================
+	 */
+	
+	public void setQuestionsTF(ArrayList<QuestionTF> questionsTF) {
+		this.questionsTF = questionsTF;
+	}
+	
+	public void setQuestionsMC(ArrayList<QuestionMC> questionsMC) {
+		this.questionsMC = questionsMC;
+	}
+	
+	public void setQuestionsCB(ArrayList<QuestionCB> questionsCB) {
+		this.questionsCB = questionsCB;
+	}
 
-	public void setQuestions(ArrayList<Question> questions) {
-		this.questions = questions;
+	public void setQuizID (long quizID) {
+		this.quizID = quizID;
 	}
 	
 	public void setCategory(String category) {
 		this.category = category;
+	}
+	
+	public void setQuizName(String quizName) {
+		this.quizName = quizName;
+	}
+	
+	public void setSize(int size) {
+		this.size = size;
+	}
+	
+	public void setNumCorrect(int numCorrect) {
+		this.numCorrect = numCorrect;
+	}
+	
+	public void setNumWrong(int numWrong) {
+		this.numWrong = numWrong;
+	}
+	
+	public void setAverageTime(int averageTime) {
+		this.averageTime = averageTime;
 	}
 	
 	/*
@@ -310,7 +352,7 @@ public class Quiz {
 	 * ==============================
 	 */
 
-	public static void main (String [] args) {
+	public static void main(String[] args) {
 		Quiz test = new Quiz("Physics", "Kinematics");
 
 		String[] button = {"Add", "Print", "Delete", "Change", "File Input", "Save", "Quit"}; // string array of buttons
