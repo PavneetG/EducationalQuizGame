@@ -7,8 +7,8 @@ public class Loader {
 
 	/**
 	 * Author: Pavneet Gill
-	 * Date: September 30,2016
-	 * Description: Loads the encrypted and decrypted words into a file
+	 * Date: January 15,2016
+	 * Description: Loads the information from file
 	 * @param args
 	 */
 

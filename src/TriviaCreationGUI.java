@@ -87,7 +87,7 @@ public class TriviaCreationGUI extends JFrame {
 		textField_1 = new JTextField();
 		textField_1.setBounds(35, 184, 400, 228);
 		getContentPane().add(textField_1);
-		textField_1.setColumns(10n);
+		textField_1.setColumns(10);
 		setVisible (true); 
 	}
 

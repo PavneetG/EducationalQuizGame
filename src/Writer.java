@@ -3,9 +3,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 /**
- * Author: Janujan Gatheisawaran
- * Date: September 30,2016
- * Description: Saves encrypted and decrypted words into a file
+ * Author: Pavneet Gill
+ * Date: January 15, 2016 
+ * Description: Writes information to file 
  * MethodList
  *              saveFile (String fileName, String newPhrases[]) saves encrypted and decrypted words into file
  */
@@ -13,24 +13,24 @@ public class Writer
 {
 
     private String fileName;
-    private String phrases[];
+    private String text[];
     
     public Writer (String fileName) throws IOException
     {
-      saveFile (fileName, phrases); 
+      saveFile (fileName, text); 
     }
  
-    public void saveFile (String fileName, String newPhrases[]) throws IOException
+    public void saveFile (String fileName, String newText[]) throws IOException
     {
 
 	// open file for writing
 	PrintWriter fw = new PrintWriter (new FileWriter (fileName));
 
-	fw.println (newPhrases.length); // writing length of file
+	fw.println (newText.length); // writing length of file
 
-	for (int i = 0 ; i < newPhrases.length ; i++) // loop to write new Phrases to file
+	for (int i = 0 ; i < newText.length ; i++) // loop to write 
 	{
-	    fw.println (newPhrases [i]); // Writing new Phrases to file
+	    fw.println (newText [i]); // Writing to file
 	}
 
 	fw.close (); // closes file
