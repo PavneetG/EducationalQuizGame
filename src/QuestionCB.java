@@ -14,8 +14,6 @@ public class QuestionCB extends Question {
 	private int oMinSize;
 	private int oMaxSize;
 	private int aSize; // answers
-	private int aMinSize;
-	private int aMaxSize;
 
 	public QuestionCB(String q) {
 		super(q);
@@ -25,8 +23,6 @@ public class QuestionCB extends Question {
 		oMinSize = 3;
 		oMaxSize = 5;
 		aSize = 0;
-		aMinSize = 1;
-		aMaxSize = 5;
 	}
 	
 	public static void main(String[] args) {
