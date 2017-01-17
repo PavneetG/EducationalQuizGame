@@ -287,9 +287,7 @@ public class Quiz {
 		    	
 		        line = br.readLine(); // read next line
 		    }
-		    
 		    br.close();
-		    
 		    return true;
 		}
 		catch (IOException e) {
