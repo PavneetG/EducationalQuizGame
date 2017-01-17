@@ -24,6 +24,7 @@ public class Quiz {
 	private ArrayList<QuestionTF> questionsTF; // list of true and false questions
 	private ArrayList<QuestionMC> questionsMC; // list of multiple choice questions
 	private ArrayList<QuestionCB> questionsCB; // list of check box questions
+	private ArrayList<Integer> order; // maintain order of questions
 	
 	// variables for quiz basic information
 	private long quizID;
@@ -69,16 +70,19 @@ public class Quiz {
 	
 	public void addTF(QuestionTF q) {
 		questionsTF.add(q); // add question
+		order.add(1); // 1 means true or false question
 		size++; // increase size counter
 	}
 	
 	public void addMC(QuestionMC q) {
 		questionsMC.add(q); // add question
+		order.add(2); // 2 means multiple-choice question
 		size++; // increase size counter
 	}
 	
 	public void addCB(QuestionCB q) {
 		questionsCB.add(q); // add question
+		order.add(3); // 3 means check box question
 		size++; // increase size counter
 	}
 	
@@ -132,6 +136,7 @@ public class Quiz {
 		
 		if (index > -1) { // previous question found
 			questionsTF.remove(index); // remove question
+			order.remove(index); // remove from order list
 			size--; // decrease size counter
 			return true;
 		}
@@ -144,6 +149,7 @@ public class Quiz {
 		
 		if (index > -1) { // previous question found
 			questionsMC.remove(index); // remove question
+			order.remove(index); // remove from order list
 			size--; // decrease size counter
 			return true;
 		}
@@ -156,6 +162,7 @@ public class Quiz {
 		
 		if (index > -1) { // previous question found
 			questionsCB.remove(index); // remove question
+			order.remove(index); // remove from order list
 			size--; // decrease size counter
 			return true;
 		}
@@ -302,9 +309,11 @@ public class Quiz {
 	}
 	
 	public String toString() {
-		String s = "";
+		String s = quizID + "\n" + category + "\n" + quizName + "\n" + size + "\n";
 		
-		// **** compile quiz info into String ****
+		for (int i = 0; i < size; i++) {
+			
+		}
 		
 		return s;
 	}
