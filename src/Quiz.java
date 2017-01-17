@@ -17,18 +17,18 @@ import java.util.Random;
 import javax.swing.JOptionPane;
 
 public class Quiz {
-
-	// list for questions
-	private ArrayList<QuestionTF> questionsTF; // list of true and false questions
-	private ArrayList<QuestionMC> questionsMC; // list of multiple choice questions
-	private ArrayList<QuestionCB> questionsCB; // list of check box questions
-	private ArrayList<Integer> order; // maintain order of questions
 	
 	// variables for quiz basic information
 	private long quizID;
 	private String category;
 	private String quizName;
 	private int size; // number of total questions
+
+	// list for questions
+	private ArrayList<QuestionTF> questionsTF; // list of true and false questions
+	private ArrayList<QuestionMC> questionsMC; // list of multiple choice questions
+	private ArrayList<QuestionCB> questionsCB; // list of check box questions
+	private ArrayList<Integer> order; // maintain order of questions
 
 	// variables for quiz results
 	private int numCorrect;
@@ -44,13 +44,15 @@ public class Quiz {
 		this.questionsTF = new ArrayList<QuestionTF>();
 		this.questionsMC = new ArrayList<QuestionMC>();
 		this.questionsCB = new ArrayList<QuestionCB>();
+		this.order = new ArrayList<Integer>();
 	}
 	
 	// constructor for existing quiz
 	public Quiz(long quizID, String category, String quizName, int size, 
 			ArrayList<QuestionTF> questionsTF, 
 			ArrayList<QuestionMC> questionsMC, 
-			ArrayList<QuestionCB> questionsCB) {
+			ArrayList<QuestionCB> questionsCB,
+			ArrayList<Integer> order) {
 		this.quizID = quizID;
 		this.category = category;
 		this.quizName = quizName;
@@ -58,6 +60,7 @@ public class Quiz {
 		this.questionsTF = questionsTF;
 		this.questionsMC = questionsMC;
 		this.questionsCB = questionsCB;
+		this.order = order;
 	}
 	
 	/*
@@ -70,18 +73,21 @@ public class Quiz {
 		questionsTF.add(q); // add question
 		order.add(1); // 1 means true or false question
 		size++; // increase size counter
+		writeToFile(quizName + ".txt", toString(), true); // update file
 	}
 	
 	public void addMC(QuestionMC q) {
 		questionsMC.add(q); // add question
 		order.add(2); // 2 means multiple-choice question
 		size++; // increase size counter
+		writeToFile(quizName + ".txt", toString(), true); // update file
 	}
 	
 	public void addCB(QuestionCB q) {
 		questionsCB.add(q); // add question
 		order.add(3); // 3 means check box question
 		size++; // increase size counter
+		writeToFile(quizName + ".txt", toString(), true); // update file
 	}
 	
 	/*
@@ -95,6 +101,7 @@ public class Quiz {
 		
 		if (index > -1) { // previous question found
 			questionsTF.set(index, newQ); // replace old question with new question
+			writeToFile(quizName + ".txt", toString(), false); // update file
 			return true;
 		}
 		
@@ -106,6 +113,7 @@ public class Quiz {
 		
 		if (index > -1) { // previous question found
 			questionsMC.set(index, newQ); // replace old question with new question
+			writeToFile(quizName + ".txt", toString(), false); // update file
 			return true;
 		}
 		
@@ -117,6 +125,7 @@ public class Quiz {
 		
 		if (index > -1) { // previous question found
 			questionsCB.set(index, newQ); // replace old question with new question
+			writeToFile(quizName + ".txt", toString(), false); // update file
 			return true;
 		}
 		
@@ -136,6 +145,7 @@ public class Quiz {
 			questionsTF.remove(index); // remove question
 			order.remove(index); // remove from order list
 			size--; // decrease size counter
+			writeToFile(quizName + ".txt", toString(), false); // update file
 			return true;
 		}
 		
@@ -149,6 +159,7 @@ public class Quiz {
 			questionsMC.remove(index); // remove question
 			order.remove(index); // remove from order list
 			size--; // decrease size counter
+			writeToFile(quizName + ".txt", toString(), false); // update file
 			return true;
 		}
 		
@@ -162,6 +173,7 @@ public class Quiz {
 			questionsCB.remove(index); // remove question
 			order.remove(index); // remove from order list
 			size--; // decrease size counter
+			writeToFile(quizName + ".txt", toString(), false); // update file
 			return true;
 		}
 		
@@ -221,8 +233,8 @@ public class Quiz {
 		c.readFromFile(c.getCategory() + ".txt");
 		
 		if (c.change(quizName, newQuizName)) { // change quiz name and update category file successful
-			// **** update quiz file ****
 			this.quizName = newQuizName;
+			writeToFile(quizName + ".txt", toString(), false); // update file
 			return true;
 		}
 		
@@ -661,11 +673,11 @@ public class Quiz {
 					break;
 					
 				case 'L': // load
-					
+					quiz.readFromFile(quiz.getQuizName() + ".txt");
 					break;
 					
 				case 'S': // save
-					
+					quiz.writeToFile(quiz.getQuizName() + ".txt", quiz.toString(), false);
 					break;
 					
 				case 'Q': // quit
