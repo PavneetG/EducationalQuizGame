@@ -326,19 +326,25 @@ public class Quiz {
 	
 	public String toString() {
 		String s = quizID + "\n" + category + "\n" + quizName + "\n" + size + "\n";
+		int counterTF = 0;
+		int counterMC = 0;
+		int counterCB = 0;
 		
 		for (int i = 0; i < size; i++) {
 			switch(order.get(i)) {
 				case 1: // true or false
-					s += questionsTF.get(i).toString() + "\n";
+					s += questionsTF.get(counterTF).toString() + "\n";
+					counterTF++;
 					break;
 					
 				case 2: // multiple-choice
-					s += questionsMC.get(i).toString() + "\n";
+					s += questionsMC.get(counterMC).toString() + "\n";
+					counterMC++;
 					break;
 					
 				case 3: // check box
-					s += questionsCB.get(i).toString() + "\n";
+					s += questionsCB.get(counterCB).toString() + "\n";
+					counterCB++;
 					break;
 					
 				default:
@@ -462,7 +468,7 @@ public class Quiz {
 			switch(button[command].charAt(0)) {
 				case 'A': { // add
 					int typeAdd = Integer.parseInt(JOptionPane.showInputDialog(null, 
-							"Type of question: (1 ÐÊTF, 2 Ð MC, 3 ÐÊCB"));
+							"Type of question: (1 ÐÊTF, 2 Ð MC, 3 ÐÊCB)"));
 					
 					switch(typeAdd) {
 						case 1: // true or false
@@ -490,7 +496,7 @@ public class Quiz {
 							ArrayList<String> optionsMC = new ArrayList<String>();
 							for (int i = 0; i < sizeMC; i++) {
 								String option = JOptionPane.showInputDialog(null, 
-										"Enter option #" + (i + 1));
+										"Enter option #" + (i + 1) + ":");
 								optionsMC.add(option);
 							}
 							
@@ -514,7 +520,7 @@ public class Quiz {
 							ArrayList<String> optionsCB = new ArrayList<String>();
 							for (int i = 0; i < oSizeCB; i++) {
 								String option = JOptionPane.showInputDialog(null, 
-										"Enter option #" + (i + 1));
+										"Enter option #" + (i + 1) + ":");
 								optionsCB.add(option);
 							}
 							
@@ -524,7 +530,7 @@ public class Quiz {
 							ArrayList<String> answersCB = new ArrayList<String>();
 							for (int i = 0; i < aSizeCB; i++) {
 								String answer = JOptionPane.showInputDialog(null, 
-										"Enter answer #" + (i + 1));
+										"Enter answer #" + (i + 1) + ":");
 								answersCB.add(answer);
 							}
 							
@@ -610,7 +616,7 @@ public class Quiz {
 							ArrayList<String> optionsMC = new ArrayList<String>();
 							for (int i = 0; i < sizeMC; i++) {
 								String option = JOptionPane.showInputDialog(null, 
-										"Enter option #" + (i + 1));
+										"Enter option #" + (i + 1) + ":");
 								optionsMC.add(option);
 							}
 							
@@ -643,7 +649,7 @@ public class Quiz {
 							ArrayList<String> optionsCB = new ArrayList<String>();
 							for (int i = 0; i < oSizeCB; i++) {
 								String option = JOptionPane.showInputDialog(null, 
-										"Enter option #" + (i + 1));
+										"Enter option #" + (i + 1) + ":");
 								optionsCB.add(option);
 							}
 							
@@ -653,7 +659,7 @@ public class Quiz {
 							ArrayList<String> answersCB = new ArrayList<String>();
 							for (int i = 0; i < aSizeCB; i++) {
 								String answer = JOptionPane.showInputDialog(null, 
-										"Enter answer #" + (i + 1));
+										"Enter answer #" + (i + 1) + ":");
 								answersCB.add(answer);
 							}
 							

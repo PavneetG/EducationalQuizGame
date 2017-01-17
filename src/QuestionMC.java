@@ -114,7 +114,7 @@ public class QuestionMC extends Question {
 	public String toString() {
 		// example: 2|In what year was the Declaration of Independence signed?|[1776,1789,1800]|1776
 		
-		String s = 2 + getQuestion() + "[" + options.get(0);
+		String s = 2 + "|" + getQuestion() + "|[" + options.get(0);
 		
 		for (int i = 1; i < size; i++) {
 			s += "," + options.get(i);

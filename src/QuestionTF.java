@@ -58,7 +58,7 @@ public class QuestionTF extends Question {
 	public String toString() {
 		// example: 1|George Washington is the first POTUS.|true
 		
-		return 1 + getQuestion() + answer;
+		return 1 + "|" + getQuestion() + "|" + answer;
 	}
 	
 	/*

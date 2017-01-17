@@ -136,7 +136,7 @@ public class QuestionCB extends Question {
 	public String toString() {
 		// example: 3|What are the branches of government?|[Executive,Legislative,Judicial,Municipal]|[Executive,Legislative,Judicial]
 		
-		String s = 3 + getQuestion() + "[" + options.get(0);
+		String s = 3 + "|" + getQuestion() + "|[" + options.get(0);
 		
 		for (int i = 1; i < oSize; i++) {
 			s += "," + options.get(i);
