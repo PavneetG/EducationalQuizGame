@@ -1,6 +1,7 @@
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -14,13 +15,15 @@ public class Settings extends JFrame implements ActionListener {
 	private JRadioButton radioButton, radioButton_1, radioButton_2, radioButton_3;
 	private String name, userName, password, picName;
 	private JLabel lblFillInThe;
+	PlayerList accounts = new PlayerList(); 
 
 
 
 	/**
 	 * Create the application.
+	 * @throws IOException 
 	 */
-	public Settings() {
+	public Settings() throws IOException {
 		super("Settings");  // title for the frame
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getContentPane().setLayout(null);
@@ -179,7 +182,7 @@ public class Settings extends JFrame implements ActionListener {
 		getContentPane().add(lblPass);
 		lblPass.setVisible(false);
 
-
+		accounts.loadFile("Players.txt");
 
 
 
@@ -369,7 +372,7 @@ public class Settings extends JFrame implements ActionListener {
 
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		Settings settings = new Settings();
 	}
 }

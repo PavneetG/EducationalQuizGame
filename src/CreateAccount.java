@@ -245,22 +245,17 @@ public class CreateAccount extends JFrame implements ActionListener{
 				JOptionPane.showMessageDialog(null, "Passwords Do Not Match");
 			}
 			else{
-				try{
+				
 					info = name + "," + userName + "," + password + "," + pic;
 
 					Player playerInfo = new Player(info);
 					accounts.insert(playerInfo);
-
-
-					accounts.writeFile("Players.txt");
-
-
+					try {
+						accounts.writeFile("Players.txt");
+					} catch (IOException e1) {
+					}
 					System.exit(1);
-				}
-				catch(IOException k){
-
-				}
-
+			
 			}
 
 

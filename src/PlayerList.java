@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.LineNumberReader;
@@ -48,14 +49,13 @@ public class PlayerList {
 
 	public void writeFile (String file) throws IOException{ // method to write a file
 
-		FileOutputStream file2 = new FileOutputStream (file); // writes to inputed file name (by user)
-		PrintWriter output = new PrintWriter (file2);
+		PrintWriter output = new PrintWriter (new FileWriter(file));
 
 		for (int i = 0; i < size; i++) { // Reads each line of the text file and stores it in arrays
 			output.println(list[i]);
 		}
 
-		file2.close (); // Closes file2
+		output.close (); // Closes file2
 	}
 
 	public boolean insert(Player record){ // method used to insert new record
