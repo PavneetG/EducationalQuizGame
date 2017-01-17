@@ -1,30 +1,55 @@
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JTextField;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.swing.JLabel;
+import javax.swing.BorderFactory;
 import javax.swing.JComboBox;
+import javax.swing.JTextArea;
+import javax.swing.JScrollBar;
+import javax.swing.JScrollPane;
+import javax.swing.JCheckBox;
+import javax.swing.JButton;
 
 
 public class QuestionCreation extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
-	private JTextField questionText;
 	JComboBox comboBox; 
 	JRadioButton trueButton = new JRadioButton ("true");
 	JRadioButton falseButton = new JRadioButton ("false");
 	JLabel lblOptions = new JLabel("Options");
 	JLabel lblAnswer = new JLabel("Answer");
+	Border blackline = BorderFactory.createLineBorder(Color.BLACK); 
+	Border redline = BorderFactory.createLineBorder(Color.RED,10); 
+    JTextField textField= new JTextField();
+    JTextField textField_1= new JTextField();;
+    JTextField textField_2= new JTextField();
+    JTextField textField_3=new JTextField();
+	JCheckBox checkBox = new JCheckBox("");
+	JCheckBox checkBox_1 = new JCheckBox("");
+	JCheckBox checkBox_2 = new JCheckBox("");
+	JCheckBox checkBox_3 = new JCheckBox("");
+	JTextArea textArea = new JTextArea();
+	String correctAnswer; 
+	String [] optionsAnswer = new String [4]; 
+	JButton btnPrevious = new JButton("Previous");
+	JButton btnNext = new JButton("Next");
+	String question; 
+	
 
 	/**
 	 * Launch the application.
@@ -38,34 +63,72 @@ public class QuestionCreation extends JFrame implements ActionListener {
 		setSize (500,700);
 		getContentPane().setLayout(null);
 		
-		questionText = new JTextField();
-		questionText.setFont(new Font("Arial Black", Font.BOLD, 12));
-		questionText.setText("Untitled Question");
-		questionText.setBounds(31, 29, 386, 26);
-		questionText.setBackground (null); 
-		questionText.setBorder(null);
-		
-		getContentPane().add(questionText);
-		questionText.setColumns(10);
-		
 		JLabel lblQuestionType = new JLabel("Question Type");
-		lblQuestionType.setBounds(31, 62, 86, 20);
+		lblQuestionType.setBounds(30, 178, 86, 20);
 		getContentPane().add(lblQuestionType);
 		String options [] = {"Select", "True or False", "Multiple Choice", "Check Box", "Ranking"};
 	    comboBox = new JComboBox(options);
-		comboBox.setBounds(122, 63, 112, 20);
+		comboBox.setBounds(126, 178, 112, 20);
 		comboBox.setActionCommand("hello");
 		comboBox.addActionListener(this);
 		comboBox.setSelectedIndex (0);
 		getContentPane().add(comboBox);
 		
-		lblAnswer.setBounds(31, 128, 86, 20);
+		lblAnswer.setBounds(30, 238, 47, 20);
+		
+		lblOptions.setBounds(31, 209, 86, 20);
+		
+		getContentPane().add(lblOptions);
+		
+		textArea.setWrapStyleWord(true);
+		textArea.setLineWrap(true);
+		textArea.setOpaque(false);
+		textArea.setText("Untitled Question");
+		
+		JScrollPane scrollBar = new JScrollPane(textArea);
+		
+		scrollBar.setVerticalScrollBarPolicy( JScrollPane. VERTICAL_SCROLLBAR_ALWAYS); 
+		scrollBar.setBorder(blackline);
+		
+		scrollBar.setBounds(22, 81, 437, 64);
+		getContentPane().add(scrollBar);
+		getContentPane().add (trueButton); 
 		getContentPane().add(lblAnswer);
 		
-		lblOptions.setBounds(31, 97, 86, 20);
-		getContentPane().add (trueButton); 
-		getContentPane().add (falseButton); 
-		getContentPane().add(lblOptions);
+		
+		getContentPane().add (falseButton);
+		
+		getContentPane().add(textField);
+		
+		getContentPane().add(textField_1);
+		
+		getContentPane().add(textField_2);
+		
+		getContentPane().add(textField_3);
+		
+		getContentPane().add(checkBox);
+
+		getContentPane().add(checkBox_1);
+		
+		getContentPane().add(checkBox_2);
+		
+		getContentPane().add(checkBox_3);
+		
+		checkBox.addActionListener(this);
+		checkBox_1.addActionListener (this); 
+		checkBox_2.addActionListener(this);
+		checkBox_3.addActionListener(this);
+		trueButton.addActionListener(this);
+		falseButton.addActionListener(this);
+		btnNext.addActionListener(this);
+		btnPrevious.addActionListener(this);
+		
+		btnNext.setBounds(241, 382, 89, 23);
+		getContentPane().add(btnNext);
+		
+
+		btnPrevious.setBounds(126, 382, 89, 23);
+		getContentPane().add(btnPrevious);
 		setLocationRelativeTo (null);
 		setVisible (true); 
 	}
@@ -81,20 +144,102 @@ public class QuestionCreation extends JFrame implements ActionListener {
 			{
 				lblOptions.setBounds(1000,1000,1000,1000);
 				
-				trueButton.setBounds(120, 96, 57, 23);
+				lblAnswer.setBounds(31, 209, 86, 20);
 				
-				falseButton.setBounds (179, 96, 57, 23);
+				trueButton.setBounds(126, 208, 50, 23);
 				
-				lblAnswer.setBounds(31, 97, 86, 20);
+				falseButton.setBounds (178, 208, 60, 23);
 				
+				textField.setBounds(0,0,0,0);
+				
+				textField_1.setBounds(0,0,0,0);
+				
+				textField_2.setBounds(0,0,0,0);
+				
+				textField_3.setBounds(0,0,0,0);
+				
+				checkBox.setBounds(0,0,0,0);
+				
+				checkBox_1.setBounds(0,0,0,0);
+				
+				checkBox_2.setBounds(0,0,0,0);
+				
+				checkBox_3.setBounds(0,0,0,0);
+
+				break; 
+			}
+			case "Multiple Choice":
+			{
+				checkBox.setBounds(324, 206, 26, 23);
+				
+				checkBox_1.setBounds(324, 244, 26, 23);
+				
+				checkBox_2.setBounds(324, 287, 26, 23);
+				
+				checkBox_3.setBounds(324, 333, 26, 23);
+				
+				lblAnswer.setBounds(324, 188, 47, 20);
+				
+				lblOptions.setBounds(31, 209, 86, 20);
+				
+				textField.setBounds(126, 209, 186, 20);
+				
+				textField_1.setBounds(126, 250, 186, 20);
+				
+				textField_2.setBounds(126, 295, 186, 20);
+				
+				textField_3.setBounds(126, 340, 186, 20);
+				
+				trueButton.setBounds(0,0,0,0);
+				
+				falseButton.setBounds (0,0,0,0);
+				
+				break; 
 			}
 			
 			}
 		}
+		else if (e.getSource().equals(checkBox))
+		{
+		    correctAnswer = textField.getText(); 
+		}
+		else if (e.getSource().equals(checkBox_1))
+		{
+		    correctAnswer = textField_1.getText(); 
+		}
+		else if (e.getSource().equals(checkBox_2))
+		{
+		    correctAnswer = textField_2.getText(); 
+		}
+		else if (e.getSource().equals(checkBox_3))
+		{
+		    correctAnswer = textField_3.getText(); 
+		}
+		else if (e.getSource().equals(trueButton))
+		{
+			correctAnswer = "True";
+			JOptionPane.showMessageDialog (null, "Nice"); 
+		}
+		else if (e.getSource().equals(falseButton))
+		{
+			correctAnswer = "False"; 
+		}
+		else if (e.getSource().equals(btnNext))
+		{
+	
+		}
+		else if (e.getSource().equals(btnPrevious))
+		{
+			
+		}
+				
 	}
+	
 	
 public static void main(String[] args) {
 		
 		QuestionCreation question = new QuestionCreation (); 
 	}
+
+
 }
