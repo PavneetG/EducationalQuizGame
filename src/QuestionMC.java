@@ -37,11 +37,11 @@ public class QuestionMC extends Question {
 	}
 	
 	// constructor for existing question
-	public QuestionMC(String q, ArrayList<String> o, String a, int s) {
+	public QuestionMC(String q, ArrayList<String> o, String a) {
 		super(q);
 		options = o;
 		answer = a;
-		size = s;
+		size = o.size();
 		minSize = 3;
 		maxSize = 5;
 	}

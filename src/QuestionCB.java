@@ -39,14 +39,14 @@ public class QuestionCB extends Question {
 	}
 	
 	// constructor for existing question
-	public QuestionCB(String q, ArrayList<String> o, ArrayList<String> a, int oS, int aS) {
+	public QuestionCB(String q, ArrayList<String> o, ArrayList<String> a) {
 		super(q);
 		options = o;
 		answers = a;
-		oSize = oS;
+		oSize = o.size();
 		oMinSize = 3;
 		oMaxSize = 5;
-		aSize = aS;
+		aSize = a.size();
 	}
 	
 	// constructor for reading from file
