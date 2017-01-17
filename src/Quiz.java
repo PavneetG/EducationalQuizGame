@@ -73,21 +73,18 @@ public class Quiz {
 		questionsTF.add(q); // add question
 		order.add(1); // 1 means true or false question
 		size++; // increase size counter
-		writeToFile(quizName + ".txt", toString(), true); // update file
 	}
 	
 	public void addMC(QuestionMC q) {
 		questionsMC.add(q); // add question
 		order.add(2); // 2 means multiple-choice question
 		size++; // increase size counter
-		writeToFile(quizName + ".txt", toString(), true); // update file
 	}
 	
 	public void addCB(QuestionCB q) {
 		questionsCB.add(q); // add question
 		order.add(3); // 3 means check box question
 		size++; // increase size counter
-		writeToFile(quizName + ".txt", toString(), true); // update file
 	}
 	
 	/*
@@ -101,7 +98,6 @@ public class Quiz {
 		
 		if (index > -1) { // previous question found
 			questionsTF.set(index, newQ); // replace old question with new question
-			writeToFile(quizName + ".txt", toString(), false); // update file
 			return true;
 		}
 		
@@ -113,7 +109,6 @@ public class Quiz {
 		
 		if (index > -1) { // previous question found
 			questionsMC.set(index, newQ); // replace old question with new question
-			writeToFile(quizName + ".txt", toString(), false); // update file
 			return true;
 		}
 		
@@ -125,7 +120,6 @@ public class Quiz {
 		
 		if (index > -1) { // previous question found
 			questionsCB.set(index, newQ); // replace old question with new question
-			writeToFile(quizName + ".txt", toString(), false); // update file
 			return true;
 		}
 		
@@ -145,7 +139,6 @@ public class Quiz {
 			questionsTF.remove(index); // remove question
 			order.remove(index); // remove from order list
 			size--; // decrease size counter
-			writeToFile(quizName + ".txt", toString(), false); // update file
 			return true;
 		}
 		
@@ -159,7 +152,6 @@ public class Quiz {
 			questionsMC.remove(index); // remove question
 			order.remove(index); // remove from order list
 			size--; // decrease size counter
-			writeToFile(quizName + ".txt", toString(), false); // update file
 			return true;
 		}
 		
@@ -173,7 +165,6 @@ public class Quiz {
 			questionsCB.remove(index); // remove question
 			order.remove(index); // remove from order list
 			size--; // decrease size counter
-			writeToFile(quizName + ".txt", toString(), false); // update file
 			return true;
 		}
 		
@@ -234,7 +225,6 @@ public class Quiz {
 		
 		if (c.change(quizName, newQuizName)) { // change quiz name and update category file successful
 			this.quizName = newQuizName;
-			writeToFile(quizName + ".txt", toString(), false); // update file
 			return true;
 		}
 		
@@ -266,34 +256,35 @@ public class Quiz {
 			quizID = Long.parseLong(br.readLine());
 			category = br.readLine();
 			quizName = br.readLine();
-			size = Integer.parseInt(br.readLine());
+			// size = Integer.parseInt(br.readLine());
+			br.readLine(); // discard size
 			
 		    String line = br.readLine();
 		    
 		    while (line != null) {
-		    	String[] info = line.split("|");
+		    	// http://stackoverflow.com/questions/10796160/splitting-a-java-string-by-the-pipe-symbol-using-split
+		    	String[] info = line.split("\\|");
 		    	
 		    	switch(Integer.parseInt(info[0])) { // switch based on question type
 		    		case 1: // true or false
 		    			QuestionTF qTF = new QuestionTF(info);
-		    			questionsTF.add(qTF);
+		    			addTF(qTF);
 		    			break;
 		    			
 		    		case 2: // multiple-choice
 		    			QuestionMC qMC = new QuestionMC(info);
-		    			questionsMC.add(qMC);
+		    			addMC(qMC);
 		    			break;
 		    			
 		    		case 3: // check box
 		    			QuestionCB qCB = new QuestionCB(info);
-		    			questionsCB.add(qCB);
+		    			addCB(qCB);
 		    			break;
 		    			
 		    		default:
 		    			System.err.println("Error: Quiz readFromFile()");
 		    	}
 		    	
-		        size++; // increase size
 		        line = br.readLine(); // read next line
 		    }
 		    
@@ -462,7 +453,7 @@ public class Quiz {
 		while(keepGoing) {
 			// asks user some options with buttons
 			int command = JOptionPane.showOptionDialog(null, 
-					"What Would You Like To Do With The Account Records?","Account Records", 
+					"What would you like to do with the quiz?","Quiz", 
 					JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, button, button[0]);
 			
 			switch(button[command].charAt(0)) {
@@ -679,11 +670,21 @@ public class Quiz {
 					break;
 					
 				case 'L': // load
-					quiz.readFromFile(quiz.getQuizName() + ".txt");
+					if (quiz.readFromFile(quiz.getQuizName() + ".txt")) {
+						JOptionPane.showMessageDialog(null, "Done");
+					}
+					else {
+						JOptionPane.showMessageDialog(null, "Fail");
+					}
 					break;
 					
 				case 'S': // save
-					quiz.writeToFile(quiz.getQuizName() + ".txt", quiz.toString(), false);
+					if (quiz.writeToFile(quiz.getQuizName() + ".txt", quiz.toString(), false)) {
+						JOptionPane.showMessageDialog(null, "Done");
+					}
+					else {
+						JOptionPane.showMessageDialog(null, "Fail");
+					}
 					break;
 					
 				case 'Q': // quit

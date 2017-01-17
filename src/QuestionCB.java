@@ -65,17 +65,18 @@ public class QuestionCB extends Question {
 			
 		// add options to array list
 		String[] option = info[2].substring(1, info[2].length() - 1).split(","); // get array of options
-		int oLength = option.length;
+		oSize = option.length;
 		
-		for (int i = 0; i < oLength; i++) {
+		for (int i = 0; i < oSize; i++) {
 			options.add(option[i]); // add each option to array list
 		}
 		
 		// add answers to array list
-		String[] answer = info[3].substring(1, info[3].length() - 1).split(","); // get array of answers
-		int aLength = answer.length;
+		String str = info[3].substring(1, info[3].length() - 1); // remove first and last character
+		String[] answer = str.split(","); // get array of answers
+		aSize = answer.length;
 				
-		for (int i = 0; i < aLength; i++) {
+		for (int i = 0; i < aSize; i++) {
 			answers.add(answer[i]); // add each answer to array list
 		}
 	}

@@ -61,10 +61,11 @@ public class QuestionMC extends Question {
 		answer = info[3];
 		
 		// add options to array list
-		String[] option = info[2].substring(1, info[2].length() - 1).split(","); // get array of options
-		int length = option.length;
+		String str = info[2].substring(1, info[2].length() - 1); // remove first and last character
+		String[] option = str.split(","); // get array of options
+		size = option.length;
 		
-		for (int i = 0; i < length; i++) {
+		for (int i = 0; i < size; i++) {
 			options.add(option[i]); // add each option to array list
 		}
 	}
