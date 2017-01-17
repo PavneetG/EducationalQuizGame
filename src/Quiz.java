@@ -8,11 +8,9 @@
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -250,14 +248,20 @@ public class Quiz {
 		    		case 1: // true or false
 		    			QuestionTF qTF = new QuestionTF(info);
 		    			questionsTF.add(qTF);
+		    			break;
+		    			
 		    		case 2: // multiple-choice
 		    			QuestionMC qMC = new QuestionMC(info);
 		    			questionsMC.add(qMC);
+		    			break;
+		    			
 		    		case 3: // check box
 		    			QuestionCB qCB = new QuestionCB(info);
 		    			questionsCB.add(qCB);
+		    			break;
+		    			
 		    		default:
-		    			System.err.println("Error: Quiz readFromFile");
+		    			System.err.println("Error: Quiz readFromFile()");
 		    	}
 		    	
 		        size++; // increase size
@@ -312,7 +316,22 @@ public class Quiz {
 		String s = quizID + "\n" + category + "\n" + quizName + "\n" + size + "\n";
 		
 		for (int i = 0; i < size; i++) {
-			
+			switch(order.get(i)) {
+				case 1: // true or false
+					s += questionsTF.get(i).toString() + "\n";
+					break;
+					
+				case 2: // multiple-choice
+					s += questionsMC.get(i).toString() + "\n";
+					break;
+					
+				case 3: // check box
+					s += questionsCB.get(i).toString() + "\n";
+					break;
+					
+				default:
+					System.err.println("Error: Quiz toString()");
+			}
 		}
 		
 		return s;
@@ -417,6 +436,127 @@ public class Quiz {
 	 */
 
 	public static void main(String[] args) {
+		String[] button = {"Add", "Print", "Delete", "Change", "Load", "Save", "Quit"}; // array of button actions
+		
+		Quiz quiz = new Quiz("History", "American History");
+		
+		while(true) {
+			// asks user some options with buttons
+			int command = JOptionPane.showOptionDialog(null, 
+					"What Would You Like To Do With The Account Records?","Account Records", 
+					JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, button, button[0]);
+			
+			switch(button[command].charAt(0)) {
+				case 'A': { // add
+					int type = Integer.parseInt(JOptionPane.showInputDialog(null, 
+							"Type of question: (1 ÐÊTF, 2 Ð MC, 3 ÐÊCB"));
+					
+					switch(type) {
+						case 1: // true or false
+							// get question
+							String questionTF = JOptionPane.showInputDialog(null, 
+									"Enter a true or false question to add:");
+							
+							// get answer
+							boolean answerTF = java.lang.Boolean.parseBoolean(JOptionPane.showInputDialog(null, 
+									"Enter the answer: (true or false)"));
+							
+							// create question and add to list
+							QuestionTF qTF = new QuestionTF(questionTF, answerTF);
+							quiz.addTF(qTF);
+							break;
+							
+						case 2: // multiple-choice
+							// get question
+							String questionMC = JOptionPane.showInputDialog(null, 
+									"Enter a multiple-choice question to add:");
+							
+							// get options
+							int sizeMC = Integer.parseInt(JOptionPane.showInputDialog(null, 
+									"Enter the number of options:"));
+							ArrayList<String> optionsMC = new ArrayList<String>();
+							for (int i = 0; i < sizeMC; i++) {
+								String option = JOptionPane.showInputDialog(null, 
+										"Enter option #" + (i + 1));
+								optionsMC.add(option);
+							}
+							
+							// get answer
+							String answerMC = JOptionPane.showInputDialog(null, 
+									"Enter the answer:");
+							
+							// create question and add to list
+							QuestionMC qMC = new QuestionMC(questionMC, optionsMC, answerMC);
+							quiz.addMC(qMC);
+							break;
+							
+						case 3: // check box
+							// get question
+							String questionCB = JOptionPane.showInputDialog(null, 
+									"Enter a check box question to add:");
+							
+							// get options
+							int oSizeCB = Integer.parseInt(JOptionPane.showInputDialog(null, 
+									"Enter the number of options:"));
+							ArrayList<String> optionsCB = new ArrayList<String>();
+							for (int i = 0; i < oSizeCB; i++) {
+								String option = JOptionPane.showInputDialog(null, 
+										"Enter option #" + (i + 1));
+								optionsCB.add(option);
+							}
+							
+							// get answers
+							int aSizeCB = Integer.parseInt(JOptionPane.showInputDialog(null, 
+									"Enter the number of answers:"));
+							ArrayList<String> answersCB = new ArrayList<String>();
+							for (int i = 0; i < aSizeCB; i++) {
+								String answer = JOptionPane.showInputDialog(null, 
+										"Enter answer #" + (i + 1));
+								answersCB.add(answer);
+							}
+							
+							// create question and add to list
+							QuestionCB qCB = new QuestionCB(questionCB, optionsCB, answersCB);
+							quiz.addCB(qCB);
+							break;
+							
+						default:
+							System.err.println("Error: Quiz main()");
+					}
+					
+					break;
+				}
+					
+				case 'P': // print
+					
+					break;
+					
+				case 'D': // delete
+					
+					break;
+					
+				case 'C': // change
+					
+					break;
+					
+				case 'L': // load
+					
+					break;
+					
+				case 'S': // save
+					
+					break;
+					
+				case 'Q': // quit
+					
+					break;
+					
+				default:
+					System.err.println("Error: Quiz main()");
+			}
+		}
+		
+		/*
 		Quiz test = new Quiz("Physics", "Kinematics");
 
 		String[] button = {"Add", "Print", "Delete", "Change", "File Input", "Save", "Quit"}; // string array of buttons
@@ -435,9 +575,9 @@ public class Quiz {
 					String q = JOptionPane.showInputDialog(null, "Enter a Question to add","How old is Janujan?");
 					QuestionTF questionTF = new QuestionTF(q);
 					
-					/* if(!test.addQuestionTF(questionTF)){
+					if(!test.addQuestionTF(questionTF)){
 						System.out.println("Question not Added.");
-					} */
+					}
 					break;
 				}
 				case 'P':{ // prints all records
@@ -452,10 +592,10 @@ public class Quiz {
 							"How old is Janujan?");
 					Question question1 = new Question(record);
 	
-					/* if(!test.remove(question1)){ // performs when record cannot be found
+					if(!test.remove(question1)){ // performs when record cannot be found
 						JOptionPane.showMessageDialog(null, "Record Not Found.");
 						break;
-					} */
+					}
 					break;
 				}
 				case 'C':{ // changes a customer record into another
@@ -476,5 +616,6 @@ public class Quiz {
 				}
 			}
 		}
+		*/
 	}
 }
