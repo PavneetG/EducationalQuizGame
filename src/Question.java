@@ -6,23 +6,26 @@
 
 public class Question {
 	
+	/*
+	 * ==============================
+	 * Variables
+	 * ==============================
+	 */
+	
 	private String question;
 	private double time;
+	
+	/*
+	 * ==============================
+	 * Constructors
+	 * ==============================
+	 */
 	
 	public Question(String q) {
 		question = q;
 		time = 0;
 	}
 
-	public static void main(String[] args) {
-		// self-testing
-		Question q = new Question("Is George Washington the first POTUS?");
-		System.out.println("Question 1: " + q.getQuestion());
-		
-		q.setQuestion("Is John Adams the second POTUS?");
-		System.out.println("Question 2: " + q.getQuestion());
-	}
-	
 	/*
 	 * ==============================
 	 * Getters
@@ -53,6 +56,20 @@ public class Question {
 	
 	public String toString(){ // method to change inputed variable to full form and return a string record
 		return getQuestion();
+	}
+	
+	/*
+	 * ==============================
+	 * Self-Testing Main
+	 * ==============================
+	 */
+	
+	public static void main(String[] args) {
+		Question q = new Question("Is George Washington the first POTUS?");
+		System.out.println("Question 1: " + q.getQuestion());
+		
+		q.setQuestion("Is John Adams the second POTUS?");
+		System.out.println("Question 2: " + q.getQuestion());
 	}
 
 }

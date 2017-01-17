@@ -8,12 +8,24 @@ import java.util.ArrayList;
 
 public class QuestionCB extends Question {
 	
+	/*
+	 * ==============================
+	 * Variables
+	 * ==============================
+	 */
+	
 	private ArrayList<String> options; // all possible options
 	private ArrayList<String> answers; // correct answers
 	private int oSize; // number of options
 	private int oMinSize; // minimum number of options
 	private int oMaxSize; // maximum number of options
 	private int aSize; // number of answers
+	
+	/*
+	 * ==============================
+	 * Constructors
+	 * ==============================
+	 */
 	
 	// constructor for new question
 	public QuestionCB(String q) {
@@ -37,44 +49,42 @@ public class QuestionCB extends Question {
 		aSize = aS;
 	}
 	
-	public static void main(String[] args) {
-		// self-testing
-		QuestionCB q = new QuestionCB("What are the branches of government?");
-		System.out.println(q.getQuestion());
-		
-		// add options
-		String[] options = {"Executive", "Legislative", "Judicial", "Municipal"};
-		int oSize = options.length;
-		for (int i = 0; i < oSize; i++) {
-			q.addOption(options[i]);
-		}
-		System.out.println("\nOptions: " + q.getOptions());
-		
+	// constructor for reading from file
+	public QuestionCB(String[] info) {
 		/*
-		// remove option
-		System.out.println("    remove municipal: " + q.removeOption("Municipal"));
-		System.out.println("    remove federal: " + q.removeOption("Federal"));
-		System.out.println("Options: " + q.getOptions());
-		*/
+		 * example: 3|What are the branches of government?|[Executive,Legislative,Judicial,Municipal]|[Executive,Legislative,Judicial]
+		 * [0] Ð type
+		 * [1] ÐÊquestion
+		 * [2] Ð options
+		 * [3] ÐÊanswers
+		 */
+				
+		super(info[1]);
+		options = new ArrayList<String>();
+		answers = new ArrayList<String>();
+			
+		// add options to array list
+		String[] option = info[2].substring(1, info[2].length() - 1).split(","); // get array of options
+		int oLength = option.length;
 		
-		// add answers
-		String[] answers = {"Executive", "Legislative", "Judicial"};
-		int aSize = answers.length;
-		for (int i = 0; i < aSize; i++) {
-			q.addAnswer(answers[i]);
+		for (int i = 0; i < oLength; i++) {
+			options.add(option[i]); // add each option to array list
 		}
-		System.out.println("\nAnswers: " + q.getAnswers());
 		
-		// user input
-		ArrayList<String> input = new ArrayList<String>();
-		input.add("Executive");
-		input.add("Legislative");
-		input.add("Judicial");
-		System.out.println("Input: " + input);
-		
-		System.out.println("\nIs correct: " + q.checkAnswer(input));
-		System.out.println("To string: " + q.toString());
+		// add answers to array list
+		String[] answer = info[3].substring(1, info[3].length() - 1).split(","); // get array of answers
+		int aLength = answer.length;
+				
+		for (int i = 0; i < aLength; i++) {
+			answers.add(answer[i]); // add each answer to array list
+		}
 	}
+	
+	/*
+	 * ==============================
+	 * Functions
+	 * ==============================
+	 */
 	
 	public boolean addOption(String o) {
 		if (oSize < oMaxSize) {
@@ -124,7 +134,7 @@ public class QuestionCB extends Question {
 	}
 	
 	public String toString() {
-		// example: 3What are the branches of government?[Executive,Legislative,Judicial,Municipal]|[Executive,Legislative,Judicial]
+		// example: 3|What are the branches of government?|[Executive,Legislative,Judicial,Municipal]|[Executive,Legislative,Judicial]
 		
 		String s = 3 + getQuestion() + "[" + options.get(0);
 		
@@ -191,6 +201,50 @@ public class QuestionCB extends Question {
 	
 	public void setMaxSize(int s) {
 		oMaxSize = s;
+	}
+	
+	/*
+	 * ==============================
+	 * Self-Testing Main
+	 * ==============================
+	 */
+	
+	public static void main(String[] args) {
+		QuestionCB q = new QuestionCB("What are the branches of government?");
+		System.out.println(q.getQuestion());
+		
+		// add options
+		String[] options = {"Executive", "Legislative", "Judicial", "Municipal"};
+		int oSize = options.length;
+		for (int i = 0; i < oSize; i++) {
+			q.addOption(options[i]);
+		}
+		System.out.println("\nOptions: " + q.getOptions());
+		
+		/*
+		// remove option
+		System.out.println("    remove municipal: " + q.removeOption("Municipal"));
+		System.out.println("    remove federal: " + q.removeOption("Federal"));
+		System.out.println("Options: " + q.getOptions());
+		*/
+		
+		// add answers
+		String[] answers = {"Executive", "Legislative", "Judicial"};
+		int aSize = answers.length;
+		for (int i = 0; i < aSize; i++) {
+			q.addAnswer(answers[i]);
+		}
+		System.out.println("\nAnswers: " + q.getAnswers());
+		
+		// user input
+		ArrayList<String> input = new ArrayList<String>();
+		input.add("Executive");
+		input.add("Legislative");
+		input.add("Judicial");
+		System.out.println("Input: " + input);
+		
+		System.out.println("\nIs correct: " + q.checkAnswer(input));
+		System.out.println("To string: " + q.toString());
 	}
 
 }

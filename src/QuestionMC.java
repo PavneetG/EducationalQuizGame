@@ -7,12 +7,24 @@
 import java.util.ArrayList;
 
 public class QuestionMC extends Question {
+	
+	/*
+	 * ==============================
+	 * Variables
+	 * ==============================
+	 */
 
 	private ArrayList<String> options; // all possible options
 	private String answer; // correct answer
 	private int size; // number of options
 	private int minSize; // minimum number of options
 	private int maxSize; // maximum number of options
+	
+	/*
+	 * ==============================
+	 * Constructors
+	 * ==============================
+	 */
 	
 	// constructor for new question
 	public QuestionMC(String q) {
@@ -33,32 +45,35 @@ public class QuestionMC extends Question {
 		minSize = 3;
 		maxSize = 5;
 	}
-
-	public static void main(String[] args) {
-		// self-testing
-		QuestionMC q = new QuestionMC("What is the length of term for the POTUS?");
-		System.out.println("Question: " + q.getQuestion());
+	
+	// constructor for reading from file
+	public QuestionMC(String[] info) {
+		/*
+		 * example: 2|In what year was the Declaration of Independence signed?|[1776,1789,1800]|1776
+		 * [0] Ð type
+		 * [1] ÐÊquestion
+		 * [2] Ð options
+		 * [3] ÐÊanswer
+		 */
+			
+		super(info[1]);
+		options = new ArrayList<String>();
+		answer = info[3];
 		
-		String[] options = {"3 years", "4 years", "5 years", "8 years"};
-		int oSize = options.length;
-		for (int i = 0; i < oSize; i++) {
-			q.addOption(options[i]);
+		// add options to array list
+		String[] option = info[2].substring(1, info[2].length() - 1).split(","); // get array of options
+		int length = option.length;
+		
+		for (int i = 0; i < length; i++) {
+			options.add(option[i]); // add each option to array list
 		}
-		System.out.println("\nOptions: " + q.getOptions());
-
-		System.out.println("    remove 2 years: " + q.removeOption("2 years"));
-		System.out.println("    remove 8 years: " + q.removeOption("8 years"));
-		System.out.println("Options: " + q.getOptions());
-		
-		q.setAnswer("4 years"); // correct answer
-		System.out.println("\nAnswer: " + q.getAnswer());
-		
-		String input = "5 years"; // user input
-		System.out.println("Input: " + input);
-		
-		System.out.println("\nIs correct: " + q.checkAnswer(input));
-		System.out.println("To string: " + q.toString());
 	}
+	
+	/*
+	 * ==============================
+	 * Functions
+	 * ==============================
+	 */
 	
 	public boolean addOption(String o) {
 		if (size < maxSize) {
@@ -97,7 +112,7 @@ public class QuestionMC extends Question {
 	}
 	
 	public String toString() {
-		// example: 2In what year was the Declaration of Independence signed?[1776,1789,1800]|1776
+		// example: 2|In what year was the Declaration of Independence signed?|[1776,1789,1800]|1776
 		
 		String s = 2 + getQuestion() + "[" + options.get(0);
 		
@@ -158,6 +173,37 @@ public class QuestionMC extends Question {
 	
 	public void setMaxSize(int s) {
 		maxSize = s;
+	}
+	
+	/*
+	 * ==============================
+	 * Self-Testing Main
+	 * ==============================
+	 */
+	
+	public static void main(String[] args) {
+		QuestionMC q = new QuestionMC("What is the length of term for the POTUS?");
+		System.out.println("Question: " + q.getQuestion());
+		
+		String[] options = {"3 years", "4 years", "5 years", "8 years"};
+		int oSize = options.length;
+		for (int i = 0; i < oSize; i++) {
+			q.addOption(options[i]);
+		}
+		System.out.println("\nOptions: " + q.getOptions());
+
+		System.out.println("    remove 2 years: " + q.removeOption("2 years"));
+		System.out.println("    remove 8 years: " + q.removeOption("8 years"));
+		System.out.println("Options: " + q.getOptions());
+		
+		q.setAnswer("4 years"); // correct answer
+		System.out.println("\nAnswer: " + q.getAnswer());
+		
+		String input = "5 years"; // user input
+		System.out.println("Input: " + input);
+		
+		System.out.println("\nIs correct: " + q.checkAnswer(input));
+		System.out.println("To string: " + q.toString());
 	}
 
 }
