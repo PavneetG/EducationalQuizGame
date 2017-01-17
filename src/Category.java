@@ -46,6 +46,7 @@ public class Category {
 		String newTitle = title;
 		
 		/*
+		**** while duplicate title, change title ****
 		while (search(title) > -1) { // duplicate title
 			// change title
 		}

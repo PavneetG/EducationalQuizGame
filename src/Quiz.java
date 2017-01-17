@@ -6,11 +6,16 @@
  * Method List:
  */
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Random;
+
 import javax.swing.JOptionPane;
 
 public class Quiz {
@@ -207,51 +212,101 @@ public class Quiz {
 	 */
 	
 	public boolean changeQuizName(String newQuizName) {
-		this.quizName = newQuizName;
-		// need to store the quiz names onto file and check if quiz name already exists
+		Category c = new Category(category); // read and load data from file
+		c.readFromFile(c.getCategory() + ".txt");
+		
+		if (c.change(quizName, newQuizName)) { // change quiz name and update category file successful
+			// **** update quiz file ****
+			this.quizName = newQuizName;
+			return true;
+		}
+		
 		return false;
 	}
 	
-	/*
-	public String createRecord () {
-	
-	}
-	*/
-
-	public void saveRecord(String file) throws IOException {
-		FileOutputStream file2 = new FileOutputStream(file); // writes to inputed file name (by user)
-		PrintWriter output = new PrintWriter(file2);
-
-		for (int i = 0; i < size; i++) { // Reads each line of the text file and stores it in arrays
-			output.println(questions.get(i));
+	public boolean readFromFile(String fileName) {
+		try {
+			BufferedReader br = new BufferedReader(new FileReader(fileName));
+			
+			// read and load basic header information
+			quizID = Long.parseLong(br.readLine());
+			category = br.readLine();
+			quizName = br.readLine();
+			size = Integer.parseInt(br.readLine());
+			
+		    String line = br.readLine();
+		    
+		    while (line != null) {
+		    	String[] info = line.split("|");
+		    	
+		    	switch(Integer.parseInt(info[0])) { // switch based on question type
+		    		case 1: // true or false
+		    			QuestionTF qTF = new QuestionTF(info);
+		    			questionsTF.add(qTF);
+		    		case 2: // multiple-choice
+		    			QuestionMC qMC = new QuestionMC(info);
+		    			questionsMC.add(qMC);
+		    		case 3: // check box
+		    			QuestionCB qCB = new QuestionCB(info);
+		    			questionsCB.add(qCB);
+		    		default:
+		    			System.err.println("Error: Quiz readFromFile");
+		    	}
+		    	
+		        size++; // increase size
+		        line = br.readLine(); // read next line
+		    }
+		    
+		    br.close();
+		    
+		    return true;
 		}
-
-		file2.close ();
+		catch (IOException e) {
+			System.err.println("Error: " + e.getMessage());
+			
+			return false;
+		}
 	}
 	
-	// method to generate account number
-	public long generateQuizID (){
-		// Reference to generate random 9 digit numbers
+	public boolean writeToFile(String fileName, String contents, boolean append) {
+		try {
+		    FileWriter fw = new FileWriter(fileName, append); // true tells to append data
+		    BufferedWriter bw = new BufferedWriter(fw);
+		    bw.write(contents);
+		    bw.close();
+		    
+		    return true;
+		}
+		catch (IOException e) {
+			System.err.println("Error: " + e.getMessage());
+			
+			return false;
+		}
+	}
+	
+	public long generateQuizID() {
 		// http://stackoverflow.com/questions/5392693/java-random-number-with-given-length
-		Random rnd = new Random(); // used to generate random numbers
-
-		// generate random numbers from 100000000 to 999999999
-		return 100000000 + rnd.nextInt(900000000);
+		Random r = new Random(); // used to generate random numbers
+		return 100000000 + r.nextInt(900000000); // generate random numbers from 100000000 to 999999999
 
 		/*
 		 * basic functionality of random
 		 * starts from 0 to 5 for rnd.nexInt(6)
 		 * to start from 1, 1 must added to the rnd.nextInt(6)
-		 */
-
-		/*
+		 *
 		 * to count from 100000000 to 999999999
 		 * rnd.nextInt(999999999) won't work as it'll generate a number from 0 to 999999998
 		 * adding 100000000 + rnd.nextInt(999999999) would yield 100000000 to 1,099,999,998
 		 * so instead, subtract 999999999 - 100000000 and add 1 to get correct range
 		 */
+	}
+	
+	public String toString() {
+		String s = "";
 		
-		// System.out.println(accountNum); //debug point for account number
+		// **** compile quiz info into String ****
+		
+		return s;
 	}
 	
 	/*
