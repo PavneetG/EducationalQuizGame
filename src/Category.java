@@ -1,5 +1,5 @@
 /*
- * Name: Pavneet Gill & Lily Liu
+ * Authors: Lily Liu and Pavneet Gill
  * Date: Monday, January 9, 2017
  * Description: This class separates the quizzes into different categories with the option to add delete and change them.
  */
@@ -12,10 +12,22 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Category {
+	
+	/*
+	 * ==============================
+	 * Variables
+	 * ==============================
+	 */
 
 	ArrayList<String> list; // titles of quizzes
 	String category;
-	int size; 
+	int size;
+	
+	/*
+	 * ==============================
+	 * Constructors
+	 * ==============================
+	 */
 	
 	public Category(String c) {
 		list = new ArrayList<String>();
@@ -23,24 +35,11 @@ public class Category {
 		size = 0;
 	}
 	
-	public static void main(String[] args) throws IOException {
-		// self-testing
-		/*
-		Category c = new Category("Science"); // add category and write to file
-		String title = "Astronomy";
-		System.out.println(c.add(title));
-		*/
-		
-		Category c = new Category("History"); // read and load data from file
-		c.readFromFile(c.getCategory() + ".txt");
-		System.out.println(c.getList());
-		
-		c.change("Canadian History", "World History"); // edit title and update file
-		System.out.println(c.getList());
-		
-		c.remove("British History"); // remove title and update file
-		System.out.println(c.getList());
-	}
+	/*
+	 * ==============================
+	 * Functions
+	 * ==============================
+	 */
 	
 	public String add(String title) {
 		String newTitle = title;
@@ -86,6 +85,32 @@ public class Category {
 		return false;
 	}
 	
+	public int search(String title) {
+		for (int i = 0; i < size; i++) {
+			if (list.get(i).equals(title)) {
+				return i; // found
+			}
+		}
+		
+		return -1; // not found
+	}
+	
+	public String toString() {
+		String str = list.get(0);
+		
+		for (int i = 1; i < size; i++) {
+			str += "\n" + list.get(i);
+		}
+		
+		return str;
+	}
+	
+	/*
+	 * ==============================
+	 * Reading and Writing
+	 * ==============================
+	 */
+	
 	public boolean readFromFile(String fileName) {
 		try {
 			BufferedReader br = new BufferedReader(new FileReader(fileName));
@@ -124,26 +149,6 @@ public class Category {
 		}
 	}
 	
-	public int search(String title) {
-		for (int i = 0; i < size; i++) {
-			if (list.get(i).equals(title)) {
-				return i; // found
-			}
-		}
-		
-		return -1; // not found
-	}
-	
-	public String toString() {
-		String str = list.get(0);
-		
-		for (int i = 1; i < size; i++) {
-			str += "\n" + list.get(i);
-		}
-		
-		return str;
-	}
-	
 	/*
 	 * ==============================
 	 * Getters
@@ -164,8 +169,26 @@ public class Category {
 	
 	/*
 	 * ==============================
-	 * Setters
+	 * Self-Testing Main
 	 * ==============================
 	 */
+	
+	public static void main(String[] args) throws IOException {
+		/*
+		Category c = new Category("Science"); // add category and write to file
+		String title = "Astronomy";
+		System.out.println(c.add(title));
+		*/
+		
+		Category c = new Category("History"); // read and load data from file
+		c.readFromFile(c.getCategory() + ".txt");
+		System.out.println(c.getList());
+		
+		c.change("Canadian History", "World History"); // edit title and update file
+		System.out.println(c.getList());
+		
+		c.remove("British History"); // remove title and update file
+		System.out.println(c.getList());
+	}
 
 }

@@ -1,6 +1,6 @@
 /* 
+ * Authors: Lily Liu, Janujan Gathieswaran, and Kevin Subhash
  * Date: Monday, January 9, 2016
- * Author: Janujan Gathieswaran, Kevin Subhash, and Lily Liu
  * Description: The quiz class for creating quizzes, contributing questions and 
  * 				changing previously made quizzes and questions. 
  * Method List:
@@ -18,6 +18,12 @@ import javax.swing.JOptionPane;
 
 public class Quiz {
 	
+	/*
+	 * ==============================
+	 * Variables
+	 * ==============================
+	 */
+	
 	// variables for quiz basic information
 	private long quizID;
 	private String category;
@@ -34,6 +40,12 @@ public class Quiz {
 	private int numCorrect;
 	private int numWrong;
 	private double averageTime;
+	
+	/*
+	 * ==============================
+	 * Constructors
+	 * ==============================
+	 */
 	
 	// constructor for new quiz
 	public Quiz(String category, String quizName) {
@@ -248,6 +260,43 @@ public class Quiz {
 		 */
 	}
 	
+	public String toString() {
+		String s = quizID + "\n" + category + "\n" + quizName + "\n" + size + "\n";
+		int counterTF = 0;
+		int counterMC = 0;
+		int counterCB = 0;
+		
+		for (int i = 0; i < size; i++) {
+			switch(order.get(i)) {
+				case 1: // true or false
+					s += questionsTF.get(counterTF).toString() + "\n";
+					counterTF++;
+					break;
+					
+				case 2: // multiple-choice
+					s += questionsMC.get(counterMC).toString() + "\n";
+					counterMC++;
+					break;
+					
+				case 3: // check box
+					s += questionsCB.get(counterCB).toString() + "\n";
+					counterCB++;
+					break;
+					
+				default:
+					System.err.println("Error: Quiz toString()");
+			}
+		}
+		
+		return s;
+	}
+	
+	/*
+	 * ==============================
+	 * Reading and Writing
+	 * ==============================
+	 */
+	
 	public boolean readFromFile(String fileName) {
 		try {
 			BufferedReader br = new BufferedReader(new FileReader(fileName));
@@ -311,37 +360,6 @@ public class Quiz {
 			
 			return false;
 		}
-	}
-	
-	public String toString() {
-		String s = quizID + "\n" + category + "\n" + quizName + "\n" + size + "\n";
-		int counterTF = 0;
-		int counterMC = 0;
-		int counterCB = 0;
-		
-		for (int i = 0; i < size; i++) {
-			switch(order.get(i)) {
-				case 1: // true or false
-					s += questionsTF.get(counterTF).toString() + "\n";
-					counterTF++;
-					break;
-					
-				case 2: // multiple-choice
-					s += questionsMC.get(counterMC).toString() + "\n";
-					counterMC++;
-					break;
-					
-				case 3: // check box
-					s += questionsCB.get(counterCB).toString() + "\n";
-					counterCB++;
-					break;
-					
-				default:
-					System.err.println("Error: Quiz toString()");
-			}
-		}
-		
-		return s;
 	}
 	
 	/*
