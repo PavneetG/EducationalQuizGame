@@ -90,8 +90,8 @@ public class Quiz {
 	 * ==============================
 	 */
 	
-	public boolean changeTF(QuestionTF oldQ, QuestionTF newQ) {
-		int index = searchTF(oldQ.getQuestion());
+	public boolean changeTF(String question, QuestionTF newQ) {
+		int index = searchTF(question);
 		
 		if (index > -1) { // previous question found
 			questionsTF.set(index, newQ); // replace old question with new question
@@ -101,8 +101,8 @@ public class Quiz {
 		return false;	
 	}
 	
-	public boolean changeMC(QuestionMC oldQ, QuestionMC newQ) {
-		int index = searchMC(oldQ.getQuestion());
+	public boolean changeMC(String question, QuestionMC newQ) {
+		int index = searchMC(question);
 		
 		if (index > -1) { // previous question found
 			questionsMC.set(index, newQ); // replace old question with new question
@@ -112,8 +112,8 @@ public class Quiz {
 		return false;	
 	}
 	
-	public boolean changeCB(QuestionCB oldQ, QuestionCB newQ) {
-		int index = searchCB(oldQ.getQuestion());
+	public boolean changeCB(String question, QuestionCB newQ) {
+		int index = searchCB(question);
 		
 		if (index > -1) { // previous question found
 			questionsCB.set(index, newQ); // replace old question with new question
@@ -449,10 +449,10 @@ public class Quiz {
 			
 			switch(button[command].charAt(0)) {
 				case 'A': { // add
-					int type = Integer.parseInt(JOptionPane.showInputDialog(null, 
+					int typeAdd = Integer.parseInt(JOptionPane.showInputDialog(null, 
 							"Type of question: (1 ÐÊTF, 2 Ð MC, 3 ÐÊCB"));
 					
-					switch(type) {
+					switch(typeAdd) {
 						case 1: // true or false
 							// get question
 							String questionTF = JOptionPane.showInputDialog(null, 
@@ -532,12 +532,12 @@ public class Quiz {
 					break;
 					
 				case 'D': // delete
-					int type = Integer.parseInt(JOptionPane.showInputDialog(null, 
+					int typeDelete = Integer.parseInt(JOptionPane.showInputDialog(null, 
 							"Type of question: (1 ÐÊTF, 2 Ð MC, 3 ÐÊCB"));
 					String question = JOptionPane.showInputDialog(null, 
 							"Enter a question to delete:");
 					
-					switch(type) {
+					switch(typeDelete) {
 						case 1: // true or false
 							quiz.removeTF(question);
 							break;
@@ -556,7 +556,108 @@ public class Quiz {
 					break;
 					
 				case 'C': // change
+					int typeChange = Integer.parseInt(JOptionPane.showInputDialog(null, 
+							"Type of question: (1 ÐÊTF, 2 Ð MC, 3 ÐÊCB"));
 					
+					switch(typeChange) {
+						case 1: // true or false
+							// get old question
+							String oldQuestionTF = JOptionPane.showInputDialog(null, 
+									"Enter a true or false question to change:");
+							
+							// get new question
+							String questionTF = JOptionPane.showInputDialog(null, 
+									"Enter a true or false question to change:");
+							
+							// get answer
+							boolean answerTF = java.lang.Boolean.parseBoolean(JOptionPane.showInputDialog(null, 
+									"Enter the answer: (true or false)"));
+							
+							// create question to replace old question
+							QuestionTF qTF = new QuestionTF(questionTF, answerTF);
+							if (quiz.changeTF(oldQuestionTF, qTF)) {
+								JOptionPane.showMessageDialog(null, "Done");
+							}
+							else {
+								JOptionPane.showMessageDialog(null, "Fail");
+							}
+							break;
+							
+						case 2: // multiple-choice
+							// get old question
+							String oldQuestionMC = JOptionPane.showInputDialog(null, 
+									"Enter a multiple-choice question to change:");
+							
+							// get new question
+							String questionMC = JOptionPane.showInputDialog(null, 
+									"Enter new multiple-choice question:");
+							
+							// get options
+							int sizeMC = Integer.parseInt(JOptionPane.showInputDialog(null, 
+									"Enter the number of options:"));
+							ArrayList<String> optionsMC = new ArrayList<String>();
+							for (int i = 0; i < sizeMC; i++) {
+								String option = JOptionPane.showInputDialog(null, 
+										"Enter option #" + (i + 1));
+								optionsMC.add(option);
+							}
+							
+							// get answer
+							String answerMC = JOptionPane.showInputDialog(null, 
+									"Enter the answer:");
+							
+							// create question to replace old question
+							QuestionMC qMC = new QuestionMC(questionMC, optionsMC, answerMC);
+							if (quiz.changeMC(oldQuestionMC, qMC)) {
+								JOptionPane.showMessageDialog(null, "Done");
+							}
+							else {
+								JOptionPane.showMessageDialog(null, "Fail");
+							}
+							break;
+							
+						case 3: // check box
+							// get old question
+							String oldQuestionCB = JOptionPane.showInputDialog(null, 
+									"Enter a check box question to change:");
+							
+							// get new question
+							String questionCB = JOptionPane.showInputDialog(null, 
+									"Enter new check box question:");
+							
+							// get options
+							int oSizeCB = Integer.parseInt(JOptionPane.showInputDialog(null, 
+									"Enter the number of options:"));
+							ArrayList<String> optionsCB = new ArrayList<String>();
+							for (int i = 0; i < oSizeCB; i++) {
+								String option = JOptionPane.showInputDialog(null, 
+										"Enter option #" + (i + 1));
+								optionsCB.add(option);
+							}
+							
+							// get answers
+							int aSizeCB = Integer.parseInt(JOptionPane.showInputDialog(null, 
+									"Enter the number of answers:"));
+							ArrayList<String> answersCB = new ArrayList<String>();
+							for (int i = 0; i < aSizeCB; i++) {
+								String answer = JOptionPane.showInputDialog(null, 
+										"Enter answer #" + (i + 1));
+								answersCB.add(answer);
+							}
+							
+							// create question to replace old question
+							QuestionCB qCB = new QuestionCB(questionCB, optionsCB, answersCB);
+							if (quiz.changeCB(oldQuestionCB, qCB)) {
+								JOptionPane.showMessageDialog(null, "Done");
+							}
+							else {
+								JOptionPane.showMessageDialog(null, "Fail");
+							}
+							break;
+							
+						default:
+							System.err.println("Error: Quiz main()");
+					}
 					break;
 					
 				case 'L': // load
@@ -575,24 +676,5 @@ public class Quiz {
 					System.err.println("Error: Quiz main()");
 			}
 		}
-		
-		/*
-				case 'C':{ // changes a customer record into another
-					String oldRecord = JOptionPane.showInputDialog(null, "Enter Record to Change", "How old is Janujan?"); // prompts user for old account info
-					QuestionTF oldInfo = new QuestionTF(oldRecord);
-	
-					String newRecord = JOptionPane.showInputDialog(null, "Enter Record to Change to", "Is Pavneet a Snake?"); // prompts user for new account info
-					QuestionTF newInfo = new QuestionTF(newRecord);
-	
-					if(test.changeQuestionTF(oldInfo, newInfo)){ // calls method to change the old record to new record
-						JOptionPane.showMessageDialog(null,"Success");
-					}
-					else{
-						JOptionPane.showMessageDialog(null, "Fail");
-						break;
-					}
-					break;
-				}
-		*/
 	}
 }
