@@ -4,6 +4,7 @@ import javax.swing.border.EmptyBorder;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -25,11 +26,13 @@ public class CreateAccount extends JFrame implements ActionListener{
 	private JLabel label_1;
 	private JLabel label_2;
 	private JLabel label_3;
+	PlayerList accounts = new PlayerList(); 
 
 	/**
 	 * Create the frame.
+	 * @throws IOException 
 	 */
-	public CreateAccount() {
+	public CreateAccount() throws IOException {
 
 		super("Create Account");  // title for the frame
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -163,6 +166,9 @@ public class CreateAccount extends JFrame implements ActionListener{
 		radioButton_3.addActionListener(this);
 		btnClear4.setVisible(false);
 		btnClear4.addActionListener(this);
+		
+		accounts.loadFile("Players.txt");
+		
 		setSize(350,500);
 		setVisible(true);
 		setResizable(false);
@@ -211,7 +217,7 @@ public class CreateAccount extends JFrame implements ActionListener{
 			String pic = null;
 			String name = textField_4.getText();
 			String userName = textField_1.getText();
-			
+
 			if(textField.getText().equals(textField_2.getText())){
 				password = textField.getText();
 			}
@@ -228,7 +234,7 @@ public class CreateAccount extends JFrame implements ActionListener{
 			else if (radioButton_3.isSelected()){
 				pic = "p4.png";
 			}
-			
+
 			if(textField_4.getText().equals("")||textField_1.getText().equals("")||textField.getText().equals("")||textField_2.getText().equals("") ){
 				JOptionPane.showMessageDialog(null, "Please fill in all the Fields.");
 			}
@@ -240,13 +246,16 @@ public class CreateAccount extends JFrame implements ActionListener{
 			}
 			else{
 				info = name + "," + userName + "," + password + "," + pic;
-				System.out.println(info);
-				JOptionPane.showMessageDialog(null, "Account Created!");
+
+				Player playerInfo = new Player(info);
+
+				accounts.insert(playerInfo);
+
 			}
 
 
-			
-			
+
+
 
 
 		}
@@ -254,8 +263,9 @@ public class CreateAccount extends JFrame implements ActionListener{
 
 	/**
 	 * Launch the application.
+	 * @throws IOException 
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		CreateAccount createAccount = new CreateAccount();
 
 	}
