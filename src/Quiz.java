@@ -129,8 +129,8 @@ public class Quiz {
 	 * ==============================
 	 */
 	
-	public boolean removeTF(Question q) {
-		int index = searchTF(q.getQuestion());
+	public boolean removeTF(String question) {
+		int index = searchTF(question);
 		
 		if (index > -1) { // previous question found
 			questionsTF.remove(index); // remove question
@@ -142,8 +142,8 @@ public class Quiz {
 		return false;
 	}
 	
-	public boolean removeMC(Question q) {
-		int index = searchMC(q.getQuestion());
+	public boolean removeMC(String question) {
+		int index = searchMC(question);
 		
 		if (index > -1) { // previous question found
 			questionsMC.remove(index); // remove question
@@ -155,8 +155,8 @@ public class Quiz {
 		return false;
 	}
 	
-	public boolean removeCB(Question q) {
-		int index = searchCB(q.getQuestion());
+	public boolean removeCB(String question) {
+		int index = searchCB(question);
 		
 		if (index > -1) { // previous question found
 			questionsCB.remove(index); // remove question
@@ -229,6 +229,23 @@ public class Quiz {
 		return false;
 	}
 	
+	public long generateQuizID() {
+		// http://stackoverflow.com/questions/5392693/java-random-number-with-given-length
+		Random r = new Random(); // used to generate random numbers
+		return 100000000 + r.nextInt(900000000); // generate random numbers from 100000000 to 999999999
+
+		/*
+		 * basic functionality of random
+		 * starts from 0 to 5 for rnd.nexInt(6)
+		 * to start from 1, 1 must added to the rnd.nextInt(6)
+		 *
+		 * to count from 100000000 to 999999999
+		 * rnd.nextInt(999999999) won't work as it'll generate a number from 0 to 999999998
+		 * adding 100000000 + rnd.nextInt(999999999) would yield 100000000 to 1,099,999,998
+		 * so instead, subtract 999999999 - 100000000 and add 1 to get correct range
+		 */
+	}
+	
 	public boolean readFromFile(String fileName) {
 		try {
 			BufferedReader br = new BufferedReader(new FileReader(fileName));
@@ -293,23 +310,6 @@ public class Quiz {
 			
 			return false;
 		}
-	}
-	
-	public long generateQuizID() {
-		// http://stackoverflow.com/questions/5392693/java-random-number-with-given-length
-		Random r = new Random(); // used to generate random numbers
-		return 100000000 + r.nextInt(900000000); // generate random numbers from 100000000 to 999999999
-
-		/*
-		 * basic functionality of random
-		 * starts from 0 to 5 for rnd.nexInt(6)
-		 * to start from 1, 1 must added to the rnd.nextInt(6)
-		 *
-		 * to count from 100000000 to 999999999
-		 * rnd.nextInt(999999999) won't work as it'll generate a number from 0 to 999999998
-		 * adding 100000000 + rnd.nextInt(999999999) would yield 100000000 to 1,099,999,998
-		 * so instead, subtract 999999999 - 100000000 and add 1 to get correct range
-		 */
 	}
 	
 	public String toString() {
@@ -436,11 +436,12 @@ public class Quiz {
 	 */
 
 	public static void main(String[] args) {
+		boolean keepGoing = true;
 		String[] button = {"Add", "Print", "Delete", "Change", "Load", "Save", "Quit"}; // array of button actions
 		
 		Quiz quiz = new Quiz("History", "American History");
 		
-		while(true) {
+		while(keepGoing) {
 			// asks user some options with buttons
 			int command = JOptionPane.showOptionDialog(null, 
 					"What Would You Like To Do With The Account Records?","Account Records", 
@@ -523,16 +524,35 @@ public class Quiz {
 						default:
 							System.err.println("Error: Quiz main()");
 					}
-					
 					break;
 				}
 					
 				case 'P': // print
-					
+					JOptionPane.showMessageDialog(null, quiz.toString());
 					break;
 					
 				case 'D': // delete
+					int type = Integer.parseInt(JOptionPane.showInputDialog(null, 
+							"Type of question: (1 ÐÊTF, 2 Ð MC, 3 ÐÊCB"));
+					String question = JOptionPane.showInputDialog(null, 
+							"Enter a question to delete:");
 					
+					switch(type) {
+						case 1: // true or false
+							quiz.removeTF(question);
+							break;
+							
+						case 2: // multiple-choice
+							quiz.removeMC(question);
+							break;
+							
+						case 3: // check box
+							quiz.removeCB(question);
+							break;
+							
+						default:
+							System.err.println("Error: Quiz main()");
+					}
 					break;
 					
 				case 'C': // change
@@ -548,7 +568,7 @@ public class Quiz {
 					break;
 					
 				case 'Q': // quit
-					
+					keepGoing = false; // break out of while loop
 					break;
 					
 				default:
@@ -557,47 +577,6 @@ public class Quiz {
 		}
 		
 		/*
-		Quiz test = new Quiz("Physics", "Kinematics");
-
-		String[] button = {"Add", "Print", "Delete", "Change", "File Input", "Save", "Quit"}; // string array of buttons
-
-		while(true) {
-			// asks user some options with buttons
-			char command = (char) JOptionPane.showOptionDialog(null,
-					"What Would You Like To Do With The Account Records?","Account Records",
-					JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, button, button[0]);
-
-			if (button[command].charAt(0) == 'Q'){ // starting switch case for each button
-				break;
-			}
-			switch (button[command].charAt(0)){
-				case 'A':{ // inserts customer info manually 
-					String q = JOptionPane.showInputDialog(null, "Enter a Question to add","How old is Janujan?");
-					QuestionTF questionTF = new QuestionTF(q);
-					
-					if(!test.addQuestionTF(questionTF)){
-						System.out.println("Question not Added.");
-					}
-					break;
-				}
-				case 'P':{ // prints all records
-					for (int i = 0; i < test.getSize(); i++) { // loops until all record are printed
-						System.out.println("Record #" + (i+1) + " " + test.getQuestions().get(i));
-					}
-					break;
-				}
-				case 'D':{ // deletes a customer record
-	
-					String record = JOptionPane.showInputDialog(null,"Enter <question> to remove", //prompt user for account info to delete
-							"How old is Janujan?");
-					Question question1 = new Question(record);
-	
-					if(!test.remove(question1)){ // performs when record cannot be found
-						JOptionPane.showMessageDialog(null, "Record Not Found.");
-						break;
-					}
-					break;
-				}
 				case 'C':{ // changes a customer record into another
 					String oldRecord = JOptionPane.showInputDialog(null, "Enter Record to Change", "How old is Janujan?"); // prompts user for old account info
 					QuestionTF oldInfo = new QuestionTF(oldRecord);
@@ -614,8 +593,6 @@ public class Quiz {
 					}
 					break;
 				}
-			}
-		}
 		*/
 	}
 }
