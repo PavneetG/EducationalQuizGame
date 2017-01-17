@@ -19,26 +19,27 @@ public class Player {
 	
 	private String userName; 
 	
-	private String password; 
+	private String password;
+	
+	private String picName;
 	
 	private Statistics stats; 
-	
-	private ImageIcon accountpic;
 	
 	public Player() {
 		this.name = ""; 
 		this.userName = ""; 
 		this.stats = null;
-		this.accountpic = null; 
+		this.picName = ""; 
 		this.password = ""; 
 	}
 
 	//Overloads Constructor initializes the customer data
-	public Player(String name, String userName, String password)
+	public Player(String name, String userName, String password, String picName)
 	{
 			this.name= name; 
 			this.userName = userName; 
 			this.password = password; 
+			this.picName = picName;
 	}
 	
 	public Player (String info)
@@ -48,6 +49,7 @@ public class Player {
 		this.name = word[0];
 		this.userName = word[1];
 		this.password = word[2];
+		this.picName = word[3];
 	}
 	
 	public void updatePlayerData (String info)
@@ -57,6 +59,7 @@ public class Player {
 		this.name = word[0];
 		this.userName = word[1];
 		this.password = word[2];
+		this.picName = word[3];
 	}
 	
 	public String getName() 
@@ -84,9 +87,14 @@ public class Player {
 		return stats;
 	}
 
-	public void setAccountpic(ImageIcon accountpic) 
+	public void setAccountpic(String picName) 
 	{
-		this.accountpic = accountpic;
+		this.picName = picName;
+	}
+	
+	public String getAccountpic() 
+	{
+		return this.picName;
 	}
 
 	public String getPassword ()
@@ -95,7 +103,7 @@ public class Player {
 	}
 	
 	public String toString(){ // method to change inputed variable to full form and return a string record
-		return (getName() + "," + getUserName() + "," + getPassword());
+		return (getName() + "," + getUserName() + "," + getPassword() + "," + getAccountpic());
 	}
 
 	/**

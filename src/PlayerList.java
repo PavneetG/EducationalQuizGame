@@ -172,8 +172,8 @@ public class PlayerList {
 			}
 			switch (button[command].charAt(0)){
 			case 'I':{ // inserts player info manually 
-				String info = JOptionPane.showInputDialog(null,"Enter <name>,<userName>,<password>",
-						"Kevin Subhash,KevinSub99,123456");
+				String info = JOptionPane.showInputDialog(null,"Enter <name>,<userName>,<password>,<picName>",
+						"Kevin Subhash,KevinSub99,123456,p1.jpg");
 				Player playerInfo = new Player(info);
 
 				if (!accounts.insert(playerInfo)){ // account is not added if not valid
@@ -201,8 +201,8 @@ public class PlayerList {
 			}
 			case 'D':{ // deletes a player account
 				Player playerInfo = new Player();
-				String record = JOptionPane.showInputDialog(null,"Enter <name>,<userName>,<password>", //prompt user for player info to delete account
-						"Kevin Subhash,KevinSub99,123456");
+				String record = JOptionPane.showInputDialog(null,"Enter <name>,<userName>,<password>,<picName>", //prompt user for player info to delete account
+						"Kevin Subhash,KevinSub99,123456,p1.jpg");
 
 				playerInfo.updatePlayerData(record); // processes inputed string
 
@@ -214,11 +214,11 @@ public class PlayerList {
 				break;
 			}
 			case 'C':{ // changes a player account into another
-				String oldRecord = JOptionPane.showInputDialog(null, "Enter Account to Change", "Kevin Subhash,KevinSub99,123456"); // prompts user for old account info
+				String oldRecord = JOptionPane.showInputDialog(null, "Enter Account to Change", "Kevin Subhash,KevinSub99,123456,p1.jpg"); // prompts user for old account info
 				Player oldInfo = new Player();
 				oldInfo.updatePlayerData(oldRecord); // processes old account string
 
-				String newRecord = JOptionPane.showInputDialog(null, "Enter Account to Change to", "Janujan G.,JG100,789456"); // prompts user for new account info
+				String newRecord = JOptionPane.showInputDialog(null, "Enter Account to Change to", "Janujan G.,JG100,789456,p2.png"); // prompts user for new account info
 				Player newInfo = new Player();
 				newInfo.updatePlayerData(newRecord); // processes new string info
 

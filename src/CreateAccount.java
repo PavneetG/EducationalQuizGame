@@ -166,9 +166,9 @@ public class CreateAccount extends JFrame implements ActionListener{
 		radioButton_3.addActionListener(this);
 		btnClear4.setVisible(false);
 		btnClear4.addActionListener(this);
-		
+
 		accounts.loadFile("Players.txt");
-		
+
 		setSize(350,500);
 		setVisible(true);
 		setResizable(false);
@@ -245,11 +245,21 @@ public class CreateAccount extends JFrame implements ActionListener{
 				JOptionPane.showMessageDialog(null, "Passwords Do Not Match");
 			}
 			else{
-				info = name + "," + userName + "," + password + "," + pic;
+				try{
+					info = name + "," + userName + "," + password + "," + pic;
 
-				Player playerInfo = new Player(info);
+					Player playerInfo = new Player(info);
+					accounts.insert(playerInfo);
 
-				accounts.insert(playerInfo);
+
+					accounts.writeFile("Players.txt");
+
+
+					System.exit(1);
+				}
+				catch(IOException k){
+
+				}
 
 			}
 
