@@ -301,7 +301,9 @@ public class QuestionCreation extends JFrame implements ActionListener {
 					//add question to quiz
 					q.addTF(tf);
 					
-					System.out.println(q.getQuestionsTF());
+					tf.getAnswer(); 
+					
+					//System.out.println(q.getQuestionsTF());
 					System.out.println(questionNum);
 					
 					
@@ -324,8 +326,8 @@ public class QuestionCreation extends JFrame implements ActionListener {
 			if (questionNum<0) {
 				btnPrevious.setEnabled(false);
 			}
+			System.out.println(q.getQuestions()); 
 			questionNum --;
-			q.getQuestions().get(questionNum).getQuestion(); 
 			
 			
 		}

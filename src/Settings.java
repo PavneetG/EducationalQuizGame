@@ -9,7 +9,7 @@ import javax.swing.border.EmptyBorder;
 public class Settings extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
-	private JButton btnChange1, btnChange2, btnChange3, btnChange4,btnConfirm,btnConfirm2,btnConfirm3,btnConfirm4; 
+	private JButton btnChange1, btnChange2, btnChange3, btnChange4,btnConfirm,btnConfirm2,btnConfirm3,btnConfirm4,btnBack; 
 	private JLabel lblChange1, lblChange2, lblChange3, lblChange4, label, label_1, label_2, label_3, lblPass;
 	private JTextField textField, textField2, textField3, textField4;
 	private JRadioButton radioButton, radioButton_1, radioButton_2, radioButton_3;
@@ -182,6 +182,12 @@ public class Settings extends JFrame implements ActionListener {
 		getContentPane().add(lblPass);
 		lblPass.setVisible(false);
 
+		btnBack = new JButton("Back");
+		btnBack.setBounds(10, 11, 89, 23);
+		getContentPane().add(btnBack);
+		btnBack.setVisible(true);
+		btnBack.addActionListener(this);
+
 		accounts.loadFile("Players.txt");
 
 
@@ -202,11 +208,16 @@ public class Settings extends JFrame implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
+		if(e.getSource() == btnBack){
+			new HomeMenuGUI();
+			dispose();
+		}
 		if (e.getSource() == btnChange1) {
 			btnChange1.setVisible(false);
 			btnChange2.setVisible(false);
 			btnChange3.setVisible(false);
 			btnChange4.setVisible(false);
+			btnBack.setVisible(false);
 			radioButton.setVisible(true);
 			radioButton_1.setVisible(true);
 			radioButton_2.setVisible(true);
@@ -227,6 +238,7 @@ public class Settings extends JFrame implements ActionListener {
 			btnChange2.setVisible(false);
 			btnChange3.setVisible(false);
 			btnChange4.setVisible(false);
+			btnBack.setVisible(false);
 			textField.setVisible(true);
 			lblChange1.setVisible(true);
 			btnConfirm2.setVisible(true);
@@ -236,6 +248,7 @@ public class Settings extends JFrame implements ActionListener {
 			btnChange2.setVisible(false);
 			btnChange3.setVisible(false);
 			btnChange4.setVisible(false);
+			btnBack.setVisible(false);
 			textField4.setVisible(true);
 			lblChange2.setVisible(true);
 			btnConfirm3.setVisible(true);
@@ -245,6 +258,7 @@ public class Settings extends JFrame implements ActionListener {
 			btnChange2.setVisible(false);
 			btnChange3.setVisible(false);
 			btnChange4.setVisible(false);
+			btnBack.setVisible(false);
 			textField2.setVisible(true);
 			textField3.setVisible(true);
 			lblChange3.setVisible(true);
@@ -293,6 +307,7 @@ public class Settings extends JFrame implements ActionListener {
 			btnChange2.setVisible(true);
 			btnChange3.setVisible(true);
 			btnChange4.setVisible(true);
+			btnBack.setVisible(true);
 			radioButton.setVisible(false);
 			radioButton_1.setVisible(false);
 			radioButton_2.setVisible(false);
@@ -315,6 +330,7 @@ public class Settings extends JFrame implements ActionListener {
 				btnChange2.setVisible(true);
 				btnChange3.setVisible(true);
 				btnChange4.setVisible(true);
+				btnBack.setVisible(true);
 				textField.setVisible(false);
 				lblFillInThe.setVisible(false);
 				lblChange1.setVisible(false);
@@ -333,6 +349,7 @@ public class Settings extends JFrame implements ActionListener {
 				btnChange2.setVisible(true);
 				btnChange3.setVisible(true);
 				btnChange4.setVisible(true);
+				btnBack.setVisible(true);
 				textField4.setVisible(false);
 				lblFillInThe.setVisible(false);
 				lblChange2.setVisible(false);
@@ -357,6 +374,7 @@ public class Settings extends JFrame implements ActionListener {
 				btnChange2.setVisible(true);
 				btnChange3.setVisible(true);
 				btnChange4.setVisible(true);
+				btnBack.setVisible(true);
 				textField2.setVisible(false);
 				textField3.setVisible(false);
 				lblChange3.setVisible(false);
@@ -367,9 +385,6 @@ public class Settings extends JFrame implements ActionListener {
 			}
 
 		}
-
-
-
 	}
 
 	public static void main(String[] args) throws IOException {
