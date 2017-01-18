@@ -81,6 +81,8 @@ public class Quiz {
 	 * ==============================
 	 */
 	
+	
+
 	public void addTF(QuestionTF q) {
 		questionsTF.add(q); // add question
 		order.add(1); // 1 means true or false question
@@ -239,7 +241,6 @@ public class Quiz {
 			this.quizName = newQuizName;
 			return true;
 		}
-		
 		return false;
 	}
 	
@@ -475,7 +476,7 @@ public class Quiz {
 			switch(button[command].charAt(0)) {
 				case 'A': { // add
 					int typeAdd = Integer.parseInt(JOptionPane.showInputDialog(null, 
-							"Type of question: (1 ÐÊTF, 2 Ð MC, 3 ÐÊCB)"));
+							"Type of question: (1 ï¿½ï¿½TF, 2 ï¿½ MC, 3 ï¿½ï¿½CB)"));
 					
 					switch(typeAdd) {
 						case 1: // true or false
@@ -558,7 +559,7 @@ public class Quiz {
 					
 				case 'D': // delete
 					int typeDelete = Integer.parseInt(JOptionPane.showInputDialog(null, 
-							"Type of question: (1 ÐÊTF, 2 Ð MC, 3 ÐÊCB"));
+							"Type of question: (1 ï¿½ï¿½TF, 2 ï¿½ MC, 3 ï¿½ï¿½CB"));
 					String question = JOptionPane.showInputDialog(null, 
 							"Enter a question to delete:");
 					
@@ -582,7 +583,7 @@ public class Quiz {
 					
 				case 'C': // change
 					int typeChange = Integer.parseInt(JOptionPane.showInputDialog(null, 
-							"Type of question: (1 ÐÊTF, 2 Ð MC, 3 ÐÊCB"));
+							"Type of question: (1 ï¿½ï¿½TF, 2 ï¿½ MC, 3 ï¿½ï¿½CB"));
 					
 					switch(typeChange) {
 						case 1: // true or false

@@ -50,10 +50,10 @@ public class QuestionMC extends Question {
 	public QuestionMC(String[] info) {
 		/*
 		 * example: 2|In what year was the Declaration of Independence signed?|[1776,1789,1800]|1776
-		 * [0] Ð type
-		 * [1] ÐÊquestion
-		 * [2] Ð options
-		 * [3] ÐÊanswer
+		 * [0] ï¿½ type
+		 * [1] ï¿½ï¿½question
+		 * [2] ï¿½ options
+		 * [3] ï¿½ï¿½answer
 		 */
 			
 		super(info[1]);
@@ -205,6 +205,9 @@ public class QuestionMC extends Question {
 		
 		System.out.println("\nIs correct: " + q.checkAnswer(input));
 		System.out.println("To string: " + q.toString());
+		
+		//--use file read constructor to create multiple choice question 
+		QuestionMC q2 = new QuestionMC ()
 	}
 
 }
