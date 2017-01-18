@@ -19,7 +19,13 @@ public class PlayerList {
 	private Player list [];
 
 	public PlayerList() {
-		maxSize = 100; //initializing variables
+		this.maxSize = 100; //initializing variables
+		size = 0; 
+		list = new Player [maxSize];
+	}
+	
+	public PlayerList(int maxSize) { //overloading
+		this.maxSize = maxSize; //initializing variables
 		size = 0; 
 		list = new Player [maxSize];
 	}
