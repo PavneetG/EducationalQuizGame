@@ -71,6 +71,12 @@ public class QuestionCreation extends JFrame implements ActionListener {
 	private int questionNum = 0;
 	private int size = 10;
 	private String questionTitle;
+	private String answer;
+	private ArrayList<String> options;
+	private ArrayList<String> answersCB;
+	private int type = 0;
+
+
 	/**
 	 * Launch the application.
 	 */
@@ -105,7 +111,7 @@ public class QuestionCreation extends JFrame implements ActionListener {
 		textArea.setOpaque(false);
 		textArea.setText("Untitled Question");
 
-		 scrollBar = new JScrollPane(textArea);
+		scrollBar = new JScrollPane(textArea);
 
 		scrollBar.setVerticalScrollBarPolicy( JScrollPane. VERTICAL_SCROLLBAR_ALWAYS); 
 		scrollBar.setBorder(blackline);
@@ -282,60 +288,84 @@ public class QuestionCreation extends JFrame implements ActionListener {
 			if (questionNum>size) {
 				btnNext.setEnabled(false);
 			}
-			
+
 			if (selectedItem.equals("True or False")) {
 				//get question title
-				 questionTitle = textArea.getText();
-				
+				questionTitle = textArea.getText();
+
 				if (questionTitle.equals("Untitled Question")) {
 					scrollBar.setBorder(redline);
 					//btnNext.setEnabled(false);
-					
+
 				}
 				else{
-					String answer = correctAnswer;
+					answer = correctAnswer;
 
 					//create new true false question
 					QuestionTF tf = new QuestionTF(questionTitle, Boolean.parseBoolean(answer));
-					
+
 					//add question to quiz
 					q.addTF(tf);
-					
-					System.out.println(q.getQuestionsTF());
-					System.out.println(questionNum);
-					
-					
-//					//format to string
-//					String question = questionType + "|" + questionTitle + "|" + answer;
 
-//					//add question to array list
-//					questions.add(question);	
+					//System.out.println(q.getQuestionsTF());
+					System.out.println(questionNum);
+
+
+					//System.out.println(((QuestionTF)q.getQuestions().get(0)).getQuestion());
+					//					//format to string
+					//					String question = questionType + "|" + questionTitle + "|" + answer;
+
+					//					//add question to array list
+					//					questions.add(question);	
 				}
-				
+
 			}
 			//if (!questionTitle.equals("") || !questionTitle.equals("Untitled Question")) {
-				super.dispose();
-				main(null);	
+			super.dispose();
+			main(null);	
 			//}
-			
+
 		}
-		else if (e.getSource().equals(btnPrevious))
+		else if (e.getSource() == btnPrevious)
 		{
-			if (questionNum<0) {
-				btnPrevious.setEnabled(false);
-			}
-			questionNum --;
-			q.getQuestions().get(questionNum).getQuestion(); 
-			
-			
+			//			if (questionNum<0) {
+			//				btnPrevious.setEnabled(false);
+			//			}
+			//questionNum --;
+
+			type = q.getQuestions().get(0).getQuestionType();
+
+			//			switch (type) {
+			//			case 1: {
+			//				questionTitle = ((QuestionTF)q.getQuestions().get(0)).getQuestion();
+			//				answer = String.valueOf(((QuestionTF)q.getQuestions().get(0)).getAnswer());
+			//				System.out.println(((QuestionTF)q.getQuestions().get(0)).getQuestion());
+			//				break;
+			//				
+			//			}
+			//			case 2: {
+			//				questionTitle = ((QuestionMC)q.getQuestions().get(0)).getQuestion();
+			//				answer = ((QuestionMC)q.getQuestions().get(0)).getAnswer();
+			//				options = ((QuestionMC)q.getQuestions().get(0)).getOptions();
+			//				break;
+			//			}
+			//			case 3: {
+			//				questionTitle = ((QuestionCB)q.getQuestions().get(0)).getQuestion();
+			//				answersCB = ((QuestionCB)q.getQuestions().get(0)).getAnswers();
+			//				options = ((QuestionCB)q.getQuestions().get(0)).getOptions();
+			//				break;
+			//			}
+			//			}
+
+
 		}
 
 	}
 
 
-	
-public static void main(String[] args) {
-		
+
+	public static void main(String[] args) {
+
 
 		QuestionCreation question = new QuestionCreation (); 
 	}

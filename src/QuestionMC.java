@@ -34,6 +34,7 @@ public class QuestionMC extends Question {
 		size = 0;
 		minSize = 3;
 		maxSize = 5;
+		setQuestionType(2);
 	}
 	
 	// constructor for existing question
@@ -44,6 +45,7 @@ public class QuestionMC extends Question {
 		size = o.size();
 		minSize = 3;
 		maxSize = 5;
+		setQuestionType(2);
 	}
 	
 	// constructor for reading from file
@@ -68,6 +70,7 @@ public class QuestionMC extends Question {
 		for (int i = 0; i < size; i++) {
 			options.add(option[i]); // add each option to array list
 		}
+		setQuestionType(2);
 	}
 	
 	/*
@@ -206,8 +209,6 @@ public class QuestionMC extends Question {
 		System.out.println("\nIs correct: " + q.checkAnswer(input));
 		System.out.println("To string: " + q.toString());
 		
-		//--use file read constructor to create multiple choice question 
-		QuestionMC q2 = new QuestionMC ()
 	}
 
 }

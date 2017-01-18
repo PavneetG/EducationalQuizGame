@@ -14,6 +14,7 @@ public class Question {
 	
 	private String question;
 	private double time;
+	private int questionType; 
 	
 	/*
 	 * ==============================
@@ -22,8 +23,8 @@ public class Question {
 	 */
 	
 	public Question(String q) {
-		question = q;
-		time = 0;
+		this.question = q;
+		this.time = 0;
 	}
 
 	/*
@@ -32,6 +33,9 @@ public class Question {
 	 * ==============================
 	 */
 	
+	public int getQuestionType() {
+		return questionType;
+	}
 	public String getQuestion() {
 		return question;
 	}
@@ -47,16 +51,21 @@ public class Question {
 	 */
 	
 	public void setQuestion(String q) {
-		question = q;
+		this.question = q;
 	}
-	
+	public void setQuestionType(int questionType) {
+		this.questionType =  questionType;
+	}
 	public void setTime(double t) {
-		time = t;
+		this.time = t;
 	}
 	
 	public String toString(){ // method to change inputed variable to full form and return a string record
 		return getQuestion();
 	}
+
+	
+	
 	
 	/*
 	 * ==============================

@@ -36,6 +36,7 @@ public class QuestionCB extends Question {
 		oMinSize = 3;
 		oMaxSize = 5;
 		aSize = 0;
+		setQuestionType(3);
 	}
 	
 	// constructor for existing question
@@ -47,16 +48,17 @@ public class QuestionCB extends Question {
 		oMinSize = 3;
 		oMaxSize = 5;
 		aSize = a.size();
+		setQuestionType(3);
 	}
 	
 	// constructor for reading from file
 	public QuestionCB(String[] info) {
 		/*
 		 * example: 3|What are the branches of government?|[Executive,Legislative,Judicial,Municipal]|[Executive,Legislative,Judicial]
-		 * [0] Ð type
-		 * [1] ÐÊquestion
-		 * [2] Ð options
-		 * [3] ÐÊanswers
+		 * [0] ï¿½ type
+		 * [1] ï¿½ï¿½question
+		 * [2] ï¿½ options
+		 * [3] ï¿½ï¿½answers
 		 */
 				
 		super(info[1]);
@@ -79,6 +81,7 @@ public class QuestionCB extends Question {
 		for (int i = 0; i < aSize; i++) {
 			answers.add(answer[i]); // add each answer to array list
 		}
+		setQuestionType(3);
 	}
 	
 	/*

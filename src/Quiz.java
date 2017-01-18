@@ -95,6 +95,7 @@ public class Quiz {
 
 	public void addMC(QuestionMC q) {
 		questions.add(q); // add question
+		
 		//		questionsMC.add(q); // add question
 		order.add(2); // 2 means multiple-choice question
 		size++; // increase size counter
@@ -235,6 +236,11 @@ public class Quiz {
 		//int sizeCB = questionsCB.size();
 		int sizeCB = questions.size();
 
+		//Reference for accessing child method and using an array of parent class
+		//http://stackoverflow.com/questions/11466441/call-a-child-class-method-from-a-parent-class-object
+		//http://stackoverflow.com/questions/26045831/inheritance-in-java-accessing-child-methods-and-using-an-array-of-parent-class
+		((QuestionMC)questions.get(2)).checkAnswer("hello");
+		
 		for (int i = 0; i < sizeCB; i++) {
 //			if (questionsCB.get(i).getQuestion().equals(q)) {
 			if (questions.get(i).getQuestion().equals(q)) {
@@ -250,7 +256,6 @@ public class Quiz {
 	 * Other Functions
 	 * ==============================
 	 */
-
 	public boolean changeQuizName(String newQuizName) {
 		Category c = new Category(category); // read and load data from file
 		c.readFromFile(c.getCategory() + ".txt");
@@ -407,7 +412,6 @@ public class Quiz {
 	public ArrayList<Question> getQuestions () {
 		return questions;
 	}
-	
 	public long getQuizID() {
 		return quizID;
 	}
