@@ -69,90 +69,8 @@ public class Quiz {
 		size++; // increase size counter
 	}
 
-<<<<<<< HEAD
-	public void addMC(QuestionMC q) {
-		questions.add(q); // add question
-		
-		//		questionsMC.add(q); // add question
-		order.add(2); // 2 means multiple-choice question
-		size++; // increase size counter
-	}
-
-	public void addCB(QuestionCB q) {
-		questions.add(q); // add question
-		//questionsCB.add(q); // add question
-		order.add(3); // 3 means check box question
-		size++; // increase size counter
-	}
-
-	/*
-	 * ==============================
-	 * Change Question for Quiz
-	 * ==============================
-	 */
-
-	public boolean changeTF(String question, QuestionTF newQ) {
-		int index = searchTF(question);
-
-		if (index > -1) { // previous question found
-			questions.set(index, newQ); // replace old question with new question
-			//questionsTF.set(index, newQ); // replace old question with new question
-			return true;
-		}
-
-		return false;	
-	}
-
-	public boolean changeMC(String question, QuestionMC newQ) {
-		int index = searchMC(question);
-
-		if (index > -1) { // previous question found
-			questions.set(index, newQ); // replace old question with new question
-			//questionsMC.set(index, newQ); // replace old question with new question
-			return true;
-		}
-
-		return false;	
-	}
-
-	public boolean changeCB(String question, QuestionCB newQ) {
-		int index = searchCB(question);
-
-		if (index > -1) { // previous question found
-			questions.set(index, newQ); // replace old question with new question
-			//questionsCB.set(index, newQ); // replace old question with new question
-			return true;
-		}
-
-		return false;	
-	}
-
-	/*
-	 * ==============================
-	 * Remove Question from Quiz
-	 * ==============================
-	 */
-
-	public boolean removeTF(String question) {
-		int index = searchTF(question);
-
-		if (index > -1) { // previous question found
-			questions.remove(index);// remove question
-			//questionsTF.remove(index); // remove question
-			order.remove(index); // remove from order list
-			size--; // decrease size counter
-			return true;
-		}
-
-		return false;
-	}
-
-	public boolean removeMC(String question) {
-		int index = searchMC(question);
-=======
 	public boolean removeQuestion(String question) {
 		int index = searchQuestion(question);
->>>>>>> origin/master
 
 		if (index > -1) { // previous question found
 			questions.remove(index);// remove question
@@ -162,72 +80,9 @@ public class Quiz {
 
 		return false;
 	}
-<<<<<<< HEAD
-
-	public boolean removeCB(String question) {
-		int index = searchCB(question);
-
-		if (index > -1) { // previous question found
-			questions.remove(index);// remove question
-			//questionsCB.remove(index); // remove question
-			order.remove(index); // remove from order list
-			size--; // decrease size counter
-			return true;
-		}
-
-		return false;
-	}
-
-	/*
-	 * ==============================
-	 * Search Quiz for Question
-	 * ==============================
-	 */
-
-	public int searchTF(String q) {
-		//int sizeTF = questionsTF.size();
-		int sizeTF = questions.size();
-
-		for (int i = 0; i < sizeTF; i++) {
-			//if (questionsTF.get(i).getQuestion().equals(q)) {
-			if (questions.get(i).getQuestion().equals(q)) {
-				return i;
-			}
-		}
-
-		return -1;
-	}
-
-	public int searchMC(String q) {
-		//int sizeMC = questionsMC.size();
-		int sizeMC = questions.size();
-
-		for (int i = 0; i < sizeMC; i++) {
-			//if (questionsMC.get(i).getQuestion().equals(q)) {
-			if (questions.get(i).getQuestion().equals(q)) {
-				return i;
-			}
-		}
-
-		return -1;
-	}
-
-	public int searchCB(String q) {
-		//int sizeCB = questionsCB.size();
-		int sizeCB = questions.size();
-
-		//Reference for accessing child method and using an array of parent class
-		//http://stackoverflow.com/questions/11466441/call-a-child-class-method-from-a-parent-class-object
-		//http://stackoverflow.com/questions/26045831/inheritance-in-java-accessing-child-methods-and-using-an-array-of-parent-class
-		((QuestionMC)questions.get(2)).checkAnswer("hello");
-		
-		for (int i = 0; i < sizeCB; i++) {
-//			if (questionsCB.get(i).getQuestion().equals(q)) {
-=======
 	
 	public int searchQuestion(String q) {
 		for (int i = 0; i < size; i++) {
->>>>>>> origin/master
 			if (questions.get(i).getQuestion().equals(q)) {
 				return i;
 			}
@@ -236,14 +91,6 @@ public class Quiz {
 		return -1;
 	}
 
-<<<<<<< HEAD
-	/*
-	 * ==============================
-	 * Other Functions
-	 * ==============================
-	 */
-=======
->>>>>>> origin/master
 	public boolean changeQuizName(String newQuizName) {
 		Category c = new Category(category); // read and load data from file
 		c.readFromFile(c.getCategory() + ".txt");
@@ -361,26 +208,7 @@ public class Quiz {
 	 * Getters
 	 * ==============================
 	 */
-<<<<<<< HEAD
-
-//	public ArrayList<QuestionTF> getQuestionsTF() {
-//		return questionsTF;
-//	}
-//
-//	public ArrayList<QuestionMC> getQuestionsMC() {
-//		return questionsMC;
-//	}
-//
-//	public ArrayList<QuestionCB> getQuestionsCB() {
-//		return questionsCB;
-//	}
-
-	public ArrayList<Question> getQuestions () {
-		return questions;
-	}
-=======
 	
->>>>>>> origin/master
 	public long getQuizID() {
 		return quizID;
 	}
@@ -397,7 +225,7 @@ public class Quiz {
 		return size; 
 	}
 	
-	public ArrayList<Question> getQuestions () {
+	public ArrayList<Question> getQuestions() {
 		return questions;
 	}
 

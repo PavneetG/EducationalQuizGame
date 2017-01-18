@@ -11,12 +11,9 @@ public class QuestionTF extends Question {
 	 * Variables
 	 * ==============================
 	 */
-<<<<<<< HEAD
-=======
 	
 	private static final int type = 1; // 1 = true or false question
 	
->>>>>>> origin/master
 	private boolean answer; // correct answer
 
 	/*
@@ -29,31 +26,24 @@ public class QuestionTF extends Question {
 	public QuestionTF(String q) {
 		super(q, type);
 		answer = false;
-		setQuestionType(1);
 	}
 
 	// constructor for existing question
 	public QuestionTF(String q, boolean a) {
 		super(q, type);
 		answer = a;
-		setQuestionType(1);
 	}
 
 	// constructor for reading from file
 	public QuestionTF(String[] info) {
 		/*
 		 * example: 1|George Washington is the first POTUS.|true
-		 * [0] � type
-		 * [1] ��question
-		 * [2] � answer
+		 * [0] - type
+		 * [1] - question
+		 * [2] - answer
 		 */
-<<<<<<< HEAD
 
-		super(info[1]);
-=======
-		
 		super(info[1], type);
->>>>>>> origin/master
 		answer = java.lang.Boolean.parseBoolean(info[2]);
 	}
 
@@ -69,13 +59,8 @@ public class QuestionTF extends Question {
 
 	public String toString() {
 		// example: 1|George Washington is the first POTUS.|true
-<<<<<<< HEAD
 
-		return 1 + "|" + getQuestion() + "|" + answer;
-=======
-		
 		return type + "|" + getQuestion() + "|" + answer;
->>>>>>> origin/master
 	}
 
 	/*
