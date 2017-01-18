@@ -12,6 +12,15 @@ public class Question {
 	 * ==============================
 	 */
 	
+	/*
+	 * Types:
+	 * 0 = undefined type
+	 * 1 = true or false question
+	 * 2 = multiple-choice question
+	 * 3 = check box question
+	 */
+	
+	private int type;
 	private String question;
 	private double time;
 	private int questionType; 
@@ -22,9 +31,16 @@ public class Question {
 	 * ==============================
 	 */
 	
+<<<<<<< HEAD
 	public Question(String q) {
 		this.question = q;
 		this.time = 0;
+=======
+	public Question(String q, int t) {
+		type = t;
+		question = q;
+		time = 0;
+>>>>>>> origin/master
 	}
 
 	/*
@@ -33,9 +49,16 @@ public class Question {
 	 * ==============================
 	 */
 	
+<<<<<<< HEAD
 	public int getQuestionType() {
 		return questionType;
 	}
+=======
+	public int getType() {
+		return type;
+	}
+	
+>>>>>>> origin/master
 	public String getQuestion() {
 		return question;
 	}
@@ -49,6 +72,10 @@ public class Question {
 	 * Setters
 	 * ==============================
 	 */
+	
+	public void setType(int t) {
+		type = t;
+	}
 	
 	public void setQuestion(String q) {
 		this.question = q;
@@ -74,7 +101,7 @@ public class Question {
 	 */
 	
 	public static void main(String[] args) {
-		Question q = new Question("Is George Washington the first POTUS?");
+		Question q = new Question("Is George Washington the first POTUS?", 0);
 		System.out.println("Question 1: " + q.getQuestion());
 		
 		q.setQuestion("Is John Adams the second POTUS?");

@@ -14,6 +14,8 @@ public class QuestionCB extends Question {
 	 * ==============================
 	 */
 	
+	private static final int type = 3; // 3 = check box question
+	
 	private ArrayList<String> options; // all possible options
 	private ArrayList<String> answers; // correct answers
 	private int oSize; // number of options
@@ -29,7 +31,7 @@ public class QuestionCB extends Question {
 	
 	// constructor for new question
 	public QuestionCB(String q) {
-		super(q);
+		super(q, type);
 		options = new ArrayList<String>();
 		answers = new ArrayList<String>();
 		oSize = 0;
@@ -41,7 +43,7 @@ public class QuestionCB extends Question {
 	
 	// constructor for existing question
 	public QuestionCB(String q, ArrayList<String> o, ArrayList<String> a) {
-		super(q);
+		super(q, type);
 		options = o;
 		answers = a;
 		oSize = o.size();
@@ -61,7 +63,7 @@ public class QuestionCB extends Question {
 		 * [3] ��answers
 		 */
 				
-		super(info[1]);
+		super(info[1], type);
 		options = new ArrayList<String>();
 		answers = new ArrayList<String>();
 			
@@ -140,7 +142,7 @@ public class QuestionCB extends Question {
 	public String toString() {
 		// example: 3|What are the branches of government?|[Executive,Legislative,Judicial,Municipal]|[Executive,Legislative,Judicial]
 		
-		String s = 3 + "|" + getQuestion() + "|[" + options.get(0);
+		String s = type + "|" + getQuestion() + "|[" + options.get(0);
 		
 		for (int i = 1; i < oSize; i++) {
 			s += "," + options.get(i);

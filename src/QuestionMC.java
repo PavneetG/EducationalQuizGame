@@ -14,6 +14,8 @@ public class QuestionMC extends Question {
 	 * ==============================
 	 */
 
+	private static final int type = 2; // 2 = multiple-choice question
+	
 	private ArrayList<String> options; // all possible options
 	private String answer; // correct answer
 	private int size; // number of options
@@ -28,7 +30,7 @@ public class QuestionMC extends Question {
 	
 	// constructor for new question
 	public QuestionMC(String q) {
-		super(q);
+		super(q, type);
 		options = new ArrayList<String>();
 		answer = "";
 		size = 0;
@@ -39,7 +41,7 @@ public class QuestionMC extends Question {
 	
 	// constructor for existing question
 	public QuestionMC(String q, ArrayList<String> o, String a) {
-		super(q);
+		super(q, type);
 		options = o;
 		answer = a;
 		size = o.size();
@@ -58,7 +60,7 @@ public class QuestionMC extends Question {
 		 * [3] ��answer
 		 */
 			
-		super(info[1]);
+		super(info[1], type);
 		options = new ArrayList<String>();
 		answer = info[3];
 		
@@ -118,7 +120,7 @@ public class QuestionMC extends Question {
 	public String toString() {
 		// example: 2|In what year was the Declaration of Independence signed?|[1776,1789,1800]|1776
 		
-		String s = 2 + "|" + getQuestion() + "|[" + options.get(0);
+		String s = type + "|" + getQuestion() + "|[" + options.get(0);
 		
 		for (int i = 1; i < size; i++) {
 			s += "," + options.get(i);
@@ -209,6 +211,11 @@ public class QuestionMC extends Question {
 		System.out.println("\nIs correct: " + q.checkAnswer(input));
 		System.out.println("To string: " + q.toString());
 		
+<<<<<<< HEAD
+=======
+		//--use file read constructor to create multiple choice question 
+		// QuestionMC q2 = new QuestionMC ()
+>>>>>>> origin/master
 	}
 
 }
