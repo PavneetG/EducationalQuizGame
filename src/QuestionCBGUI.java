@@ -105,7 +105,7 @@ public class QuestionCBGUI extends JFrame implements ActionListener{
 			}
 		}
 		
-		System.out.println(input);
+		//System.out.println(input.);
 	}
 
 }
