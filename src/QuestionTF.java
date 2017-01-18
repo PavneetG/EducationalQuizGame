@@ -11,7 +11,9 @@ public class QuestionTF extends Question {
 	 * Variables
 	 * ==============================
 	 */
-
+	
+	private static final int type = 1; // 1 = true or false question
+	
 	private boolean answer; // correct answer
 	
 	/*
@@ -22,13 +24,13 @@ public class QuestionTF extends Question {
 	
 	// constructor for new question
 	public QuestionTF(String q) {
-		super(q);
+		super(q, type);
 		answer = false;
 	}
 	
 	// constructor for existing question
 	public QuestionTF(String q, boolean a) {
-		super(q);
+		super(q, type);
 		answer = a;
 	}
 	
@@ -41,7 +43,7 @@ public class QuestionTF extends Question {
 		 * [2] Ð answer
 		 */
 		
-		super(info[1]);
+		super(info[1], type);
 		answer = java.lang.Boolean.parseBoolean(info[2]);
 	}
 	
@@ -58,7 +60,7 @@ public class QuestionTF extends Question {
 	public String toString() {
 		// example: 1|George Washington is the first POTUS.|true
 		
-		return 1 + "|" + getQuestion() + "|" + answer;
+		return type + "|" + getQuestion() + "|" + answer;
 	}
 	
 	/*

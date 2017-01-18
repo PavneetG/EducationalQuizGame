@@ -13,7 +13,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
-
 import javax.swing.JOptionPane;
 
 public class Quiz {
@@ -55,37 +54,41 @@ public class Quiz {
 		this.quizName = quizName;
 		this.size = 0;
 		this.questions = new ArrayList<Question>();
-		//		this.questionsTF = new ArrayList<QuestionTF>();
-		//		this.questionsMC = new ArrayList<QuestionMC>();
-		//		this.questionsCB = new ArrayList<QuestionCB>();
+		// this.questionsTF = new ArrayList<QuestionTF>();
+		// this.questionsMC = new ArrayList<QuestionMC>();
+		// this.questionsCB = new ArrayList<QuestionCB>();
 		this.order = new ArrayList<Integer>();
 	}
 
 	// constructor for existing quiz
 	public Quiz(long quizID, String category, String quizName, int size, 
 			ArrayList<Question> questions, 
-			//			ArrayList<QuestionTF> questionsTF, 
-			//			ArrayList<QuestionMC> questionsMC, 
-			//			ArrayList<QuestionCB> questionsCB,
+			// ArrayList<QuestionTF> questionsTF, 
+			// ArrayList<QuestionMC> questionsMC, 
+			// ArrayList<QuestionCB> questionsCB,
 			ArrayList<Integer> order) {
 		this.quizID = quizID;
 		this.category = category;
 		this.quizName = quizName;
 		this.size = size;
-		//		this.questionsTF = questionsTF;
-		//		this.questionsMC = questionsMC;
-		//		this.questionsCB = questionsCB;
+		// this.questionsTF = questionsTF;
+		// this.questionsMC = questionsMC;
+		// this.questionsCB = questionsCB;
 		this.order = order;
 	}
 
 	/*
 	 * ==============================
-	 * Add Question to Quiz
+	 * Functions
 	 * ==============================
 	 */
 
+	public void addQuestion(Question q) {
+		questions.add(q); // add question
+		size++; // increase size counter
+	}
 
-
+	/*
 	public void addTF(QuestionTF q) {
 		questions.add(q); // add question
 		//questionTF.add(q); // add question
@@ -95,7 +98,7 @@ public class Quiz {
 
 	public void addMC(QuestionMC q) {
 		questions.add(q); // add question
-		//		questionsMC.add(q); // add question
+		//questionsMC.add(q); // add question
 		order.add(2); // 2 means multiple-choice question
 		size++; // increase size counter
 	}
@@ -106,13 +109,22 @@ public class Quiz {
 		order.add(3); // 3 means check box question
 		size++; // increase size counter
 	}
+	*/
 
 	/*
-	 * ==============================
-	 * Change Question for Quiz
-	 * ==============================
-	 */
+	public boolean changeQuestion(String question, Question newQuestion) {
+		int index = searchQuestion(question);
 
+		if (index > -1) { // previous question found
+			questions.set(index, newQuestion); // replace old question with new question
+			return true;
+		}
+
+		return false;
+	}
+	*/
+
+	/*
 	public boolean changeTF(String question, QuestionTF newQ) {
 		int index = searchTF(question);
 
@@ -122,7 +134,7 @@ public class Quiz {
 			return true;
 		}
 
-		return false;	
+		return false;
 	}
 
 	public boolean changeMC(String question, QuestionMC newQ) {
@@ -134,7 +146,7 @@ public class Quiz {
 			return true;
 		}
 
-		return false;	
+		return false;
 	}
 
 	public boolean changeCB(String question, QuestionCB newQ) {
@@ -146,15 +158,23 @@ public class Quiz {
 			return true;
 		}
 
-		return false;	
+		return false;
+	}
+	*/
+
+	public boolean removeQuestion(String question) {
+		int index = searchQuestion(question);
+
+		if (index > -1) { // previous question found
+			questions.remove(index);// remove question
+			size--; // decrease size counter
+			return true;
+		}
+
+		return false;
 	}
 
 	/*
-	 * ==============================
-	 * Remove Question from Quiz
-	 * ==============================
-	 */
-
 	public boolean removeTF(String question) {
 		int index = searchTF(question);
 
@@ -196,13 +216,19 @@ public class Quiz {
 
 		return false;
 	}
+	*/
+	
+	public int searchQuestion(String q) {
+		for (int i = 0; i < size; i++) {
+			if (questions.get(i).getQuestion().equals(q)) {
+				return i;
+			}
+		}
+
+		return -1;
+	}
 
 	/*
-	 * ==============================
-	 * Search Quiz for Question
-	 * ==============================
-	 */
-
 	public int searchTF(String q) {
 		//int sizeTF = questionsTF.size();
 		int sizeTF = questions.size();
@@ -236,7 +262,7 @@ public class Quiz {
 		int sizeCB = questions.size();
 
 		for (int i = 0; i < sizeCB; i++) {
-//			if (questionsCB.get(i).getQuestion().equals(q)) {
+			//if (questionsCB.get(i).getQuestion().equals(q)) {
 			if (questions.get(i).getQuestion().equals(q)) {
 				return i;
 			}
@@ -244,12 +270,7 @@ public class Quiz {
 
 		return -1;
 	}
-
-	/*
-	 * ==============================
-	 * Other Functions
-	 * ==============================
-	 */
+	*/
 
 	public boolean changeQuizName(String newQuizName) {
 		Category c = new Category(category); // read and load data from file
@@ -339,28 +360,30 @@ public class Quiz {
 				String[] info = line.split("\\|");
 
 				switch(Integer.parseInt(info[0])) { // switch based on question type
-				case 1: // true or false
-					QuestionTF qTF = new QuestionTF(info);
-					addTF(qTF);
-					break;
-
-				case 2: // multiple-choice
-					QuestionMC qMC = new QuestionMC(info);
-					addMC(qMC);
-					break;
-
-				case 3: // check box
-					QuestionCB qCB = new QuestionCB(info);
-					addCB(qCB);
-					break;
-
-				default:
-					System.err.println("Error: Quiz readFromFile()");
+					case 1: // true or false
+						QuestionTF qTF = new QuestionTF(info);
+						addQuestion(qTF);
+						break;
+	
+					case 2: // multiple-choice
+						QuestionMC qMC = new QuestionMC(info);
+						addQuestion(qMC);
+						break;
+	
+					case 3: // check box
+						QuestionCB qCB = new QuestionCB(info);
+						addQuestion(qCB);
+						break;
+	
+					default:
+						System.err.println("Error: Quiz readFromFile()");
 				}
 
 				line = br.readLine(); // read next line
 			}
+			
 			br.close();
+			
 			return true;
 		}
 		catch (IOException e) {
@@ -408,6 +431,10 @@ public class Quiz {
 		return questions;
 	}
 	
+	public ArrayList<Integer> getOrder() {
+		return order;
+	}
+	
 	public long getQuizID() {
 		return quizID;
 	}
@@ -445,6 +472,7 @@ public class Quiz {
 	public void setQuestions (ArrayList<Question> questions) {
 		this.questions = questions;
 	}
+	
 //	public void setQuestionsTF(ArrayList<QuestionTF> questionsTF) {
 //		this.questionsTF = questionsTF;
 //	}
@@ -456,6 +484,10 @@ public class Quiz {
 //	public void setQuestionsCB(ArrayList<QuestionCB> questionsCB) {
 //		this.questionsCB = questionsCB;
 //	}
+	
+	public void setOrder(ArrayList<Integer> order) {
+		this.order = order;
+	}
 
 	public void setQuizID (long quizID) {
 		this.quizID = quizID;
@@ -506,7 +538,7 @@ public class Quiz {
 			switch(button[command].charAt(0)) {
 			case 'A': { // add
 				int typeAdd = Integer.parseInt(JOptionPane.showInputDialog(null, 
-						"Type of question: (1 ï¿½ï¿½TF, 2 ï¿½ MC, 3 ï¿½ï¿½CB)"));
+						"Type of question: (1 Ð TF, 2 Ð MC, 3 Ð CB)"));
 
 				switch(typeAdd) {
 				case 1: // true or false
@@ -520,7 +552,7 @@ public class Quiz {
 
 					// create question and add to list
 					QuestionTF qTF = new QuestionTF(questionTF, answerTF);
-					quiz.addTF(qTF);
+					quiz.addQuestion(qTF);
 					break;
 
 				case 2: // multiple-choice
@@ -544,7 +576,7 @@ public class Quiz {
 
 					// create question and add to list
 					QuestionMC qMC = new QuestionMC(questionMC, optionsMC, answerMC);
-					quiz.addMC(qMC);
+					quiz.addQuestion(qMC);
 					break;
 
 				case 3: // check box
@@ -574,7 +606,7 @@ public class Quiz {
 
 					// create question and add to list
 					QuestionCB qCB = new QuestionCB(questionCB, optionsCB, answersCB);
-					quiz.addCB(qCB);
+					quiz.addQuestion(qCB);
 					break;
 
 				default:
@@ -588,11 +620,14 @@ public class Quiz {
 				break;
 
 			case 'D': // delete
+				/*
 				int typeDelete = Integer.parseInt(JOptionPane.showInputDialog(null, 
 						"Type of question: (1 ï¿½ï¿½TF, 2 ï¿½ MC, 3 ï¿½ï¿½CB"));
+				*/
 				String question = JOptionPane.showInputDialog(null, 
 						"Enter a question to delete:");
-
+				
+				/*
 				switch(typeDelete) {
 				case 1: // true or false
 					quiz.removeTF(question);
@@ -609,11 +644,98 @@ public class Quiz {
 				default:
 					System.err.println("Error: Quiz main()");
 				}
+				*/
+				if (quiz.removeQuestion(question)) {
+					JOptionPane.showMessageDialog(null, "Done");
+				}
+				else {
+					JOptionPane.showMessageDialog(null, "Fail");
+				}
 				break;
 
 			case 'C': // change
+				String oldQuestion = JOptionPane.showInputDialog(null, 
+						"Enter a question to change:");
+				
+				int index = quiz.searchQuestion(oldQuestion);
+				if (index > -1) {
+					switch(quiz.questions.get(index).getType()) {
+						case 1: // true or false
+							// get new question
+							String questionTF = JOptionPane.showInputDialog(null, 
+									"Enter new true or false question:");
+	
+							// get answer
+							boolean answerTF = java.lang.Boolean.parseBoolean(JOptionPane.showInputDialog(null, 
+									"Enter the answer: (true or false)"));
+	
+							// create question to replace old question
+							QuestionTF qTF = new QuestionTF(questionTF, answerTF);
+							quiz.questions.set(index, qTF);
+							break;
+
+						case 2: // multiple-choice
+							// get new question
+							String questionMC = JOptionPane.showInputDialog(null, 
+									"Enter new multiple-choice question:");
+	
+							// get options
+							int sizeMC = Integer.parseInt(JOptionPane.showInputDialog(null, 
+									"Enter the number of options:"));
+							ArrayList<String> optionsMC = new ArrayList<String>();
+							for (int i = 0; i < sizeMC; i++) {
+								String option = JOptionPane.showInputDialog(null, 
+										"Enter option #" + (i + 1) + ":");
+								optionsMC.add(option);
+							}
+
+							// get answer
+							String answerMC = JOptionPane.showInputDialog(null, 
+									"Enter the answer:");
+	
+							// create question to replace old question
+							QuestionMC qMC = new QuestionMC(questionMC, optionsMC, answerMC);
+							quiz.questions.set(index, qMC);
+							break;
+
+						case 3: // check box
+							// get new question
+							String questionCB = JOptionPane.showInputDialog(null, 
+									"Enter new check box question:");
+	
+							// get options
+							int oSizeCB = Integer.parseInt(JOptionPane.showInputDialog(null, 
+									"Enter the number of options:"));
+							ArrayList<String> optionsCB = new ArrayList<String>();
+							for (int i = 0; i < oSizeCB; i++) {
+								String option = JOptionPane.showInputDialog(null, 
+										"Enter option #" + (i + 1) + ":");
+								optionsCB.add(option);
+							}
+
+							// get answers
+							int aSizeCB = Integer.parseInt(JOptionPane.showInputDialog(null, 
+									"Enter the number of answers:"));
+							ArrayList<String> answersCB = new ArrayList<String>();
+							for (int i = 0; i < aSizeCB; i++) {
+								String answer = JOptionPane.showInputDialog(null, 
+										"Enter answer #" + (i + 1) + ":");
+								answersCB.add(answer);
+							}
+	
+							// create question to replace old question
+							QuestionCB qCB = new QuestionCB(questionCB, optionsCB, answersCB);
+							quiz.questions.set(index, qCB);
+							break;
+	
+						default:
+							System.err.println("Error: Quiz main()");
+						}
+					}
+				
+				/*
 				int typeChange = Integer.parseInt(JOptionPane.showInputDialog(null, 
-						"Type of question: (1 ï¿½ï¿½TF, 2 ï¿½ MC, 3 ï¿½ï¿½CB"));
+						"Type of question: (1 Ð TF, 2 Ð MC, 3 Ð CB"));
 
 				switch(typeChange) {
 				case 1: // true or false
@@ -631,7 +753,7 @@ public class Quiz {
 
 					// create question to replace old question
 					QuestionTF qTF = new QuestionTF(questionTF, answerTF);
-					if (quiz.changeTF(oldQuestionTF, qTF)) {
+					if (quiz.changeQuestion(oldQuestionTF, qTF)) {
 						JOptionPane.showMessageDialog(null, "Done");
 					}
 					else {
@@ -664,7 +786,7 @@ public class Quiz {
 
 					// create question to replace old question
 					QuestionMC qMC = new QuestionMC(questionMC, optionsMC, answerMC);
-					if (quiz.changeMC(oldQuestionMC, qMC)) {
+					if (quiz.changeQuestion(oldQuestionMC, qMC)) {
 						JOptionPane.showMessageDialog(null, "Done");
 					}
 					else {
@@ -703,7 +825,7 @@ public class Quiz {
 
 					// create question to replace old question
 					QuestionCB qCB = new QuestionCB(questionCB, optionsCB, answersCB);
-					if (quiz.changeCB(oldQuestionCB, qCB)) {
+					if (quiz.changeQuestion(oldQuestionCB, qCB)) {
 						JOptionPane.showMessageDialog(null, "Done");
 					}
 					else {
@@ -714,10 +836,11 @@ public class Quiz {
 				default:
 					System.err.println("Error: Quiz main()");
 				}
+				*/
 				break;
 
 			case 'L': // load
-				if (quiz.readFromFile(quiz.getQuizName() + ".txt")) {
+				if (quiz.readFromFile(quiz.quizName + ".txt")) {
 					JOptionPane.showMessageDialog(null, "Done");
 				}
 				else {
@@ -726,7 +849,7 @@ public class Quiz {
 				break;
 
 			case 'S': // save
-				if (quiz.writeToFile(quiz.getQuizName() + ".txt", quiz.toString(), false)) {
+				if (quiz.writeToFile(quiz.quizName + ".txt", quiz.toString(), false)) {
 					JOptionPane.showMessageDialog(null, "Done");
 				}
 				else {
