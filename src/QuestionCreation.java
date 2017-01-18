@@ -318,8 +318,6 @@ public class QuestionCreation extends JFrame implements ActionListener {
 				main(null);	
 			//}
 			
-
-
 		}
 		else if (e.getSource().equals(btnPrevious))
 		{
@@ -327,7 +325,9 @@ public class QuestionCreation extends JFrame implements ActionListener {
 				btnPrevious.setEnabled(false);
 			}
 			questionNum --;
-
+			q.getQuestions().get(questionNum).getQuestion(); 
+			
+			
 		}
 
 	}
