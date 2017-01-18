@@ -14,6 +14,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.swing.JLabel;
 import javax.swing.BorderFactory;
@@ -218,7 +223,6 @@ public class QuestionCreation extends JFrame implements ActionListener {
 		else if (e.getSource().equals(trueButton))
 		{
 			correctAnswer = "True";
-			JOptionPane.showMessageDialog (null, "Nice"); 
 		}
 		else if (e.getSource().equals(falseButton))
 		{
@@ -226,7 +230,7 @@ public class QuestionCreation extends JFrame implements ActionListener {
 		}
 		else if (e.getSource().equals(btnNext))
 		{
-	
+			
 		}
 		else if (e.getSource().equals(btnPrevious))
 		{
@@ -236,6 +240,7 @@ public class QuestionCreation extends JFrame implements ActionListener {
 	}
 	
 	
+
 public static void main(String[] args) {
 		
 		QuestionCreation question = new QuestionCreation (); 
