@@ -21,6 +21,12 @@ public class QuestionTF extends Question {
 	 * Constructors
 	 * ==============================
 	 */
+	
+	// default constructor
+	public QuestionTF() {
+		super();
+		answer = false;
+	}
 
 	// constructor for new question
 	public QuestionTF(String q) {

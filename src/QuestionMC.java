@@ -15,12 +15,12 @@ public class QuestionMC extends Question {
 	 */
 
 	private static final int type = 2; // 2 = multiple-choice question
+	private static final int minSize = 3; // minimum number of options
+	private static final int maxSize = 5; // maximum number of options
 	
 	private ArrayList<String> options; // all possible options
 	private String answer; // correct answer
 	private int size; // number of options
-	private int minSize; // minimum number of options
-	private int maxSize; // maximum number of options
 	
 	/*
 	 * ==============================
@@ -28,14 +28,20 @@ public class QuestionMC extends Question {
 	 * ==============================
 	 */
 	
+	// default constructor
+	public QuestionMC() {
+		super();
+		options = new ArrayList<String>();
+		answer = "";
+		size = 0;
+	}
+	
 	// constructor for new question
 	public QuestionMC(String q) {
 		super(q, type);
 		options = new ArrayList<String>();
 		answer = "";
 		size = 0;
-		minSize = 3;
-		maxSize = 5;
 	}
 	
 	// constructor for existing question
@@ -44,8 +50,6 @@ public class QuestionMC extends Question {
 		options = o;
 		answer = a;
 		size = o.size();
-		minSize = 3;
-		maxSize = 5;
 	}
 	
 	// constructor for reading from file
@@ -168,14 +172,6 @@ public class QuestionMC extends Question {
 	
 	public void setSize(int s) {
 		size = s;
-	}
-	
-	public void setMinSize(int s) {
-		minSize = s;
-	}
-	
-	public void setMaxSize(int s) {
-		maxSize = s;
 	}
 	
 	/*

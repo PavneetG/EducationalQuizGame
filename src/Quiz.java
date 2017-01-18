@@ -51,11 +51,11 @@ public class Quiz {
 	}
 
 	// constructor for existing quiz
-	public Quiz(long quizID, String category, String quizName, int size, ArrayList<Question> questions) {
+	public Quiz(long quizID, String category, String quizName, ArrayList<Question> questions) {
 		this.quizID = quizID;
 		this.category = category;
 		this.quizName = quizName;
-		this.size = size;
+		this.size = questions.size();
 	}
 
 	/*

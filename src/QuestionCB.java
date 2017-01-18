@@ -15,12 +15,12 @@ public class QuestionCB extends Question {
 	 */
 	
 	private static final int type = 3; // 3 = check box question
+	private static final int minSize = 3; // minimum number of options
+	private static final int maxSize = 5; // maximum number of options
 	
 	private ArrayList<String> options; // all possible options
 	private ArrayList<String> answers; // correct answers
 	private int oSize; // number of options
-	private int oMinSize; // minimum number of options
-	private int oMaxSize; // maximum number of options
 	private int aSize; // number of answers
 	
 	/*
@@ -29,14 +29,21 @@ public class QuestionCB extends Question {
 	 * ==============================
 	 */
 	
+	// default constructor
+	public QuestionCB() {
+		super();
+		options = new ArrayList<String>();
+		answers = new ArrayList<String>();
+		oSize = 0;
+		aSize = 0;
+	}
+	
 	// constructor for new question
 	public QuestionCB(String q) {
 		super(q, type);
 		options = new ArrayList<String>();
 		answers = new ArrayList<String>();
 		oSize = 0;
-		oMinSize = 3;
-		oMaxSize = 5;
 		aSize = 0;
 	}
 	
@@ -46,8 +53,6 @@ public class QuestionCB extends Question {
 		options = o;
 		answers = a;
 		oSize = o.size();
-		oMinSize = 3;
-		oMaxSize = 5;
 		aSize = a.size();
 	}
 	
@@ -90,7 +95,7 @@ public class QuestionCB extends Question {
 	 */
 	
 	public boolean addOption(String o) {
-		if (oSize < oMaxSize) {
+		if (oSize < maxSize) {
 			options.add(o);
 			oSize++;
 			return true;
@@ -100,7 +105,7 @@ public class QuestionCB extends Question {
 	}
 	
 	public boolean removeOption(String o) {
-		if (oSize > oMinSize) {
+		if (oSize > minSize) {
 			options.remove(o);
 			oSize--;
 			return true;
@@ -110,7 +115,7 @@ public class QuestionCB extends Question {
 	}
 	
 	public boolean addAnswer(String a) {
-		if (aSize < oMaxSize) {
+		if (aSize < maxSize) {
 			answers.add(a);
 			aSize++;
 			return true;
@@ -172,12 +177,12 @@ public class QuestionCB extends Question {
 		return oSize;
 	}
 	
-	public int getOMinSize() {
-		return oMinSize;
+	public int getMinSize() {
+		return minSize;
 	}
 	
-	public int getOMaxSize() {
-		return oMaxSize;
+	public int getMaxSize() {
+		return maxSize;
 	}
 	
 	/*
@@ -196,14 +201,6 @@ public class QuestionCB extends Question {
 	
 	public void setOSize(int s) {
 		oSize = s;
-	}
-	
-	public void setMinSize(int s) {
-		oMinSize = s;
-	}
-	
-	public void setMaxSize(int s) {
-		oMaxSize = s;
 	}
 	
 	/*

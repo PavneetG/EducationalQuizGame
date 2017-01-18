@@ -30,6 +30,14 @@ public class Question {
 	 * ==============================
 	 */
 	
+	// default constructor
+	public Question() {
+		type = 0;
+		question = "";
+		time = 0;
+	}
+	
+	// constructor for question
 	public Question(String q, int t) {
 		type = t;
 		question = q;
@@ -42,8 +50,8 @@ public class Question {
 	 * ==============================
 	 */
 	
-	public String toString(){ // method to change inputed variable to full form and return a string record
-		return getQuestion();
+	public String toString() { // method to change inputed variable to full form and return a string record
+		return question;
 	}
 
 	/*
