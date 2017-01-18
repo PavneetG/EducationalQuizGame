@@ -8,15 +8,14 @@ import java.util.ArrayList;
  * @author Janujan
  *
  */
-public class DataClass {
+public class Data {
 
 	/**
 	 * 
 	 */
 	public static Quiz q = new Quiz("Hello", "Hello");
-	public static ArrayList<String> questions = new ArrayList();
-	
-	public DataClass() {
+
+	public Data() {
 		// TODO Auto-generated constructor stub
 	}
 
