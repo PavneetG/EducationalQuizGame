@@ -18,10 +18,11 @@ import javax.swing.border.TitledBorder;
 import javax.swing.border.LineBorder;
 
 
-public class TriviaCreationGUI extends JFrame {
+public class TriviaCreationGUI extends JFrame implements ActionListener {
 	private JTextField txtLabel;
 	private JTextField textField;
 	private JTextField textField_1;
+	private JButton btnBack, btnCreate;
 
 	/**
 	 * Launch the application.
@@ -63,9 +64,10 @@ public class TriviaCreationGUI extends JFrame {
 		lblDescription.setBounds(10, 153, 115, 20);
 		getContentPane().add(lblDescription);
 		
-		JButton btnBack = new JButton("Back");
+		btnBack = new JButton("Back");
 		btnBack.setBounds(10, 53, 89, 23);
 		getContentPane().add(btnBack);
+		btnBack.addActionListener(this);
 		
 		JLabel lblNumberOfQuestioms = new JLabel("Number of Question(s):");
 		lblNumberOfQuestioms.setBounds(86, 472, 133, 14);
@@ -76,19 +78,27 @@ public class TriviaCreationGUI extends JFrame {
 		getContentPane().add(comboBox);
 		comboBox.setActionCommand("Question #");
 		
-		JButton btnNewButton = new JButton("Create");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
-		btnNewButton.setBounds(160, 544, 139, 36);
-		getContentPane().add(btnNewButton);
+		btnCreate = new JButton("Create");
+		btnCreate.setBounds(160, 544, 139, 36);
+		getContentPane().add(btnCreate);
+		btnCreate.addActionListener(this);
 		
 		textField_1 = new JTextField();
 		textField_1.setBounds(35, 184, 400, 228);
 		getContentPane().add(textField_1);
 		textField_1.setColumns(10);
 		setVisible (true); 
+	}
+	
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource() == btnBack){
+			new HomeMenuGUI();
+			dispose();
+		}
+		else if(e.getSource() == btnCreate){
+			new QuestionCreation();
+			dispose();
+		}
 	}
 
 	public static void main(String[] args) {

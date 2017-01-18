@@ -61,7 +61,7 @@ public class QuestionMCGUI extends JFrame implements ActionListener{
 		}
 
 		//
-		lblTitle.setText("<html>" + mcQ.getQuestion() + "asdfasdasdfdf" + "</html>");
+		lblTitle.setText("<html>" + mcQ.getQuestion()  + "</html>");
 
 
 
