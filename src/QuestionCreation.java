@@ -309,11 +309,11 @@ public class QuestionCreation extends JFrame implements ActionListener {
 					QuestionTF tf = new QuestionTF(questionTitle, Boolean.parseBoolean(answer));
 
 					//add question to quiz
-					DataClass.q.addTF(tf);
+					Data.q.addQuestion(tf);
 
 					//System.out.println(q.getQuestionsTF());
 					System.out.println(questionNum);
-					System.out.print(DataClass.q.getQuestions().get(0).getQuestionType());
+					System.out.print(Data.q.getQuestions().get(questionNum));
 
 
 					//System.out.println(((QuestionTF)q.getQuestions().get(0)).getQuestion());
@@ -336,9 +336,10 @@ public class QuestionCreation extends JFrame implements ActionListener {
 			//			if (questionNum<0) {
 			//				btnPrevious.setEnabled(false);
 			//			}
-			//questionNum --;
+			questionNum --;
 
-			System.out.print(DataClass.q.getQuestions().get(0).getQuestionType());
+			System.out.print(Data.q.getQuestions().get(questionNum).getType());
+			System.out.print(Data.q.getQuestions().get(questionNum).getType());
 
 			//			switch (type) {
 			//			case 1: {

@@ -14,7 +14,7 @@ public class Data {
 	 * 
 	 */
 	public static Quiz q = new Quiz("Hello", "Hello");
-
+	
 	public Data() {
 		// TODO Auto-generated constructor stub
 	}
