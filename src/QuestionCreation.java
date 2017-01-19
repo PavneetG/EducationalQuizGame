@@ -45,8 +45,7 @@ import javax.swing.JButton;
 
 public class QuestionCreation extends JFrame implements ActionListener {
 
-	private JPanel contentPane;
-	JComboBox comboBox; 
+	private JPanel contentPane; 
 	JRadioButton trueButton = new JRadioButton ("true");
 	JRadioButton falseButton = new JRadioButton ("false");
 	JLabel lblOptions = new JLabel("Options");
@@ -70,14 +69,14 @@ public class QuestionCreation extends JFrame implements ActionListener {
 	JScrollPane scrollBar;
 	private String selectedItem;
 	private int questionType = 0;
-	//private Quiz q = new Quiz("Hello", "Hello");
 	//private ArrayList<String> questions = new ArrayList();
-	private int questionNum = 0;
 	private int size = 10;
 	private String questionTitle;
 	private String answer;
 	private ArrayList<String> options;
 	private ArrayList<String> answersCB;
+	String boxOptions [] = {"Select", "True or False", "Multiple Choice", "Check Box", "Ranking"}; 
+	JComboBox comboBox= new JComboBox(boxOptions);
 	private int type = 0;
 
 
@@ -95,9 +94,7 @@ public class QuestionCreation extends JFrame implements ActionListener {
 
 		JLabel lblQuestionType = new JLabel("Question Type");
 		lblQuestionType.setBounds(30, 178, 86, 20);
-		getContentPane().add(lblQuestionType);
-		String options [] = {"Select", "True or False", "Multiple Choice", "Check Box", "Ranking"};
-		comboBox = new JComboBox(options);
+		getContentPane().add(lblQuestionType); 
 		comboBox.setBounds(126, 178, 112, 20);
 		comboBox.setActionCommand("hello");
 		comboBox.addActionListener(this);
@@ -286,12 +283,11 @@ public class QuestionCreation extends JFrame implements ActionListener {
 		else if (e.getSource().equals(btnNext))
 		{
 
-
 			//if ()
-			questionNum ++;
-			if (questionNum>size) {
-				btnNext.setEnabled(false);
-			}
+			Data.questionNum++;
+//			if (Data.questionNum>size) {
+//				btnNext.setEnabled(false);
+//			}
 
 			if (selectedItem.equals("True or False")) {
 				//get question title
@@ -310,10 +306,10 @@ public class QuestionCreation extends JFrame implements ActionListener {
 
 					//add question to quiz
 					Data.q.addQuestion(tf);
-
+					
 					//System.out.println(q.getQuestionsTF());
-					System.out.println(questionNum);
-					System.out.print(Data.q.getQuestions().get(questionNum));
+					//System.out.println(questionNum);
+					//System.out.print(Data.q.getQuestions().get(questionNum));
 
 
 					//System.out.println(((QuestionTF)q.getQuestions().get(0)).getQuestion());
@@ -324,6 +320,26 @@ public class QuestionCreation extends JFrame implements ActionListener {
 					//					questions.add(question);	
 				}
 
+			}
+			else if (selectedItem.equals("Mutiple Choice"))
+			{
+				questionTitle = textArea.getText();
+				
+				answer = correctAnswer; 
+				
+				//ArrayList<String> options = new ArrayList<String>(); // all possible options
+				
+				options.add(textField.getText());
+				
+				options.add(textField_1.getText()); 
+				
+				options.add(textField_2.getText()); 
+				
+				options.add (textField_3.getText()); 
+				
+				QuestionMC mc = new QuestionMC (questionTitle, this.options , answer); 
+				
+				Data.q.addQuestion(mc);
 			}
 			//if (!questionTitle.equals("") || !questionTitle.equals("Untitled Question")) {
 			super.dispose();
@@ -336,37 +352,72 @@ public class QuestionCreation extends JFrame implements ActionListener {
 			//			if (questionNum<0) {
 			//				btnPrevious.setEnabled(false);
 			//			}
-			questionNum --;
-
-			System.out.print(Data.q.getQuestions().get(questionNum).getType());
-			System.out.print(Data.q.getQuestions().get(questionNum).getType());
-
-			//			switch (type) {
-			//			case 1: {
-			//				questionTitle = ((QuestionTF)q.getQuestions().get(0)).getQuestion();
-			//				answer = String.valueOf(((QuestionTF)q.getQuestions().get(0)).getAnswer());
-			//				System.out.println(((QuestionTF)q.getQuestions().get(0)).getQuestion());
-			//				break;
-			//				
-			//			}
-			//			case 2: {
-			//				questionTitle = ((QuestionMC)q.getQuestions().get(0)).getQuestion();
-			//				answer = ((QuestionMC)q.getQuestions().get(0)).getAnswer();
-			//				options = ((QuestionMC)q.getQuestions().get(0)).getOptions();
-			//				break;
-			//			}
-			//			case 3: {
-			//				questionTitle = ((QuestionCB)q.getQuestions().get(0)).getQuestion();
-			//				answersCB = ((QuestionCB)q.getQuestions().get(0)).getAnswers();
-			//				options = ((QuestionCB)q.getQuestions().get(0)).getOptions();
-			//				break;
-			//			}
-			//			}
-
-
+			Data.questionNum --;
+			
+			System.out.println(Data.questionNum);
+			
+			System.out.println(Data.q.getQuestions().get(0).getType());
+			
 		}
-
 	}
+//			System.out.println(Data.q.getQuestions().get(0).getType());
+//			switch (type) {
+//					case 1: {
+//							questionTitle = Data.q.getQuestions().get(Data.questionNum).getQuestion();
+//							boolean answer =((QuestionTF)Data.q.getQuestions().get(Data.questionNum)).getAnswer();
+//							textArea.setText(questionTitle);
+//							comboBox.setSelectedItem("True or False");
+//							if (answer == true)
+//							{
+//								trueButton.setSelected(true);
+//							}
+//							else 
+//							{
+//								falseButton.setSelected(true);
+//							}
+//							break;				
+//					}
+//					case 2: {
+//							questionTitle = ((QuestionMC)Data.q.getQuestions().get(Data.questionNum)).getQuestion();
+//							answer = ((QuestionMC)Data.q.getQuestions().get(Data.questionNum)).getAnswer();
+//							options = ((QuestionMC)Data.q.getQuestions().get(Data.questionNum)).getOptions();
+//							comboBox.setSelectedItem("Mutiple Choice");
+//							textArea.setText(questionTitle);
+//							textField.setText(options.get(0).toString());
+//							textField_1.setText(options.get(1).toString());
+//							textField_2.setText(options.get(2).toString());
+//							textField_3.setText(options.get(3).toString());
+//							
+//							if (answer == textField.getText())
+//							{
+//								checkBox.setSelected(true);
+//							}
+//							else if (answer == textField_1.getText())
+//							{
+//								checkBox_1.setSelected(true);
+//							}
+//							else if (answer == textField_2.getText())
+//							{
+//								checkBox_2.setSelected(true);
+//							}
+//							else if (answer == textField_3.getText())
+//							{
+//								checkBox_3.setSelected(true);
+//							}
+//							break;
+//					}
+//					case 3: {
+//			//				questionTitle = ((QuestionCB)q.getQuestions().get(0)).getQuestion();
+//			//				answersCB = ((QuestionCB)q.getQuestions().get(0)).getAnswers();
+//			//				options = ((QuestionCB)q.getQuestions().get(0)).getOptions();
+//			//				break;
+//						}
+//			}
+//
+//
+//		}
+//
+//	}
 
 
 

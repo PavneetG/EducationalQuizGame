@@ -34,6 +34,10 @@ public class QuestionTF extends Question {
 		answer = false;
 	}
 
+	public int getType() {
+		return type;
+	}
+
 	// constructor for existing question
 	public QuestionTF(String q, boolean a) {
 		super(q, type);

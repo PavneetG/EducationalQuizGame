@@ -15,6 +15,7 @@ public class QuestionMC extends Question {
 	 */
 
 	private static final int type = 2; // 2 = multiple-choice question
+
 	private static final int minSize = 3; // minimum number of options
 	private static final int maxSize = 5; // maximum number of options
 	
@@ -102,6 +103,10 @@ public class QuestionMC extends Question {
 		}
 		
 		return false;
+	}
+	
+	public int getType() {
+		return type;
 	}
 	
 	public boolean checkAnswer(String a) {
