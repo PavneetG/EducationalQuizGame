@@ -12,19 +12,19 @@ import javax.swing.JOptionPane;
  * Author: Kevin Subhash
  */
 
-public class PlayerList {
+public class PlayerAccountList {
 
 	private int maxSize;   // creating private variables
 	private int size;
 	private Player list [];
 
-	public PlayerList() {
+	public PlayerAccountList() {
 		this.maxSize = 100; //initializing variables
 		size = 0; 
 		list = new Player [maxSize];
 	}
 	
-	public PlayerList(int maxSize) { //overloading
+	public PlayerAccountList(int maxSize) { //overloading
 		this.maxSize = maxSize; //initializing variables
 		size = 0; 
 		list = new Player [maxSize];
@@ -75,7 +75,6 @@ public class PlayerList {
 
 	public boolean delete(Player record){ // method used to delete a record
 		int  location;
-		insertSort(); // sorts all record before it deletes
 
 		location = binarySearch(record.toString()); // calls binary search method
 
@@ -114,15 +113,6 @@ public class PlayerList {
 				}
 			}
 		}
-	}
-
-	public int linearSearch(String searchKey){ // A linear search method 
-		for(int i = 0; i < size; i++){
-			if(searchKey.equalsIgnoreCase(list[i].toString())){ 
-				return i;
-			}
-		}
-		return -1; // returns -1 if not found
 	}
 
 	public int binarySearch(String searchKey){ // binary search method that searches for account name
@@ -165,7 +155,7 @@ public class PlayerList {
 	 * @param args
 	 */
 	public static void main(String[] args)throws IOException {
-		PlayerList accounts = new PlayerList(); 
+		PlayerAccountList accounts = new PlayerAccountList(); 
 		String[] button = {"Insert","Print","Delete","Change","File Input","Save","insertion sort","Ripple Sort","Quit"}; // string array of buttons
 
 		while(true){
