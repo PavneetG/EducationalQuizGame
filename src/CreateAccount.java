@@ -26,7 +26,7 @@ public class CreateAccount extends JFrame implements ActionListener{
 	private JLabel label_1;
 	private JLabel label_2;
 	private JLabel label_3;
-	PlayerList accounts = new PlayerList(); 
+	PlayerAccountList accounts = new PlayerAccountList(); 
 
 	/**
 	 * Create the frame.

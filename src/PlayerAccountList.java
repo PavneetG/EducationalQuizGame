@@ -86,6 +86,15 @@ public class PlayerAccountList {
 		}
 		return false;
 	}
+	
+	public boolean linearSearch(String searchKey, String searchKey2){ // A linear search method that searches for customer name
+		for(int i = 0; i < size; i++){
+			if(searchKey.equalsIgnoreCase(list[i].getUserName()) && searchKey2.equals(list[i].getPassword())){ // compares customer names
+				return true;
+			}
+		}
+		return false; // returns -1 if not found
+	}
 
 	public void insertSort (){ // An insertion sort method that sorts the customers name
 		for (int top = 1; top < size; top++){

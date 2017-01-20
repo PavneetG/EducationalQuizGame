@@ -9,13 +9,16 @@ import javax.swing.border.EmptyBorder;
 public class Settings extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
-	private JButton btnChange1, btnChange2, btnChange3, btnChange4,btnConfirm,btnConfirm2,btnConfirm3,btnConfirm4,btnBack; 
-	private JLabel lblChange1, lblChange2, lblChange3, lblChange4, label, label_1, label_2, label_3, lblPass;
+	private JButton btnChange1, btnChange2, btnChange3, btnChange4,btnConfirm,btnConfirm2,btnConfirm3,btnConfirm4,btnBack, btnVerifyLogin; 
+	private JLabel lblChange1, lblChange2, lblChange3, lblChange4, label, label_1, label_2, label_3, lblPass, lblUserName, lblPassword;
 	private JTextField textField, textField2, textField3, textField4;
 	private JRadioButton radioButton, radioButton_1, radioButton_2, radioButton_3;
 	private String name, userName, password, picName;
 	private JLabel lblFillInThe;
-	PlayerList accounts = new PlayerList(); 
+	PlayerAccountList accounts = new PlayerAccountList(); 
+	Player player = new Player(); 
+	private JTextField usernameField;
+	private JTextField passwordField;
 
 
 
@@ -25,6 +28,9 @@ public class Settings extends JFrame implements ActionListener {
 	 */
 	public Settings() throws IOException {
 		super("Settings");  // title for the frame
+		
+		accounts.loadFile("Players.txt");
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getContentPane().setLayout(null);
 
@@ -32,6 +38,7 @@ public class Settings extends JFrame implements ActionListener {
 		btnChange1.setFont(new Font("Comic Sans MS", Font.PLAIN, 15));
 		btnChange1.setBounds(10, 251, 184, 38);
 		getContentPane().add(btnChange1);
+		btnChange1.setVisible(false);
 		btnChange1.addActionListener(this);
 
 		btnChange2 = new JButton("Change Name");
@@ -39,18 +46,21 @@ public class Settings extends JFrame implements ActionListener {
 		btnChange2.setBounds(10, 300, 184, 38);
 		getContentPane().add(btnChange2);
 		btnChange2.addActionListener(this);
+		btnChange2.setVisible(false);
 
 		btnChange3 = new JButton("Change UserName");
 		btnChange3.setFont(new Font("Comic Sans MS", Font.PLAIN, 15));
 		btnChange3.setBounds(10, 349, 184, 38);
 		getContentPane().add(btnChange3);
 		btnChange3.addActionListener(this);
+		btnChange3.setVisible(false);
 
 		btnChange4 = new JButton("Change Password");
 		btnChange4.setFont(new Font("Comic Sans MS", Font.PLAIN, 15));
 		btnChange4.setBounds(10, 398, 184, 38);
 		getContentPane().add(btnChange4);
 		btnChange4.addActionListener(this);
+		btnChange4.setVisible(false);
 
 		btnConfirm = new JButton("Confirm");
 		btnConfirm.setFont(new Font("Comic Sans MS", Font.PLAIN, 15));
@@ -187,8 +197,32 @@ public class Settings extends JFrame implements ActionListener {
 		getContentPane().add(btnBack);
 		btnBack.setVisible(true);
 		btnBack.addActionListener(this);
+		
+		usernameField = new JTextField();
+		usernameField.setBounds(91, 165, 153, 20);
+		getContentPane().add(usernameField);
+		usernameField.setColumns(10);
+		
+		passwordField = new JTextField();
+		passwordField.setColumns(10);
+		passwordField.setBounds(91, 220, 153, 20);
+		getContentPane().add(passwordField);
+		
+		lblUserName = new JLabel("User Name");
+		lblUserName.setBounds(91, 149, 83, 14);
+		getContentPane().add(lblUserName);
+		
+		lblPassword = new JLabel("Password");
+		lblPassword.setBounds(91, 205, 83, 14);
+		getContentPane().add(lblPassword);
+		
+		btnVerifyLogin = new JButton("Verify Login");
+		btnVerifyLogin.setBounds(76, 269, 184, 38);
+		getContentPane().add(btnVerifyLogin);
+		btnVerifyLogin.addActionListener(this);
+		
 
-		accounts.loadFile("Players.txt");
+		
 
 
 
@@ -206,11 +240,38 @@ public class Settings extends JFrame implements ActionListener {
 		setVisible(true);
 		setResizable(false);
 	}
+	
+//	public boolean linearSearch(String searchKey, String searchKey2){ // A linear search method that searches for customer name
+//		for(int i = 0; i < size; i++){
+//			if(searchKey.equalsIgnoreCase(list[i].getUserName()) && searchKey2.equals(list[i].getPassword())){ // compares customer names
+//				return true;
+//			}
+//		}
+//		return false; // returns -1 if not found
+//	}
 
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == btnBack){
 			new HomeMenuGUI();
 			dispose();
+		}
+		if(e.getSource() == btnVerifyLogin){
+			if(accounts.linearSearch(usernameField.getText(), passwordField.getText())){
+				userName = usernameField.getText();
+				password = passwordField.getText();
+				btnChange1.setVisible(true);
+				btnChange2.setVisible(true);
+				btnChange3.setVisible(true);
+				btnChange4.setVisible(true);
+				usernameField.setVisible(false);
+				passwordField.setVisible(false);
+				lblUserName.setVisible(false);
+				lblPassword.setVisible(false);
+				btnVerifyLogin.setVisible(false);
+			}
+			else{
+				JOptionPane.showMessageDialog(null, "Incorrect UserName/Password or the Account does not exist.");
+			}
 		}
 		if (e.getSource() == btnChange1) {
 			btnChange1.setVisible(false);
@@ -303,6 +364,8 @@ public class Settings extends JFrame implements ActionListener {
 				picName = "p1,jpg";
 				JOptionPane.showMessageDialog(null, "Picture was set to Default");
 			}
+			player.setAccountpic(picName);
+			
 			btnChange1.setVisible(true);
 			btnChange2.setVisible(true);
 			btnChange3.setVisible(true);
@@ -325,7 +388,7 @@ public class Settings extends JFrame implements ActionListener {
 				lblFillInThe.setVisible(true);
 			}
 			else{
-				name = textField.getText();
+				player.setName(textField.getText());
 				btnChange1.setVisible(true);
 				btnChange2.setVisible(true);
 				btnChange3.setVisible(true);
@@ -343,8 +406,9 @@ public class Settings extends JFrame implements ActionListener {
 				lblFillInThe.setVisible(true);
 			}
 			else{
-				userName = textField4.getText();
 
+				player.setUserName(textField4.getText());
+				
 				btnChange1.setVisible(true);
 				btnChange2.setVisible(true);
 				btnChange3.setVisible(true);
@@ -367,8 +431,9 @@ public class Settings extends JFrame implements ActionListener {
 				lblPass.setVisible(true);
 			}
 			else{
-				password = textField2.getText();
 
+				player.setName(textField2.getText());
+				
 				lblFillInThe.setBounds(50, 281, 161, 14);
 				btnChange1.setVisible(true);
 				btnChange2.setVisible(true);
