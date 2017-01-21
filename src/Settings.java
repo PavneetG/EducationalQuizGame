@@ -9,8 +9,8 @@ import javax.swing.border.EmptyBorder;
 public class Settings extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
-	private JButton btnChange1, btnChange2, btnChange3, btnChange4,btnConfirm,btnConfirm2,btnConfirm3,btnConfirm4,btnBack, btnVerifyLogin; 
-	private JLabel lblChange1, lblChange2, lblChange3, lblChange4, label, label_1, label_2, label_3, lblPass, lblUserName, lblPassword;
+	private JButton btnChange1, btnChange2, btnChange3, btnChange4,btnConfirm,btnConfirm2,btnConfirm3,btnConfirm4,btnBack, btnVerifyLogin, btnCancel; 
+	private JLabel lblChange1, lblChange2, lblChange3, lblChange4, label, label_1, label_2, label_3, lblPass, lblUserName, lblPassword, lblTaken;
 	private JTextField textField, textField2, textField3, textField4;
 	private JRadioButton radioButton, radioButton_1, radioButton_2, radioButton_3;
 	private String name, userName, password, picName;
@@ -28,9 +28,9 @@ public class Settings extends JFrame implements ActionListener {
 	 */
 	public Settings() throws IOException {
 		super("Settings");  // title for the frame
-		
+
 		accounts.loadFile("Players.txt");
-		
+
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getContentPane().setLayout(null);
 
@@ -134,25 +134,25 @@ public class Settings extends JFrame implements ActionListener {
 		textField4.setColumns(10);
 		textField4.setVisible(false);
 
-		label = new JLabel("New label");
+		label = new JLabel("");
 		label.setIcon(new ImageIcon("p1.jpg"));
 		label.setBounds(37, 280, 60, 60);
 		getContentPane().add(label);
 		label.setVisible(false);
 
-		label_1 = new JLabel("New label");
+		label_1 = new JLabel("");
 		label_1.setIcon(new ImageIcon("p4.png"));
 		label_1.setBounds(107, 280, 60, 60);
 		getContentPane().add(label_1);
 		label_1.setVisible(false);
 
-		label_2 = new JLabel("New label");
+		label_2 = new JLabel("");
 		label_2.setIcon(new ImageIcon("p3.jpg"));
 		label_2.setBounds(177, 280, 60, 60);
 		getContentPane().add(label_2);
 		label_2.setVisible(false);
 
-		label_3 = new JLabel("New label");
+		label_3 = new JLabel("");
 		label_3.setIcon(new ImageIcon("p2.png"));
 		label_3.setBounds(246, 280, 60, 60);
 		getContentPane().add(label_3);
@@ -197,32 +197,45 @@ public class Settings extends JFrame implements ActionListener {
 		getContentPane().add(btnBack);
 		btnBack.setVisible(false);
 		btnBack.addActionListener(this);
-		
+
 		usernameField = new JTextField();
 		usernameField.setBounds(91, 165, 153, 20);
 		getContentPane().add(usernameField);
 		usernameField.setColumns(10);
-		
+
 		passwordField = new JPasswordField();
 		passwordField.setColumns(10);
 		passwordField.setBounds(91, 220, 153, 20);
 		getContentPane().add(passwordField);
-		
+
 		lblUserName = new JLabel("User Name");
 		lblUserName.setBounds(91, 149, 83, 14);
 		getContentPane().add(lblUserName);
-		
+
 		lblPassword = new JLabel("Password");
 		lblPassword.setBounds(91, 205, 83, 14);
 		getContentPane().add(lblPassword);
-		
+
 		btnVerifyLogin = new JButton("Verify Login");
 		btnVerifyLogin.setBounds(76, 269, 184, 38);
 		getContentPane().add(btnVerifyLogin);
 		btnVerifyLogin.addActionListener(this);
-		
 
-		
+		lblTaken = new JLabel("UserName Taken Already.");
+		lblTaken.setBounds(37, 275, 189, 14);
+		getContentPane().add(lblTaken);
+		lblTaken.setVisible(false);
+
+		btnCancel = new JButton("Cancel");
+		btnCancel.setFont(new Font("Comic Sans MS", Font.PLAIN, 15));
+		btnCancel.setBounds(10, 398, 184, 38);
+		getContentPane().add(btnCancel);
+		btnCancel.setVisible(false);
+		btnCancel.addActionListener(this);
+
+
+
+
 
 
 
@@ -240,22 +253,23 @@ public class Settings extends JFrame implements ActionListener {
 		setVisible(true);
 		setResizable(false);
 	}
-	
-//	public boolean linearSearch(String searchKey, String searchKey2){ // A linear search method that searches for customer name
-//		for(int i = 0; i < size; i++){
-//			if(searchKey.equalsIgnoreCase(list[i].getUserName()) && searchKey2.equals(list[i].getPassword())){ // compares customer names
-//				return true;
-//			}
-//		}
-//		return false; // returns -1 if not found
-//	}
+
+	//	public boolean linearSearch(String searchKey, String searchKey2){ // A linear search method that searches for customer name
+	//		for(int i = 0; i < size; i++){
+	//			if(searchKey.equalsIgnoreCase(list[i].getUserName()) && searchKey2.equals(list[i].getPassword())){ // compares customer names
+	//				return true;
+	//			}
+	//		}
+	//		return false; // returns -1 if not found
+	//	}
 
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == btnBack){
-			System.out.println(accounts.change(oldInfo, newInfo));
-			try {
-				accounts.writeFile("Players.txt");
-			} catch (IOException e1) {
+			if(accounts.change(oldInfo, newInfo)){
+				try {
+					accounts.writeFile("Players.txt");
+				} catch (IOException e1) {
+				}
 			}
 			new HomeMenuGUI();
 			dispose();
@@ -303,6 +317,7 @@ public class Settings extends JFrame implements ActionListener {
 			radioButton_2.setSelected(false);
 			radioButton_3.setSelected(false);
 			btnConfirm.setVisible(true);
+			btnCancel.setVisible(true);
 
 		}
 		if (e.getSource() == btnChange2) {
@@ -314,6 +329,7 @@ public class Settings extends JFrame implements ActionListener {
 			textField.setVisible(true);
 			lblChange1.setVisible(true);
 			btnConfirm2.setVisible(true);
+			btnCancel.setVisible(true);
 		}
 		if (e.getSource() == btnChange3) {
 			btnChange1.setVisible(false);
@@ -324,6 +340,7 @@ public class Settings extends JFrame implements ActionListener {
 			textField4.setVisible(true);
 			lblChange2.setVisible(true);
 			btnConfirm3.setVisible(true);
+			btnCancel.setVisible(true);
 		}
 		if (e.getSource() == btnChange4) {
 			btnChange1.setVisible(false);
@@ -336,6 +353,7 @@ public class Settings extends JFrame implements ActionListener {
 			lblChange3.setVisible(true);
 			lblChange4.setVisible(true);
 			btnConfirm4.setVisible(true);
+			btnCancel.setVisible(true);
 		}
 		if (e.getSource() == radioButton) {
 			radioButton_1.setSelected(false);
@@ -375,7 +393,7 @@ public class Settings extends JFrame implements ActionListener {
 				picName = "p1,jpg";
 				JOptionPane.showMessageDialog(null, "Picture was set to Default");
 			}
-			
+
 			btnChange1.setVisible(true);
 			btnChange2.setVisible(true);
 			btnChange3.setVisible(true);
@@ -413,12 +431,18 @@ public class Settings extends JFrame implements ActionListener {
 		}
 		if (e.getSource() == btnConfirm3) {
 			if(textField4.getText().equals("")){
+				lblTaken.setVisible(false);
 				lblFillInThe.setVisible(true);
+			}
+			else if(!accounts.checkUserName(textField4.getText())){
+				lblFillInThe.setVisible(false);
+				lblTaken.setVisible(true);
 			}
 			else{
 
 				userName = textField4.getText();
-				
+				lblFillInThe.setVisible(false);
+				lblTaken.setVisible(false);
 				btnChange1.setVisible(true);
 				btnChange2.setVisible(true);
 				btnChange3.setVisible(true);
@@ -443,7 +467,7 @@ public class Settings extends JFrame implements ActionListener {
 			else{
 
 				password = textField2.getText();
-				
+
 				lblFillInThe.setBounds(50, 281, 161, 14);
 				btnChange1.setVisible(true);
 				btnChange2.setVisible(true);
@@ -460,7 +484,41 @@ public class Settings extends JFrame implements ActionListener {
 			}
 
 		}
-		
+		if (e.getSource() == btnCancel) {
+			btnChange1.setVisible(true);
+			btnChange2.setVisible(true);
+			btnChange3.setVisible(true);
+			btnChange4.setVisible(true);
+			btnBack.setVisible(true);
+			btnCancel.setVisible(false);
+			radioButton.setVisible(false);
+			radioButton_1.setVisible(false);
+			radioButton_2.setVisible(false);
+			radioButton_3.setVisible(false);
+			label.setVisible(false);
+			label_1.setVisible(false);
+			label_2.setVisible(false);
+			label_3.setVisible(false);
+			btnConfirm.setVisible(false);
+			textField.setVisible(false);
+			lblFillInThe.setVisible(false);
+			lblChange1.setVisible(false);
+			btnConfirm2.setVisible(false);
+			textField4.setVisible(false);
+			lblFillInThe.setVisible(false);
+			lblChange2.setVisible(false);
+			btnConfirm3.setVisible(false);
+			textField2.setVisible(false);
+			textField3.setVisible(false);
+			lblChange3.setVisible(false);
+			lblChange4.setVisible(false);
+			lblFillInThe.setVisible(false);
+			lblPass.setVisible(false);
+			btnConfirm4.setVisible(false);
+
+
+		}
+
 		newInfo = new Player(name, userName, password, picName);
 	}
 

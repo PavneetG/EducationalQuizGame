@@ -86,6 +86,15 @@ public class PlayerAccountList {
 		}
 		return false;
 	}
+	
+	public boolean checkUserName(String searchKey){ // method to check if username and password meet
+		for(int i = 0; i < size; i++){
+			if(searchKey.equalsIgnoreCase(list[i].getUserName())){ // compares username and compares password
+				return false;
+			}
+		}
+		return true; 
+	}
 
 	public boolean checkLogin(String searchKey, String searchKey2){ // method to check if username and password meet
 		for(int i = 0; i < size; i++){
