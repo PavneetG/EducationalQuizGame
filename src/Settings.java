@@ -404,10 +404,10 @@ public class Settings extends JFrame implements ActionListener {
 			else if(radioButton_1.isSelected()){
 				picName = "p2.png";
 			}
-			else if(radioButton_1.isSelected()){
+			else if(radioButton_2.isSelected()){
 				picName = "p3.jpg";
 			}
-			else if(radioButton_1.isSelected()){
+			else if(radioButton_3.isSelected()){
 				picName = "p4.png";
 			}
 			else{
