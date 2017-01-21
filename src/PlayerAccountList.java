@@ -23,7 +23,7 @@ public class PlayerAccountList {
 		size = 0; 
 		list = new Player [maxSize];
 	}
-	
+
 	public PlayerAccountList(int maxSize) { //overloading
 		this.maxSize = maxSize; //initializing variables
 		size = 0; 
@@ -86,7 +86,7 @@ public class PlayerAccountList {
 		}
 		return false;
 	}
-	
+
 	public boolean checkLogin(String searchKey, String searchKey2){ // method to check if username and password meet
 		for(int i = 0; i < size; i++){
 			if(searchKey.equalsIgnoreCase(list[i].getUserName()) && searchKey2.equals(list[i].getPassword())){ // compares username and compares password
@@ -95,7 +95,7 @@ public class PlayerAccountList {
 		}
 		return false; 
 	}
-	
+
 	public String getName(String searchKey){ // A linear search method that searches for customer name
 		for(int i = 0; i < size; i++){
 			if(searchKey.equalsIgnoreCase(list[i].getUserName())){ // compares customer names
@@ -104,7 +104,7 @@ public class PlayerAccountList {
 		}
 		return null; // returns -1 if not found
 	}
-	
+
 	public String getPic(String searchKey){ // A linear search method that searches for customer name
 		for(int i = 0; i < size; i++){
 			if(searchKey.equalsIgnoreCase(list[i].getUserName())){ // compares customer names
@@ -146,7 +146,7 @@ public class PlayerAccountList {
 		int low = 0;
 		int high = size - 1;
 		int middle;
-
+		insertSort();
 		while(low <= high){
 			middle = (high + low)/2; // divides array in two
 			if(searchKey.equalsIgnoreCase(list[middle].toString())){  // returns middle when found
