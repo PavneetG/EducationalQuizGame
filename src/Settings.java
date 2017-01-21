@@ -16,9 +16,9 @@ public class Settings extends JFrame implements ActionListener {
 	private String name, userName, password, picName;
 	private JLabel lblFillInThe;
 	PlayerAccountList accounts = new PlayerAccountList(); 
-	Player player = new Player(); 
+	Player newInfo, oldInfo;
 	private JTextField usernameField;
-	private JTextField passwordField;
+	private JPasswordField passwordField;
 
 
 
@@ -195,7 +195,7 @@ public class Settings extends JFrame implements ActionListener {
 		btnBack = new JButton("Back");
 		btnBack.setBounds(10, 11, 89, 23);
 		getContentPane().add(btnBack);
-		btnBack.setVisible(true);
+		btnBack.setVisible(false);
 		btnBack.addActionListener(this);
 		
 		usernameField = new JTextField();
@@ -203,7 +203,7 @@ public class Settings extends JFrame implements ActionListener {
 		getContentPane().add(usernameField);
 		usernameField.setColumns(10);
 		
-		passwordField = new JTextField();
+		passwordField = new JPasswordField();
 		passwordField.setColumns(10);
 		passwordField.setBounds(91, 220, 153, 20);
 		getContentPane().add(passwordField);
@@ -252,13 +252,24 @@ public class Settings extends JFrame implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == btnBack){
+			System.out.println(accounts.change(oldInfo, newInfo));
+			try {
+				accounts.writeFile("Players.txt");
+			} catch (IOException e1) {
+			}
 			new HomeMenuGUI();
 			dispose();
 		}
 		if(e.getSource() == btnVerifyLogin){
-			if(accounts.linearSearch(usernameField.getText(), passwordField.getText())){
+			if(accounts.checkLogin(usernameField.getText(), passwordField.getText())){
 				userName = usernameField.getText();
 				password = passwordField.getText();
+				picName = accounts.getPic(userName);
+				name = accounts.getName(userName);
+				oldInfo = new Player(name, userName, password, picName);
+				System.out.println(name);
+				System.out.println(picName);
+				btnBack.setVisible(true);
 				btnChange1.setVisible(true);
 				btnChange2.setVisible(true);
 				btnChange3.setVisible(true);
@@ -364,7 +375,6 @@ public class Settings extends JFrame implements ActionListener {
 				picName = "p1,jpg";
 				JOptionPane.showMessageDialog(null, "Picture was set to Default");
 			}
-			player.setAccountpic(picName);
 			
 			btnChange1.setVisible(true);
 			btnChange2.setVisible(true);
@@ -388,7 +398,7 @@ public class Settings extends JFrame implements ActionListener {
 				lblFillInThe.setVisible(true);
 			}
 			else{
-				player.setName(textField.getText());
+				name = textField.getText();
 				btnChange1.setVisible(true);
 				btnChange2.setVisible(true);
 				btnChange3.setVisible(true);
@@ -407,7 +417,7 @@ public class Settings extends JFrame implements ActionListener {
 			}
 			else{
 
-				player.setUserName(textField4.getText());
+				userName = textField4.getText();
 				
 				btnChange1.setVisible(true);
 				btnChange2.setVisible(true);
@@ -432,7 +442,7 @@ public class Settings extends JFrame implements ActionListener {
 			}
 			else{
 
-				player.setName(textField2.getText());
+				password = textField2.getText();
 				
 				lblFillInThe.setBounds(50, 281, 161, 14);
 				btnChange1.setVisible(true);
@@ -450,6 +460,8 @@ public class Settings extends JFrame implements ActionListener {
 			}
 
 		}
+		
+		newInfo = new Player(name, userName, password, picName);
 	}
 
 	public static void main(String[] args) throws IOException {

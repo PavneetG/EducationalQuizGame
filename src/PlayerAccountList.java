@@ -87,13 +87,31 @@ public class PlayerAccountList {
 		return false;
 	}
 	
-	public boolean linearSearch(String searchKey, String searchKey2){ // A linear search method that searches for customer name
+	public boolean checkLogin(String searchKey, String searchKey2){ // method to check if username and password meet
 		for(int i = 0; i < size; i++){
-			if(searchKey.equalsIgnoreCase(list[i].getUserName()) && searchKey2.equals(list[i].getPassword())){ // compares customer names
+			if(searchKey.equalsIgnoreCase(list[i].getUserName()) && searchKey2.equals(list[i].getPassword())){ // compares username and compares password
 				return true;
 			}
 		}
-		return false; // returns -1 if not found
+		return false; 
+	}
+	
+	public String getName(String searchKey){ // A linear search method that searches for customer name
+		for(int i = 0; i < size; i++){
+			if(searchKey.equalsIgnoreCase(list[i].getUserName())){ // compares customer names
+				return list[i].getName();
+			}
+		}
+		return null; // returns -1 if not found
+	}
+	
+	public String getPic(String searchKey){ // A linear search method that searches for customer name
+		for(int i = 0; i < size; i++){
+			if(searchKey.equalsIgnoreCase(list[i].getUserName())){ // compares customer names
+				return list[i].getAccountpic();
+			}
+		}
+		return null; // returns -1 if not found
 	}
 
 	public void insertSort (){ // An insertion sort method that sorts the customers name
