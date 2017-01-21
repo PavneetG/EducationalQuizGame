@@ -15,8 +15,9 @@ public class CreateAccount extends JFrame implements ActionListener{
 	private JPanel contentPane;
 	private JButton btnLogin, btnClear1, btnClear2, btnClear3, btnClear4, btnCreateAccount; 
 	private JRadioButton radioButton, radioButton_1, radioButton_2, radioButton_3;
-	private JTextField txtUserName,textField,textField_1,textField_2,textField_3; 
-	private JLabel lblPickAPicture,lblEnterAUsername,lblEnterYourName,lblEnterPassword,lblComfirmPassword,label,label_1,label_2,label_3,lblMatch,lblTaken,background, lblUserName, lblPassword, lblStatus;
+	private JTextField txtUserName,passwordField,userNameField,confirmPassField,nameField; 
+	private JLabel lblPickAPicture,lblEnterAUsername,lblEnterYourName,lblEnterPassword,lblComfirmPassword,
+	label,label_1,label_2,label_3,lblMatch,lblTaken,background,lblUserName,lblPassword,lblStatus,lblPicWarning,lblEmpty;
 	PlayerAccountList accounts = new PlayerAccountList(); 
 
 	public CreateAccount() throws IOException {
@@ -24,46 +25,57 @@ public class CreateAccount extends JFrame implements ActionListener{
 		super("Create Account");  // title for the frame
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getContentPane().setLayout(null);
-
-		textField = new JTextField(10);
-		textField_1 = new JTextField(10);
-		textField_2 = new JTextField(10);
-		textField_3 = new JTextField(10);
-
-		textField.addKeyListener(new KeyAdapter() {
+		/*
+		 * Created JTextFields with 10 columns
+		 */
+		passwordField = new JTextField(10);
+		userNameField = new JTextField(10);
+		confirmPassField = new JTextField(10);
+		nameField = new JTextField(10);
+		/*
+		 * Specific clear button appears when typed
+		 * in a textfield
+		 */
+		passwordField.addKeyListener(new KeyAdapter() {
 			public void keyTyped(KeyEvent e) {
 				btnClear3.setVisible(true);
 			}
 		});
 
-		textField_1.addKeyListener(new KeyAdapter() {
+		userNameField.addKeyListener(new KeyAdapter() {
 			public void keyTyped(KeyEvent e) {
 				btnClear1.setVisible(true);
 			}
 		});
 
-		textField_2.addKeyListener(new KeyAdapter() {
+		confirmPassField.addKeyListener(new KeyAdapter() {
 			public void keyTyped(KeyEvent e) {
 				btnClear4.setVisible(true);
 			}
 		});
 
-		textField_3.addKeyListener(new KeyAdapter() {
+		nameField.addKeyListener(new KeyAdapter() {
 			public void keyTyped(KeyEvent e) {
 				btnClear2.setVisible(true);
 			}
 		});
-
-		textField.setBounds(71, 191, 193, 20);
-		textField_1.setBounds(71, 124, 193, 20);
-		textField_2.setBounds(71, 259, 193, 20);
-		textField_3.setBounds(71, 63, 193, 20);
-
-		getContentPane().add(textField);
-		getContentPane().add(textField_1);
-		getContentPane().add(textField_2);
-		getContentPane().add(textField_3);	
-
+		/*
+		 * SetBounds for each textfield
+		 */
+		passwordField.setBounds(71, 191, 193, 20);
+		userNameField.setBounds(71, 124, 193, 20);
+		confirmPassField.setBounds(71, 259, 193, 20);
+		nameField.setBounds(71, 63, 193, 20);
+		/*
+		 * Added textfields to frame
+		 */
+		getContentPane().add(passwordField);
+		getContentPane().add(userNameField);
+		getContentPane().add(confirmPassField);
+		getContentPane().add(nameField);	
+		/*
+		 * Created JLabels with text
+		 */
 		lblEnterAUsername = new JLabel("Enter a UserName");
 		lblEnterYourName = new JLabel("Enter Your Name");
 		lblEnterPassword = new JLabel("Enter Password");
@@ -75,19 +87,27 @@ public class CreateAccount extends JFrame implements ActionListener{
 		label_1 = new JLabel(new ImageIcon("p4.png"));
 		label_2 = new JLabel(new ImageIcon("p3.jpg"));
 		label_3 = new JLabel(new ImageIcon("p2.png"));
-
+		lblEmpty = new JLabel("Fill in the Field(s).");
+		lblPicWarning = new JLabel("You Need To Pick A Picture.");
+		/*
+		 * SetBounds for each JLabel
+		 */
 		lblEnterAUsername.setBounds(71, 110, 193, 14);
 		lblEnterYourName.setBounds(71, 50, 193, 14);
 		lblEnterPassword.setBounds(71, 177, 193, 14);
 		lblComfirmPassword.setBounds(71, 244, 193, 14);
 		lblMatch.setBounds(96, 155, 153, 14);
-		lblTaken.setBounds(103, 94, 137, 14);
-		lblPickAPicture.setBounds(127, 290, 127, 14);
+		lblTaken.setBounds(103, 94, 183, 14);
+		lblPickAPicture.setBounds(133, 290, 104, 14);
 		label.setBounds(37, 337, 60, 60);
 		label_1.setBounds(107, 337, 60, 60);
 		label_2.setBounds(177, 337, 60, 60);
 		label_3.setBounds(246, 337, 60, 60);
-
+		lblEmpty.setBounds(127, 25, 122, 14);
+		lblPicWarning.setBounds(140, 290, 166, 14);
+		/*
+		 * Added labels to frame
+		 */
 		getContentPane().add(lblEnterAUsername);
 		getContentPane().add(lblEnterYourName);
 		getContentPane().add(lblEnterPassword);
@@ -99,118 +119,137 @@ public class CreateAccount extends JFrame implements ActionListener{
 		getContentPane().add(label_1);
 		getContentPane().add(label_2);
 		getContentPane().add(label_3);
-
+		getContentPane().add(lblEmpty);
+		getContentPane().add(lblPicWarning);
+		/*
+		 * Set visible to false for lblMatch and lblTaken
+		 */
 		lblMatch.setVisible(false);
 		lblTaken.setVisible(false);
-
-
-
-
-
+		lblPicWarning.setVisible(false);
+		lblEmpty.setVisible(false);
+		/*
+		 * Created JButtons with text
+		 */
 		btnCreateAccount = new JButton("Create Account!");
 		btnClear1 = new JButton("X");
 		btnClear2 = new JButton("X");
 		btnClear3 = new JButton("X");
 		btnClear4 = new JButton("X");
-
+		/*
+		 * SetBounds for each JButton
+		 */
 		btnCreateAccount.setBounds(96, 419, 144, 41);
 		btnClear1.setBounds(284, 123, 50, 23);
 		btnClear2.setBounds(284, 62, 50, 23);
 		btnClear3.setBounds(284, 190, 50, 23);
 		btnClear4.setBounds(284, 258, 50, 23);
-
+		/*
+		 * Added buttons to the frame
+		 */
 		getContentPane().add(btnCreateAccount);
 		getContentPane().add(btnClear1);
 		getContentPane().add(btnClear2);
 		getContentPane().add(btnClear3);
 		getContentPane().add(btnClear4);
-
+		/*
+		 * Set visibility of several buttons to false
+		 */
 		btnClear1.setVisible(false);	
 		btnClear2.setVisible(false);
 		btnClear3.setVisible(false);
 		btnClear4.setVisible(false);
-
+		/*
+		 * Added actionlistener to all buttons
+		 */
 		btnCreateAccount.addActionListener(this);
 		btnClear1.addActionListener(this);
 		btnClear2.addActionListener(this);
 		btnClear3.addActionListener(this);
 		btnClear4.addActionListener(this);
-
+		/*
+		 * Created JRadioButtons
+		 */
 		radioButton = new JRadioButton();
 		radioButton_1 = new JRadioButton();
 		radioButton_2 = new JRadioButton();
 		radioButton_3 = new JRadioButton();
-
+		/*
+		 * SetBounds for each radiobutton
+		 */
 		radioButton.setBounds(56, 308, 28, 23);
 		radioButton_1.setBounds(127, 308, 28, 23);
 		radioButton_2.setBounds(198, 308, 28, 23);
 		radioButton_3.setBounds(266, 308, 28, 23);
-
+		/*
+		 * Added radiobuttons to frame
+		 */
 		getContentPane().add(radioButton);
 		getContentPane().add(radioButton_1);
 		getContentPane().add(radioButton_2);
 		getContentPane().add(radioButton_3);
-
+		/*
+		 * Added actionlistener to radiobuttons
+		 */
 		radioButton.addActionListener(this);
 		radioButton_1.addActionListener(this);
 		radioButton_2.addActionListener(this);
 		radioButton_3.addActionListener(this);
 
-		accounts.loadFile("Players.txt");
+		accounts.loadFile("Players.txt"); // loads the players.txt file
 
-		setSize(350,500);
+		setSize(350,500); // sets window size
 		setVisible(true);
-		setResizable(false);
+		setResizable(false); // cannot resize the window
 	}
 
 	public void actionPerformed (ActionEvent e){
-		if (e.getSource() == btnClear1) {
-			textField_1.setText("");
+		if (e.getSource() == btnClear1) { // clears userNameField
+			userNameField.setText("");
 			btnClear1.setVisible(false);
 		}
-		if (e.getSource() == btnClear4) {
-			textField_2.setText("");
+		if (e.getSource() == btnClear4) { // clears comfirmPaddField
+			confirmPassField.setText("");
 			btnClear4.setVisible(false);
 		}
-		if (e.getSource() == btnClear3) {
-			textField.setText("");
+		if (e.getSource() == btnClear3) { // clears passwordField
+			passwordField.setText("");
 			btnClear3.setVisible(false);
 		}
-		if (e.getSource() == btnClear2) {
-			textField_3.setText("");
+		if (e.getSource() == btnClear2) { // clears nameField
+			nameField.setText("");
 			btnClear2.setVisible(false);
 		}
-		if (e.getSource() == radioButton){
+		if (e.getSource() == radioButton){ // Unselects other radiobuttons when radioButton is selected 
 			radioButton_1.setSelected(false);
 			radioButton_2.setSelected(false);
 			radioButton_3.setSelected(false);
 		}
-		if (e.getSource() == radioButton_1){
+		if (e.getSource() == radioButton_1){ // Unselects other radiobuttons when radioButton_1 is selected 
 			radioButton.setSelected(false);
 			radioButton_2.setSelected(false);
 			radioButton_3.setSelected(false);
 		}
-		if (e.getSource() == radioButton_2){
+		if (e.getSource() == radioButton_2){ // Unselects other radiobuttons when radioButton_2 is selected 
 			radioButton_1.setSelected(false);
 			radioButton.setSelected(false);
 			radioButton_3.setSelected(false);
 		}
-		if (e.getSource() == radioButton_3){
+		if (e.getSource() == radioButton_3){ // Unselects other radiobuttons when radioButton_3 is selected 
 			radioButton_1.setSelected(false);
 			radioButton_2.setSelected(false);
 			radioButton.setSelected(false);
 		}
 		if (e.getSource() == btnCreateAccount) {
-			String info;
-			String password = null;
-			String pic = null;
-			String name = textField_3.getText();
-			String userName = textField_1.getText();
+			String info, password = null, pic = null, name = nameField.getText(), userName = userNameField.getText(); // created string variables with values from textfields
 
-			if(textField.getText().equals(textField_2.getText())){
-				password = textField.getText();
+			if(passwordField.getText().equals(confirmPassField.getText())){
+				password = passwordField.getText(); // sets password to  passwordField text once it matches the comfirmPassField text
 			}
-
+			/*
+			 * pic will be given a value depending on which radiobutton
+			 * is selected
+			 */
 			if(radioButton.isSelected()){
 				pic = "p1.jpg";
 			}
@@ -224,37 +263,46 @@ public class CreateAccount extends JFrame implements ActionListener{
 				pic = "p4.png";
 			}
 
-			if(textField_3.getText().equals("")||textField_1.getText().equals("")||textField.getText().equals("")||textField_2.getText().equals("") ){
-				JOptionPane.showMessageDialog(null, "Please fill in all the Fields.");
+			if(nameField.getText().equals("")||userNameField.getText().equals("")||passwordField.getText().equals("")||confirmPassField.getText().equals("") ){ // If any textField is empty, the user will be notified 
+				lblMatch.setVisible(false);
+				lblTaken.setVisible(false);
+				lblPicWarning.setVisible(false);
+				lblEmpty.setVisible(true);
 			}
-			else if(!accounts.checkUserName(textField_1.getText())){
-				JOptionPane.showMessageDialog(null, "Passwords Do Not Match");
+			else if(!accounts.checkUserName(userNameField.getText())){ // If UserName is taken, the user will be notified
+				lblMatch.setVisible(false);
+				lblTaken.setVisible(true);
+				lblPicWarning.setVisible(false);
+				lblEmpty.setVisible(false);
 			}
-			else if(pic == null){
-				JOptionPane.showMessageDialog(null, "Select a Picture.");
+			else if(pic == null){ // If picture is not picked, the user will be notified
+				lblMatch.setVisible(false);
+				lblTaken.setVisible(false);
+				lblPicWarning.setVisible(true);
+				lblEmpty.setVisible(false);
+				lblPickAPicture.setVisible(false);
 			}
-			else if(textField.getText().equals(textField_2.getText()) == false){
-				JOptionPane.showMessageDialog(null, "Passwords Do Not Match");
+			else if(passwordField.getText().equals(confirmPassField.getText()) == false){ // If the passwords don't match, the user will be notified
+				lblMatch.setVisible(true);
+				lblTaken.setVisible(false);
+				lblPicWarning.setVisible(false);
+				lblEmpty.setVisible(false);
 			}
 			else{
-				info = name + "," + userName + "," + password + "," + pic;
 
-				Player playerInfo = new Player(info);
-				accounts.insert(playerInfo);
+				Player playerInfo = new Player(name + "," + userName + "," + password + "," + pic); // creates new Player object
+				accounts.insert(playerInfo); // inserts new player info 
 				try {
-					accounts.writeFile("Players.txt");
+					accounts.writeFile("Players.txt"); // saves the file
 				} catch (IOException e1) {
 				}
-				new AccountLogin();
-				dispose();
+				new AccountLogin(); // Opens AccountLogin GUI
+				dispose(); // Closes CreateAccount GUI
 			}
 		}
 	}
 
-	/**
-	 * Launch the application.
-	 * @throws IOException 
-	 */
+
 	public static void main(String[] args) throws IOException {
 		CreateAccount createAccount = new CreateAccount();
 

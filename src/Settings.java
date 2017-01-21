@@ -394,7 +394,6 @@ public class Settings extends JFrame implements ActionListener {
 			radioButton.setSelected(false);
 		}
 		if (e.getSource() == btnConfirm) {
-
 			/*
 			 * When a specific radiobutton is selcted, it will
 			 * set the picName to the picture's name
