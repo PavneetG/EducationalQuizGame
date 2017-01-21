@@ -238,6 +238,9 @@ public class CreateAccount extends JFrame implements ActionListener{
 			if(textField_4.getText().equals("")||textField_1.getText().equals("")||textField.getText().equals("")||textField_2.getText().equals("") ){
 				JOptionPane.showMessageDialog(null, "Please fill in all the Fields.");
 			}
+			else if(!accounts.checkUserName(textField_1.getText())){
+				JOptionPane.showMessageDialog(null, "Passwords Do Not Match");
+			}
 			else if(pic == null){
 				JOptionPane.showMessageDialog(null, "Select a Picture.");
 			}
@@ -245,7 +248,6 @@ public class CreateAccount extends JFrame implements ActionListener{
 				JOptionPane.showMessageDialog(null, "Passwords Do Not Match");
 			}
 			else{
-				
 					info = name + "," + userName + "," + password + "," + pic;
 
 					Player playerInfo = new Player(info);
