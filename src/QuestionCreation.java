@@ -45,7 +45,7 @@ import javax.swing.JButton;
 
 public class QuestionCreation extends JFrame implements ActionListener {
 
-	//creating private variables for buttons, options, textfields and array lists 
+	//creating private variables for buttons, options, textfields, radiobuttons and array lists 
 	private JPanel contentPane; 
 	
 	private JRadioButton trueButton = new JRadioButton ("true");
@@ -70,13 +70,18 @@ public class QuestionCreation extends JFrame implements ActionListener {
 	private JCheckBox checkBox_2 = new JCheckBox("");
 	private JCheckBox checkBox_3 = new JCheckBox("");
 	
+	private JRadioButton radioButton = new JRadioButton (); 
+	private JRadioButton radioButton_1 = new JRadioButton (); 
+	private JRadioButton radioButton_2 = new JRadioButton (); 
+	private JRadioButton radioButton_3 = new JRadioButton (); 
+	
 	private JTextArea textArea = new JTextArea();
 	
 	private String correctAnswer; 
 	
 	private String [] optionsAnswer = new String [4]; 
 	
-	private JButton btnPrevious = new JButton("Previous");
+	//private JButton btnPrevious = new JButton("Previous");
 	
 	private JButton btnNext = new JButton("Next");
 	
@@ -136,7 +141,7 @@ public class QuestionCreation extends JFrame implements ActionListener {
 		lblAnswer.setBounds(30, 238, 47, 20);
 		lblOptions.setBounds(31, 209, 86, 20);
 		btnNext.setBounds(241, 382, 89, 23);
-		btnPrevious.setBounds(126, 382, 89, 23);
+		//btnPrevious.setBounds(126, 382, 89, 23);
 
 		textArea.setWrapStyleWord(true);
 		textArea.setLineWrap(true);
@@ -177,19 +182,31 @@ public class QuestionCreation extends JFrame implements ActionListener {
 
 		add(checkBox_3);
 		
+		add(radioButton); 
+		
+		add(radioButton_1); 
+		
+		add(radioButton_2); 
+		
+		add(radioButton_3); 
+		
 		add(btnNext);
 
-		//adding action listener to combox and check boxes and button next and previous 
+		//adding action listener to combox and check boxes and button next and previous, radio buttons
 		checkBox.addActionListener(this);
 		checkBox_1.addActionListener (this); 
 		checkBox_2.addActionListener(this);
 		checkBox_3.addActionListener(this);
 		trueButton.addActionListener(this);
 		falseButton.addActionListener(this);
+		radioButton.addActionListener(this);
+		radioButton_1.addActionListener(this);
+		radioButton_2.addActionListener(this);
+		radioButton_3.addActionListener(this);
 		btnNext.addActionListener(this);
-		btnPrevious.addActionListener(this);
+		//btnPrevious.addActionListener(this);
 
-		getContentPane().add(btnPrevious);
+		//getContentPane().add(btnPrevious);
 		setLocationRelativeTo (null);
 		setVisible (true); 
 	}
@@ -230,6 +247,14 @@ public class QuestionCreation extends JFrame implements ActionListener {
 				checkBox_2.setBounds(0,0,0,0);
 
 				checkBox_3.setBounds(0,0,0,0);
+				
+				radioButton.setBounds(0,0,0,0);
+
+				radioButton_1.setBounds(0,0,0,0);
+
+				radioButton_2.setBounds(0,0,0,0);
+
+				radioButton_3.setBounds(0,0,0,0);
 
 				break; 
 			}
@@ -261,20 +286,36 @@ public class QuestionCreation extends JFrame implements ActionListener {
 				trueButton.setBounds(0,0,0,0);
 
 				falseButton.setBounds (0,0,0,0);
+				
+				radioButton.setBounds(0,0,0,0);
 
+				radioButton_1.setBounds(0,0,0,0);
+
+				radioButton_2.setBounds(0,0,0,0);
+
+				radioButton_3.setBounds(0,0,0,0);
+				
 				break; 
 			}
 			case "Check Box": {
 				questionType = 3;
 				
 				//setting bounds of new items or moving old items off screen 
-				checkBox.setBounds(324, 206, 26, 23);
+				checkBox.setBounds(0,0,0,0);
 
-				checkBox_1.setBounds(324, 244, 26, 23);
+				checkBox_1.setBounds(0,0,0,0);
 
-				checkBox_2.setBounds(324, 287, 26, 23);
+				checkBox_2.setBounds(0,0,0,0);
 
-				checkBox_3.setBounds(324, 333, 26, 23);
+				checkBox_3.setBounds(0,0,0,0);
+
+				radioButton.setBounds(324, 206, 26, 23);
+
+				radioButton_1.setBounds(324, 244, 26, 23);
+
+				radioButton_2.setBounds(324, 287, 26, 23);
+
+				radioButton_3.setBounds(324, 333, 26, 23);
 
 				lblAnswer.setBounds(324, 188, 47, 20);
 
@@ -301,32 +342,47 @@ public class QuestionCreation extends JFrame implements ActionListener {
 		else if (e.getSource().equals(checkBox)) //checking selected check box, radiobutton and saving answer
 		{
 			correctAnswer = textField.getText(); 
+			checkBox_1.setEnabled(false);
+			checkBox_2.setEnabled(false);
+			checkBox_3.setEnabled(false);
 		}
 		else if (e.getSource().equals(checkBox_1))
 		{
 			correctAnswer = textField_1.getText(); 
+			checkBox.setEnabled(false);
+			checkBox_2.setEnabled(false);
+			checkBox_3.setEnabled(false);
 		}
 		else if (e.getSource().equals(checkBox_2))
 		{
 			correctAnswer = textField_2.getText(); 
+			checkBox.setEnabled(false);
+			checkBox_1.setEnabled(false);
+			checkBox_3.setEnabled(false);
+			
 		}
 		else if (e.getSource().equals(checkBox_3))
 		{
 			correctAnswer = textField_3.getText(); 
+			checkBox_1.setEnabled(false);
+			checkBox_2.setEnabled(false);
+			checkBox.setEnabled(false);
 		}
 		else if (e.getSource().equals(trueButton))
 		{
 			correctAnswer = "True";
+			falseButton.setSelected(false);
 		}
 		else if (e.getSource().equals(falseButton))
 		{
 			correctAnswer = "False"; 
+			trueButton.setSelected(false);
 		}
 		else if (e.getSource().equals(btnNext))
 		{
 
 			//if ()
-			Data.questionNum++; //adding to question num 
+			//Data.questionNum++; //adding to question num 
 //			if (Data.questionNum>size) {
 //				btnNext.setEnabled(false);
 //			}
@@ -390,13 +446,40 @@ public class QuestionCreation extends JFrame implements ActionListener {
 				//Data.q.getQuestions().set(Data.questionNum, mc); 
 				
 			}
+			else if (selectedItem.equals("Check Box"));
+			{
+				questionTitle = textArea.getText(); //getting questionTitle
+				
+				String checkBoxAnswer = ""; 
+				
+				if (e.getSource()== radioButton)
+				{
+					checkBoxAnswer += " "+textField.getText(); 
+				}
+				
+				if (e.getSource() == radioButton_1); 
+				{
+					checkBoxAnswer += " "+textField.getText(); 
+				}
+				
+				if (e.getSource() == radioButton_2)
+				{
+					checkBoxAnswer += " "+textField.getText(); 
+				}
+				
+				if (e.getSource() == radioButton_3)
+				{
+					checkBoxAnswer += " "+textField.getText(); 
+				}
+				
+			}
 			//if (!questionTitle.equals("") || !questionTitle.equals("Untitled Question")) {
 			super.dispose();
 			main(null);	
 			//}
 
 		}
-		else if (e.getSource() == btnPrevious)
+		/*else if (e.getSource() == btnPrevious)
 		{
 			//			if (questionNum<0) {
 			//				btnPrevious.setEnabled(false);
@@ -464,11 +547,11 @@ public class QuestionCreation extends JFrame implements ActionListener {
 			//				break;
 						}
 			}
-
+*/
 
 		}
 
-	}
+	
 
 
 
