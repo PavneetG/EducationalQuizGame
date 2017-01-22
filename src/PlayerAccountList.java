@@ -86,44 +86,44 @@ public class PlayerAccountList {
 		}
 		return false;
 	}
-	
-	public boolean checkUserName(String searchKey){ // method to check if username and password meet
+
+	public boolean checkUserName(String userName){ // method to check if username is available
 		for(int i = 0; i < size; i++){
-			if(searchKey.equalsIgnoreCase(list[i].getUserName())){ // compares username and compares password
+			if(userName.equalsIgnoreCase(list[i].getUserName())){ // compares usernames
 				return false;
 			}
 		}
 		return true; 
 	}
 
-	public boolean checkLogin(String searchKey, String searchKey2){ // method to check if username and password meet
+	public boolean checkLogin(String userName, String password){ // method to check if username and password meet
 		for(int i = 0; i < size; i++){
-			if(searchKey.equalsIgnoreCase(list[i].getUserName()) && searchKey2.equals(list[i].getPassword())){ // compares username and compares password
+			if(userName.equalsIgnoreCase(list[i].getUserName()) && password.equals(list[i].getPassword())){ // compares username and compares password
 				return true;
 			}
 		}
 		return false; 
 	}
 
-	public String getName(String searchKey){ // A linear search method that searches for customer name
+	public String getName(String userName){ // Method used to get name with userName
 		for(int i = 0; i < size; i++){
-			if(searchKey.equalsIgnoreCase(list[i].getUserName())){ // compares customer names
+			if(userName.equalsIgnoreCase(list[i].getUserName())){ // compares userName
 				return list[i].getName();
 			}
 		}
 		return null; // returns -1 if not found
 	}
 
-	public String getPic(String searchKey){ // A linear search method that searches for customer name
+	public String getPic(String userName){ // Method searches for the inputted userName and gets the username's pic name
 		for(int i = 0; i < size; i++){
-			if(searchKey.equalsIgnoreCase(list[i].getUserName())){ // compares customer names
+			if(userName.equalsIgnoreCase(list[i].getUserName())){ // compares userNames
 				return list[i].getAccountpic();
 			}
 		}
 		return null; // returns -1 if not found
 	}
 
-	public void insertSort (){ // An insertion sort method that sorts the customers name
+	public void insertSort (){ // An insertion sort method that sorts the player's name
 		for (int top = 1; top < size; top++){
 			Player item = list[top];
 			int i = top-1;
@@ -135,19 +135,6 @@ public class PlayerAccountList {
 				i--;
 			}
 			list[i+1] = item;
-		}
-	}
-
-	public void rippleSort(){      // Created a Ripple Sort method that sorts username
-		for(int i = 0; i <= size-2;i++){
-			for(int j = i+1; j <= size-1; j++){
-				if(list[i].getUserName().compareToIgnoreCase(list[j].getUserName()) > 0){ // compares usernames
-					Player temp;
-					temp = list[i];
-					list[i] = list [j]; //swap order
-					list[j] = temp;
-				}
-			}
 		}
 	}
 
@@ -192,7 +179,7 @@ public class PlayerAccountList {
 	 */
 	public static void main(String[] args)throws IOException {
 		PlayerAccountList accounts = new PlayerAccountList(); 
-		String[] button = {"Insert","Print","Delete","Change","File Input","Save","insertion sort","Ripple Sort","Quit"}; // string array of buttons
+		String[] button = {"Insert","Print","Delete","Change","File Input","Save","insertion sort","Login","Quit"}; // string array of buttons
 
 		while(true){
 
@@ -207,10 +194,17 @@ public class PlayerAccountList {
 				String info = JOptionPane.showInputDialog(null,"Enter <name>,<userName>,<password>,<picName>",
 						"Kevin Subhash,KevinSub99,123456,p1.jpg");
 				Player playerInfo = new Player(info);
+				if(accounts.checkUserName(playerInfo.getUserName())){
 
-				if (!accounts.insert(playerInfo)){ // account is not added if not valid
-					JOptionPane.showMessageDialog(null, "Account not added");
+					if (!accounts.insert(playerInfo)){ // account is not added if not valid
+						JOptionPane.showMessageDialog(null, "Maximum Number of Accounts reached.");
+					}
 				}
+				else{
+					JOptionPane.showMessageDialog(null, "UserName is Taken.");
+				}
+				System.out.println("Name: " + accounts.getName(playerInfo.getUserName()));
+				System.out.println("Pic Name: " + accounts.getPic(playerInfo.getUserName()));
 				break;
 			}
 			case 'F':{ // inserts all player info from txt file
@@ -269,8 +263,17 @@ public class PlayerAccountList {
 				accounts.insertSort();
 				break;
 			}
-			case 'R':{ // performs ripple sort
-				accounts.rippleSort();
+			case 'L':{ // performs ripple sort
+				String userName = JOptionPane.showInputDialog(null,"Enter userName",
+						"KevinSub99");
+				String password = JOptionPane.showInputDialog(null,"Enter password",
+						"123456");
+				if(accounts.checkLogin(userName, password)){
+					JOptionPane.showMessageDialog(null,"Login Success");
+				}
+				else{
+					JOptionPane.showMessageDialog(null,"Login Failed");
+				}
 				break;
 			}
 			} // end of while loop
