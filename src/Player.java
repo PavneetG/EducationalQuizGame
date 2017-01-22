@@ -59,7 +59,7 @@ public class Player {
 	public void updatePlayerData (String info)
 	{
 		String word [];
-		word = info.split("|");
+		word = info.split(";");
 		this.name = word[0];
 		this.userName = word[1];
 		this.password = word[2];
@@ -115,7 +115,7 @@ public class Player {
 	}
 	
 	public String toString(){ // method to change inputed variable to full form and return a string record
-		return (getName() + "|" + getUserName() + "|" + getPassword() + "|" + getAccountpic() + "|" + getStats());
+		return (getName() + ";" + getUserName() + ";" + getPassword() + ";" + getAccountpic() + ";" + getStats());
 	}
 
 	/**

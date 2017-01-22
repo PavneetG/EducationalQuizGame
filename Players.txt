@@ -1,6 +1,1 @@
-Aaron Ferron,WhiteStreak,spacecows,p2.png
-Janujan,Mister99,999897,p3.jpg
-Pavneet Gill,PG247,jacket2468,p4.png
-Lily,lily2017,computers,p3.jpg
-Kevin Subhash,KevinSub,123,p1.jpg
-admin,admin,admin,p3.jpg
+Kevin Subhash;KevinSub99;123456;p1.jpg;3|20|18|90.0|3.5|3|[American History, European History, World History]

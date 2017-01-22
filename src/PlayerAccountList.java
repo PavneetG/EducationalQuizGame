@@ -228,7 +228,7 @@ public class PlayerAccountList {
 			case 'D':{ // deletes a player account
 				Player playerInfo = new Player();
 				String record = JOptionPane.showInputDialog(null,"Enter <name>,<userName>,<password>,<picName>", //prompt user for player info to delete account
-						"Kevin Subhash,KevinSub99,123456,p1.jpg");
+						"Kevin Subhash;KevinSub99;123456;p1.jpg;3|20|18|90.0|3.5|3|[American History, European History, World History]");
 
 				playerInfo.updatePlayerData(record); // processes inputed string
 
@@ -240,11 +240,11 @@ public class PlayerAccountList {
 				break;
 			}
 			case 'C':{ // changes a player account into another
-				String oldRecord = JOptionPane.showInputDialog(null, "Enter Account to Change", "Kevin Subhash,KevinSub99,123456,p1.jpg"); // prompts user for old account info
+				String oldRecord = JOptionPane.showInputDialog(null, "Enter Account to Change", "Kevin Subhash;KevinSub99;123456;p1.jpg;3|20|18|90.0|3.5|3|[American History, European History, World History]"); // prompts user for old account info
 				Player oldInfo = new Player();
 				oldInfo.updatePlayerData(oldRecord); // processes old account string
 
-				String newRecord = JOptionPane.showInputDialog(null, "Enter Account to Change to", "Janujan G.,JG100,789456,p2.png"); // prompts user for new account info
+				String newRecord = JOptionPane.showInputDialog(null, "Enter Account to Change to", "Janujan G.;JG100;789456;p2.png;3|10|13|99.9|3.5|3|[American History, European History, World History]"); // prompts user for new account info
 				Player newInfo = new Player();
 				newInfo.updatePlayerData(newRecord); // processes new string info
 
