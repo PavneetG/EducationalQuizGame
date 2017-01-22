@@ -33,7 +33,7 @@ import java.io.IOException;
 
 public class HomeMenuGUI extends JFrame implements MouseListener{
 	private JTextField txtSearch;
-	private JLabel lblSettings, lblCreate;
+	private JLabel lblSettings, lblCreate, lblLogout, lblCredits, lblStatistics;
 
 	public HomeMenuGUI() {
 
@@ -49,17 +49,18 @@ public class HomeMenuGUI extends JFrame implements MouseListener{
 
 
 
-		JLabel lblCredits = new JLabel("Credits");
+		lblCredits = new JLabel("Credits");
 		lblCredits.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCredits.setBounds(36, 446, 78, 16);
 		getContentPane().add(lblCredits);
 
-		JLabel lblLogout = new JLabel("Logout");
+		lblLogout = new JLabel("Logout");
 		lblLogout.setHorizontalAlignment(SwingConstants.CENTER);
 		lblLogout.setBounds(36, 495, 78, 16);
 		getContentPane().add(lblLogout);
+		lblLogout.addMouseListener(this);
 
-		JLabel lblStatistics = new JLabel("Statistics");
+		lblStatistics = new JLabel("Statistics");
 		lblStatistics.setHorizontalAlignment(SwingConstants.CENTER);
 		lblStatistics.setBounds(36, 363, 78, 16);
 		getContentPane().add(lblStatistics);
@@ -167,6 +168,13 @@ public class HomeMenuGUI extends JFrame implements MouseListener{
 				dispose();
 			} catch (IOException e1) {
 			}
+		}
+		else if(e.getSource() == lblLogout){
+			try {
+				new AccountLogin();
+			} catch (IOException e1) {
+			}
+			dispose();
 		}
 		else if(e.getSource() == lblCreate){
 

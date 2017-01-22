@@ -226,6 +226,7 @@ public class Settings extends JFrame implements ActionListener {
 				userName = universalField.getText(); // setting variables to the pre-existing player information
 				password = passwordField.getText();
 				picName = accounts.getPic(userName);
+				name = accounts.getList()e.
 				name = accounts.getName(userName);
 				oldInfo = new Player(name, userName, password, picName);
 				/*

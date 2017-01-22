@@ -40,26 +40,33 @@ public class Player {
 			this.userName = userName; 
 			this.password = password; 
 			this.picName = picName;
+			this.stats = null;
 	}
 	
 	public Player (String info)
 	{
 		String word [];
-		word = info.split(",");
+		word = info.split(";");
 		this.name = word[0];
 		this.userName = word[1];
 		this.password = word[2];
 		this.picName = word[3];
+		String str = word[4];
+		String[] data = str.split("\\|");
+		this.stats = new Statistics(data);
 	}
 	
 	public void updatePlayerData (String info)
 	{
 		String word [];
-		word = info.split(",");
+		word = info.split("|");
 		this.name = word[0];
 		this.userName = word[1];
 		this.password = word[2];
 		this.picName = word[3];
+		String str = word[4];
+		String[] data = str.split("\\|");
+		this.stats = new Statistics(data);
 	}
 	
 	public String getName() 
@@ -86,6 +93,11 @@ public class Player {
 	{
 		return stats;
 	}
+	
+//	public Statistics setStats(String info) 
+//	{
+//		this.stats = new Statistics(info);
+//	}
 
 	public void setAccountpic(String picName) 
 	{
@@ -103,7 +115,7 @@ public class Player {
 	}
 	
 	public String toString(){ // method to change inputed variable to full form and return a string record
-		return (getName() + "," + getUserName() + "," + getPassword() + "," + getAccountpic());
+		return (getName() + "|" + getUserName() + "|" + getPassword() + "|" + getAccountpic() + "|" + getStats());
 	}
 
 	/**
@@ -116,7 +128,7 @@ public class Player {
 				String playerInfo = ""; //creating variable for playerInfo 
 
 
-				playerInfo = JOptionPane.showInputDialog(null, "Enter:"+ "<name>,<userName>,<password>","Kevin Subhash,KevinSub,489568");
+				playerInfo = JOptionPane.showInputDialog(null, "Enter:"+ "<name>,<userName>,<password>","Kevin Subhash;KevinSub99;123456;p1.jpg;3|20|18|90.0|3.5|3|[American History, European History, World History]");
 
 				//process Record
 				Player playerRecord = new Player(playerInfo); //creating a Customer constructor 
@@ -128,6 +140,8 @@ public class Player {
 				System.out.println("UserName: " + playerRecord.getUserName());
 				
 				System.out.println("Password: " + playerRecord.getPassword()); 
+				
+				System.out.println("Stats: " + playerRecord.getStats().getOverallPercentage()); 
 	}
 
 }

@@ -157,6 +157,10 @@ public class PlayerAccountList {
 		}
 		return -2;
 	}
+	
+	public Player getPlayer (){
+		return ;
+	}
 
 	public boolean change(Player oldR, Player newR){ // method used to change an account
 		if(delete(oldR)){ // deletes old account and inserts new account
@@ -192,7 +196,7 @@ public class PlayerAccountList {
 			switch (button[command].charAt(0)){
 			case 'I':{ // inserts player info manually 
 				String info = JOptionPane.showInputDialog(null,"Enter <name>,<userName>,<password>,<picName>",
-						"Kevin Subhash,KevinSub99,123456,p1.jpg");
+						"Kevin Subhash;KevinSub99;123456;p1.jpg;3|20|18|90.0|3.5|3|[American History, European History, World History]");
 				Player playerInfo = new Player(info);
 				if(accounts.checkUserName(playerInfo.getUserName())){
 

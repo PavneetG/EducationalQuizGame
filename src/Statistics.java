@@ -53,7 +53,6 @@ public class Statistics {
 		 * [5] ÐÊsize
 		 * [6] Ð quizHistory
 		 */
-		
 		numQuizzes = Integer.parseInt(info[0]);
 		numTotal = Integer.parseInt(info[1]);
 		numCorrect = Integer.parseInt(info[2]);

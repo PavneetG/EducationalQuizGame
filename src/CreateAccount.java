@@ -296,7 +296,10 @@ public class CreateAccount extends JFrame implements ActionListener{
 					accounts.writeFile("Players.txt"); // saves the file
 				} catch (IOException e1) {
 				}
-				new AccountLogin(); // Opens AccountLogin GUI
+				try {
+					new AccountLogin();
+				} catch (IOException e1) {
+				} // Opens AccountLogin GUI
 				dispose(); // Closes CreateAccount GUI
 			}
 		}
