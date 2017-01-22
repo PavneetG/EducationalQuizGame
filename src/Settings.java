@@ -11,12 +11,13 @@ import javax.swing.border.EmptyBorder;
 public class Settings extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
-	private JButton btnChange1, btnChange2, btnChange3, btnChange4,btnConfirm,btnConfirm2,btnConfirm3,btnConfirm4,btnBack, btnVerifyLogin, btnCancel; // declared variables as JButtons
+	private JButton btnChange1, btnChange2, btnChange3, btnChange4,btnConfirm,btnConfirm2,btnConfirm3,btnConfirm4,btnBack,btnVerifyLogin, btnCancel; // declared variables as JButtons
 	private JLabel lblChange1, lblChange2, lblChange3, lblChange4, label, label_1, label_2, label_3, lblUserName, lblPassword, lblStatus; // declared variables as JLabels
 	private JTextField confirmPassField, universalField; // declared variables as JTextField
 	private JRadioButton radioButton, radioButton_1, radioButton_2, radioButton_3; // declared variables as JRadioButton
 	private String name, userName, password, picName; // declared variables as String
 	private JPasswordField passwordField; // declared variable as JPasswordField
+	private int key;
 	PlayerAccountList accounts = new PlayerAccountList();  // created PlayerAccountList object
 	Player newInfo, oldInfo; // declared variables as Player
 
@@ -271,6 +272,7 @@ public class Settings extends JFrame implements ActionListener {
 			 * Setting visibility of buttons, labels, and textfields 
 			 * to either true or false
 			 */
+			key = 1;
 			btnChange1.setVisible(false);
 			btnChange2.setVisible(false);
 			btnChange3.setVisible(false);
@@ -297,6 +299,7 @@ public class Settings extends JFrame implements ActionListener {
 			 * Setting visibility of buttons, labels, and textfields 
 			 * to either true or false
 			 */
+			key = 2;
 			universalField.setText("");
 			universalField.setBounds(10, 318, 184, 20);
 			universalField.setVisible(true);
@@ -306,7 +309,7 @@ public class Settings extends JFrame implements ActionListener {
 			btnChange4.setVisible(false);
 			btnBack.setVisible(false);
 			lblChange1.setVisible(true);
-			btnConfirm2.setVisible(true);
+			btnConfirm.setVisible(true);
 			btnCancel.setVisible(true);
 		}
 		if (e.getSource() == btnChange3) {
@@ -314,6 +317,7 @@ public class Settings extends JFrame implements ActionListener {
 			 * Setting visibility of buttons, labels, and textfields 
 			 * to either true or false
 			 */
+			key = 3;
 			universalField.setText("");
 			universalField.setBounds(10, 318, 184, 20);
 			universalField.setVisible(true);
@@ -323,14 +327,15 @@ public class Settings extends JFrame implements ActionListener {
 			btnChange4.setVisible(false);
 			btnBack.setVisible(false);
 			lblChange2.setVisible(true);
-			btnConfirm3.setVisible(true);
+			btnConfirm.setVisible(true);
 			btnCancel.setVisible(true);
 		}
 		if (e.getSource() == btnChange4) {
 			/*
 			 * Setting visibility of buttons, labels, and textfields 
 			 * to either true or false
-			 */
+			 */ 
+			key = 4;
 			universalField.setText("");
 			universalField.setBounds(10, 269, 184, 20);	
 			universalField.setVisible(true);
@@ -342,7 +347,7 @@ public class Settings extends JFrame implements ActionListener {
 			confirmPassField.setVisible(true);
 			lblChange3.setVisible(true);
 			lblChange4.setVisible(true);
-			btnConfirm4.setVisible(true);
+			btnConfirm.setVisible(true);
 			btnCancel.setVisible(true);
 		}
 		/*
@@ -382,129 +387,140 @@ public class Settings extends JFrame implements ActionListener {
 			radioButton.setSelected(false);
 		}
 		if (e.getSource() == btnConfirm) {
-			/*
-			 * When a specific radiobutton is selcted, it will
-			 * set the picName to the picture's name
-			 */
-			if(radioButton.isSelected()){
-				picName = "p1.jpg";
+			if (key == 1){
+				/*
+				 * When a specific radiobutton is selcted, it will
+				 * set the picName to the picture's name
+				 */
+				if(radioButton.isSelected()){
+					picName = "p1.jpg";
+				}
+				else if(radioButton_1.isSelected()){
+					picName = "p2.png";
+				}
+				else if(radioButton_2.isSelected()){
+					picName = "p3.jpg";
+				}
+				else if(radioButton_3.isSelected()){
+					picName = "p4.png";
+				}
+				else{
+					picName = "p1,jpg";
+					//lblStatus.setText("Picture was set to Default Image");
+					//lblStatus.setVisible(true);
+				}
+				/*
+				 * Setting visibility of buttons, labels, and textfields 
+				 * to either true or false
+				 */
+				btnChange1.setVisible(true);
+				btnChange2.setVisible(true);
+				btnChange3.setVisible(true);
+				btnChange4.setVisible(true);
+				btnBack.setVisible(true);
+				radioButton.setVisible(false);
+				radioButton_1.setVisible(false);
+				radioButton_2.setVisible(false);
+				radioButton_3.setVisible(false);
+				label.setVisible(false);
+				label_1.setVisible(false);
+				label_2.setVisible(false);
+				label_3.setVisible(false);
+				btnConfirm.setVisible(false);
 			}
-			else if(radioButton_1.isSelected()){
-				picName = "p2.png";
+			else if(key == 2){
+				if(universalField.getText().equals("")){
+					lblStatus.setBounds(50, 281, 161, 14);
+					lblStatus.setText("Fill in the Field(s).");			
+					lblStatus.setVisible(true);
+				}
+				else{
+					name = universalField.getText();
+					/*
+					 * Setting visibility of buttons, labels, and textfields 
+					 * to either true or false
+					 */
+					universalField.setVisible(false);
+					lblStatus.setVisible(false);
+					btnChange1.setVisible(true);
+					btnChange2.setVisible(true);
+					btnChange3.setVisible(true);
+					btnChange4.setVisible(true);
+					btnBack.setVisible(true);
+					lblChange1.setVisible(false);
+					btnConfirm.setVisible(false);
+				}
 			}
-			else if(radioButton_2.isSelected()){
-				picName = "p3.jpg";
+			else if(key == 3){
+				if(universalField.getText().equals("")){ // checking if textfield is empty
+					lblStatus.setBounds(50, 281, 161, 14);
+					lblStatus.setText("Fill in the Field(s).");			
+					lblStatus.setVisible(true);
+				}
+				else if(!accounts.checkUserName(universalField.getText())){ // checking if username exists already
+					lblStatus.setBounds(37, 275, 189, 14);
+					lblStatus.setText("UserName Taken Already");			
+					lblStatus.setVisible(true);
+				}
+				else{
+					userName = universalField.getText(); // userName hold text in textField4
+					/*
+					 * Setting visibility of buttons, labels, and textfields 
+					 * to either true or false
+					 */
+					universalField.setVisible(false);
+					lblStatus.setVisible(false);
+					btnChange1.setVisible(true);
+					btnChange2.setVisible(true);
+					btnChange3.setVisible(true);
+					btnChange4.setVisible(true);
+					btnBack.setVisible(true);
+					lblChange2.setVisible(false);
+					btnConfirm.setVisible(false);
+				}
 			}
-			else if(radioButton_3.isSelected()){
-				picName = "p4.png";
+			else if (key == 4){
+				if(universalField.getText().equals("") || confirmPassField.getText().equals("")){ // checking if textfields are filled
+					lblStatus.setBounds(50, 241, 161, 14);
+					lblStatus.setText("Fill in the Field(s).");			
+					lblStatus.setVisible(true);
+				}
+				else if(universalField.getText().equals(confirmPassField.getText()) == false){ // checking if text in both textfields are not the same
+					lblStatus.setBounds(25, 235, 161, 14);
+					lblStatus.setText("Passwords DO NOT Match.");			
+					lblStatus.setVisible(true);
+				}
+				else{
+					password = universalField.getText(); // password hold the text in textField2
+					/*
+					 * Setting visibility of buttons, labels, and textfields 
+					 * to either true or false
+					 */
+					universalField.setVisible(false);
+					lblStatus.setVisible(false);
+					btnChange1.setVisible(true);
+					btnChange2.setVisible(true);
+					btnChange3.setVisible(true);
+					btnChange4.setVisible(true);
+					btnBack.setVisible(true);
+					confirmPassField.setVisible(false);
+					lblChange3.setVisible(false);
+					lblChange4.setVisible(false);
+					btnConfirm.setVisible(false);
+				}
 			}
-			else{
-				picName = "p1,jpg";
-				//lblStatus.setText("Picture was set to Default Image");
-				//lblStatus.setVisible(true);
-			}
-			/*
-			 * Setting visibility of buttons, labels, and textfields 
-			 * to either true or false
-			 */
-			btnChange1.setVisible(true);
-			btnChange2.setVisible(true);
-			btnChange3.setVisible(true);
-			btnChange4.setVisible(true);
-			btnBack.setVisible(true);
-			radioButton.setVisible(false);
-			radioButton_1.setVisible(false);
-			radioButton_2.setVisible(false);
-			radioButton_3.setVisible(false);
-			label.setVisible(false);
-			label_1.setVisible(false);
-			label_2.setVisible(false);
-			label_3.setVisible(false);
-			btnConfirm.setVisible(false);
 		}
 		if (e.getSource() == btnConfirm2) {
 
-			if(universalField.getText().equals("")){
-				lblStatus.setBounds(50, 281, 161, 14);
-				lblStatus.setText("Fill in the Field(s).");			
-				lblStatus.setVisible(true);
-			}
-			else{
-				name = universalField.getText();
-				/*
-				 * Setting visibility of buttons, labels, and textfields 
-				 * to either true or false
-				 */
-				universalField.setVisible(false);
-				lblStatus.setVisible(false);
-				btnChange1.setVisible(true);
-				btnChange2.setVisible(true);
-				btnChange3.setVisible(true);
-				btnChange4.setVisible(true);
-				btnBack.setVisible(true);
-				lblChange1.setVisible(false);
-				btnConfirm2.setVisible(false);
-			}
+			
 		}
 		if (e.getSource() == btnConfirm3) { 
+
 			
-			if(universalField.getText().equals("")){ // checking if textfield is empty
-				lblStatus.setBounds(50, 281, 161, 14);
-				lblStatus.setText("Fill in the Field(s).");			
-				lblStatus.setVisible(true);
-			}
-			else if(!accounts.checkUserName(universalField.getText())){ // checking if username exists already
-				lblStatus.setBounds(37, 275, 189, 14);
-				lblStatus.setText("UserName Taken Already");			
-				lblStatus.setVisible(true);
-			}
-			else{
-				userName = universalField.getText(); // userName hold text in textField4
-				/*
-				 * Setting visibility of buttons, labels, and textfields 
-				 * to either true or false
-				 */
-				universalField.setVisible(false);
-				lblStatus.setVisible(false);
-				btnChange1.setVisible(true);
-				btnChange2.setVisible(true);
-				btnChange3.setVisible(true);
-				btnChange4.setVisible(true);
-				btnBack.setVisible(true);
-				lblChange2.setVisible(false);
-				btnConfirm3.setVisible(false);
-			}
 		}
 		if (e.getSource() == btnConfirm4) {
-				
-			if(universalField.getText().equals("") || confirmPassField.getText().equals("")){ // checking if textfields are filled
-				lblStatus.setBounds(50, 241, 161, 14);
-				lblStatus.setText("Fill in the Field(s).");			
-				lblStatus.setVisible(true);
-			}
-			else if(universalField.getText().equals(confirmPassField.getText()) == false){ // checking if text in both textfields are not the same
-				lblStatus.setBounds(25, 235, 161, 14);
-				lblStatus.setText("Passwords DO NOT Match.");			
-				lblStatus.setVisible(true);
-			}
-			else{
-				password = universalField.getText(); // password hold the text in textField2
-				/*
-				 * Setting visibility of buttons, labels, and textfields 
-				 * to either true or false
-				 */
-				universalField.setVisible(false);
-				lblStatus.setVisible(false);
-				btnChange1.setVisible(true);
-				btnChange2.setVisible(true);
-				btnChange3.setVisible(true);
-				btnChange4.setVisible(true);
-				btnBack.setVisible(true);
-				confirmPassField.setVisible(false);
-				lblChange3.setVisible(false);
-				lblChange4.setVisible(false);
-				btnConfirm4.setVisible(false);
-			}
+
+			
 		}
 		if (e.getSource() == btnCancel) {
 			/*
@@ -536,7 +552,7 @@ public class Settings extends JFrame implements ActionListener {
 			confirmPassField.setVisible(false);
 			btnBack.setVisible(true);
 			btnCancel.setVisible(false);
-			
+
 		}
 		newInfo = new Player(name, userName, password, picName);
 	}
