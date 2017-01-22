@@ -121,7 +121,7 @@ public class Player {
 				//process Record
 				Player playerRecord = new Player(playerInfo); //creating a Customer constructor 
 
-				System.out.println(playerRecord); 
+				System.out.println(playerRecord.toString()); 
 				
 				System.out.println("Name: "+ playerRecord.getName()); 
 				
