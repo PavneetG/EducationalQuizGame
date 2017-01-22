@@ -12,8 +12,8 @@ public class Settings extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
 	private JButton btnChange1, btnChange2, btnChange3, btnChange4,btnConfirm,btnConfirm2,btnConfirm3,btnConfirm4,btnBack, btnVerifyLogin, btnCancel; // declared variables as JButtons
-	private JLabel lblChange1, lblChange2, lblChange3, lblChange4, label, label_1, label_2, label_3, lblPass, lblUserName, lblPassword, lblTaken, lblEmptyBox; // declared variables as JLabels
-	private JTextField textField, textField2, textField3, textField4, usernameField; // declared variables as JTextField
+	private JLabel lblChange1, lblChange2, lblChange3, lblChange4, label, label_1, label_2, label_3, lblUserName, lblPassword, lblStatus; // declared variables as JLabels
+	private JTextField confirmPassField, universalField; // declared variables as JTextField
 	private JRadioButton radioButton, radioButton_1, radioButton_2, radioButton_3; // declared variables as JRadioButton
 	private String name, userName, password, picName; // declared variables as String
 	private JPasswordField passwordField; // declared variable as JPasswordField
@@ -148,37 +148,25 @@ public class Settings extends JFrame implements ActionListener {
 		/*
 		 * Creted JTextFields with 10 columns 
 		 */
-		textField = new JTextField(10);
-		textField2 = new JTextField(10);
-		textField3 = new JTextField(10);
-		textField4 = new JTextField(10);
-		usernameField = new JTextField(10);
+		universalField = new JTextField(10);
+		confirmPassField = new JTextField(10);
 		passwordField = new JPasswordField(10);
 		/*
 		 * SetBounds for textfields
 		 */
-		textField.setBounds(10, 318, 184, 20);
-		textField2.setBounds(10, 269, 184, 20);
-		textField3.setBounds(10, 318, 184, 20);
-		textField4.setBounds(10, 318, 184, 20);
-		usernameField.setBounds(91, 165, 153, 20);
+		confirmPassField.setBounds(10, 318, 184, 20);
+		universalField.setBounds(91, 165, 153, 20);
 		passwordField.setBounds(91, 220, 153, 20);
 		/*
 		 * Added textfield to frame
 		 */
-		getContentPane().add(textField);
-		getContentPane().add(textField2);
-		getContentPane().add(textField3);
-		getContentPane().add(textField4);
-		getContentPane().add(usernameField);
+		getContentPane().add(confirmPassField);
 		getContentPane().add(passwordField);
+		getContentPane().add(universalField);
 		/*
 		 * Set visibility to certain textfields to false
 		 */
-		textField.setVisible(false);
-		textField2.setVisible(false);
-		textField3.setVisible(false);
-		textField4.setVisible(false);
+		confirmPassField.setVisible(false);
 		/*
 		 * Creted JLabels with text
 		 */
@@ -190,14 +178,13 @@ public class Settings extends JFrame implements ActionListener {
 		label_1 = new JLabel(new ImageIcon("p4.png"));
 		label_2 = new JLabel(new ImageIcon("p3.jpg"));
 		label_3 = new JLabel(new ImageIcon("p2.png"));
-		lblEmptyBox = new JLabel("Fill in the Field(s).");
+		lblStatus = new JLabel("Invalid UserName/Password");
 		lblUserName = new JLabel("User Name");
 		lblPassword = new JLabel("Password");
-		lblPass = new JLabel("Password DO NOT Match.");
-		lblTaken = new JLabel("UserName Taken Already.");
 		/*
 		 * SetBounds for labels
 		 */
+		lblStatus.setBounds(91, 120, 243, 20);
 		lblChange1.setBounds(10, 300, 153, 14);
 		lblChange2.setBounds(10, 300, 153, 14);
 		lblChange3.setBounds(10, 256, 132, 14);
@@ -206,11 +193,8 @@ public class Settings extends JFrame implements ActionListener {
 		label_1.setBounds(107, 280, 60, 60);
 		label_2.setBounds(177, 280, 60, 60);
 		label_3.setBounds(246, 280, 60, 60);
-		lblEmptyBox.setBounds(50, 281, 161, 14);
-		lblPass.setBounds(50, 235, 161, 14);
 		lblUserName.setBounds(91, 149, 83, 14);
 		lblPassword.setBounds(91, 205, 83, 14);
-		lblTaken.setBounds(37, 275, 189, 14);
 		/*
 		 * Added labels to frame
 		 */
@@ -222,11 +206,9 @@ public class Settings extends JFrame implements ActionListener {
 		getContentPane().add(label_1);
 		getContentPane().add(label_2);
 		getContentPane().add(label_3);
-		getContentPane().add(lblEmptyBox);
-		getContentPane().add(lblPass);
 		getContentPane().add(lblUserName);
 		getContentPane().add(lblPassword);
-		getContentPane().add(lblTaken);
+		getContentPane().add(lblStatus);
 		/*
 		 * set visibility for certain labels to false
 		 */
@@ -238,9 +220,7 @@ public class Settings extends JFrame implements ActionListener {
 		label_1.setVisible(false);	
 		label_2.setVisible(false);
 		label_3.setVisible(false);
-		lblEmptyBox.setVisible(false);
-		lblPass.setVisible(false);
-		lblTaken.setVisible(false);
+		lblStatus.setVisible(false);
 
 		setSize(350,500); // set size of window
 		setVisible(true);
@@ -259,8 +239,8 @@ public class Settings extends JFrame implements ActionListener {
 			dispose(); // closes settings gui
 		}
 		if(e.getSource() == btnVerifyLogin){
-			if(accounts.checkLogin(usernameField.getText(), passwordField.getText())){
-				userName = usernameField.getText(); // setting variables to the pre-existing player information
+			if(accounts.checkLogin(universalField.getText(), passwordField.getText())){
+				userName = universalField.getText(); // setting variables to the pre-existing player information
 				password = passwordField.getText();
 				picName = accounts.getPic(userName);
 				name = accounts.getName(userName);
@@ -269,19 +249,21 @@ public class Settings extends JFrame implements ActionListener {
 				 * Setting visibility of buttons, labels, and textfields 
 				 * to either true or false
 				 */
+				lblStatus.setVisible(false);
 				btnBack.setVisible(true);
 				btnChange1.setVisible(true);
 				btnChange2.setVisible(true);
 				btnChange3.setVisible(true);
 				btnChange4.setVisible(true);
-				usernameField.setVisible(false);
+				universalField.setVisible(false);
 				passwordField.setVisible(false);
 				lblUserName.setVisible(false);
 				lblPassword.setVisible(false);
 				btnVerifyLogin.setVisible(false);
 			}
 			else{
-				JOptionPane.showMessageDialog(null, "Incorrect UserName/Password or the Account does not exist.");
+				lblStatus.setText("Invalid UserName/Password");
+				lblStatus.setVisible(true);
 			}
 		}
 		if (e.getSource() == btnChange1) {
@@ -315,12 +297,14 @@ public class Settings extends JFrame implements ActionListener {
 			 * Setting visibility of buttons, labels, and textfields 
 			 * to either true or false
 			 */
+			universalField.setText("");
+			universalField.setBounds(10, 318, 184, 20);
+			universalField.setVisible(true);
 			btnChange1.setVisible(false);
 			btnChange2.setVisible(false);
 			btnChange3.setVisible(false);
 			btnChange4.setVisible(false);
 			btnBack.setVisible(false);
-			textField.setVisible(true);
 			lblChange1.setVisible(true);
 			btnConfirm2.setVisible(true);
 			btnCancel.setVisible(true);
@@ -330,12 +314,14 @@ public class Settings extends JFrame implements ActionListener {
 			 * Setting visibility of buttons, labels, and textfields 
 			 * to either true or false
 			 */
+			universalField.setText("");
+			universalField.setBounds(10, 318, 184, 20);
+			universalField.setVisible(true);
 			btnChange1.setVisible(false);
 			btnChange2.setVisible(false);
 			btnChange3.setVisible(false);
 			btnChange4.setVisible(false);
 			btnBack.setVisible(false);
-			textField4.setVisible(true);
 			lblChange2.setVisible(true);
 			btnConfirm3.setVisible(true);
 			btnCancel.setVisible(true);
@@ -345,13 +331,15 @@ public class Settings extends JFrame implements ActionListener {
 			 * Setting visibility of buttons, labels, and textfields 
 			 * to either true or false
 			 */
+			universalField.setText("");
+			universalField.setBounds(10, 269, 184, 20);	
+			universalField.setVisible(true);
 			btnChange1.setVisible(false);
 			btnChange2.setVisible(false);
 			btnChange3.setVisible(false);
 			btnChange4.setVisible(false);
 			btnBack.setVisible(false);
-			textField2.setVisible(true);
-			textField3.setVisible(true);
+			confirmPassField.setVisible(true);
 			lblChange3.setVisible(true);
 			lblChange4.setVisible(true);
 			btnConfirm4.setVisible(true);
@@ -412,7 +400,8 @@ public class Settings extends JFrame implements ActionListener {
 			}
 			else{
 				picName = "p1,jpg";
-				JOptionPane.showMessageDialog(null, "Picture was set to Default");
+				//lblStatus.setText("Picture was set to Default Image");
+				//lblStatus.setVisible(true);
 			}
 			/*
 			 * Setting visibility of buttons, labels, and textfields 
@@ -434,82 +423,86 @@ public class Settings extends JFrame implements ActionListener {
 			btnConfirm.setVisible(false);
 		}
 		if (e.getSource() == btnConfirm2) {
-			if(textField.getText().equals("")){
-				lblEmptyBox.setVisible(true); // setting lblEmptyBox visible to true when textfield is empty
+
+			if(universalField.getText().equals("")){
+				lblStatus.setBounds(50, 281, 161, 14);
+				lblStatus.setText("Fill in the Field(s).");			
+				lblStatus.setVisible(true);
 			}
 			else{
-				name = textField.getText();
+				name = universalField.getText();
 				/*
 				 * Setting visibility of buttons, labels, and textfields 
 				 * to either true or false
 				 */
+				universalField.setVisible(false);
+				lblStatus.setVisible(false);
 				btnChange1.setVisible(true);
 				btnChange2.setVisible(true);
 				btnChange3.setVisible(true);
 				btnChange4.setVisible(true);
 				btnBack.setVisible(true);
-				textField.setVisible(false);
-				lblEmptyBox.setVisible(false);
 				lblChange1.setVisible(false);
 				btnConfirm2.setVisible(false);
 			}
 		}
 		if (e.getSource() == btnConfirm3) { 
-			if(textField4.getText().equals("")){ // checking if textfield is empty
-				lblTaken.setVisible(false); // setting lblTaken visible to false
-				lblEmptyBox.setVisible(true); // setting lblEmptyBox visible to true
+			
+			if(universalField.getText().equals("")){ // checking if textfield is empty
+				lblStatus.setBounds(50, 281, 161, 14);
+				lblStatus.setText("Fill in the Field(s).");			
+				lblStatus.setVisible(true);
 			}
-			else if(!accounts.checkUserName(textField4.getText())){ // checking if username exists already
-				lblEmptyBox.setVisible(false); // making label visible false
-				lblTaken.setVisible(true); // making label visible true
+			else if(!accounts.checkUserName(universalField.getText())){ // checking if username exists already
+				lblStatus.setBounds(37, 275, 189, 14);
+				lblStatus.setText("UserName Taken Already");			
+				lblStatus.setVisible(true);
 			}
 			else{
-				userName = textField4.getText(); // userName hold text in textField4
+				userName = universalField.getText(); // userName hold text in textField4
 				/*
 				 * Setting visibility of buttons, labels, and textfields 
 				 * to either true or false
 				 */
-				lblEmptyBox.setVisible(false);
-				lblTaken.setVisible(false);
+				universalField.setVisible(false);
+				lblStatus.setVisible(false);
 				btnChange1.setVisible(true);
 				btnChange2.setVisible(true);
 				btnChange3.setVisible(true);
 				btnChange4.setVisible(true);
 				btnBack.setVisible(true);
-				textField4.setVisible(false);
-				lblEmptyBox.setVisible(false);
 				lblChange2.setVisible(false);
 				btnConfirm3.setVisible(false);
 			}
 		}
 		if (e.getSource() == btnConfirm4) {
-			if(textField2.getText().equals("") || textField3.getText().equals("")){ // checking if textfields are filled
-				lblEmptyBox.setBounds(50, 235, 161, 14); // moving label to new location and making it visible
-				lblPass.setVisible(false); // making labelPass visible false
-				lblEmptyBox.setVisible(true);
+				
+			if(universalField.getText().equals("") || confirmPassField.getText().equals("")){ // checking if textfields are filled
+				lblStatus.setBounds(50, 241, 161, 14);
+				lblStatus.setText("Fill in the Field(s).");			
+				lblStatus.setVisible(true);
 			}
-			else if(textField2.getText().equals(textField3.getText()) == false){ // checking if text in both textfields are not the same
-				lblEmptyBox.setVisible(false); // setting lblEmptyBox visible to false
-				lblPass.setVisible(true); // setting lblPass visible to true
+			else if(universalField.getText().equals(confirmPassField.getText()) == false){ // checking if text in both textfields are not the same
+				lblStatus.setBounds(25, 235, 161, 14);
+				lblStatus.setText("Passwords DO NOT Match.");			
+				lblStatus.setVisible(true);
 			}
 			else{
-				password = textField2.getText(); // password hold the text in textField2
+				password = universalField.getText(); // password hold the text in textField2
 				/*
 				 * Setting visibility of buttons, labels, and textfields 
 				 * to either true or false
 				 */
-				lblEmptyBox.setBounds(50, 281, 161, 14); // setting label to original location
+				universalField.setVisible(false);
+				lblStatus.setVisible(false);
 				btnChange1.setVisible(true);
 				btnChange2.setVisible(true);
 				btnChange3.setVisible(true);
 				btnChange4.setVisible(true);
 				btnBack.setVisible(true);
-				textField2.setVisible(false);
-				textField3.setVisible(false);
+				confirmPassField.setVisible(false);
 				lblChange3.setVisible(false);
 				lblChange4.setVisible(false);
-				lblEmptyBox.setVisible(false);
-				lblPass.setVisible(false);
 				btnConfirm4.setVisible(false);
 			}
 		}
@@ -518,12 +511,12 @@ public class Settings extends JFrame implements ActionListener {
 			 * Setting visibility of buttons, labels, and textfields 
 			 * to either true or false
 			 */
+			universalField.setVisible(false);
+			lblStatus.setVisible(false);
 			btnChange1.setVisible(true); 
 			btnChange2.setVisible(true);
 			btnChange3.setVisible(true);
-			btnChange4.setVisible(true);
-			btnBack.setVisible(true);
-			btnCancel.setVisible(false);
+			btnChange4.setVisible(true);	
 			radioButton.setVisible(false);
 			radioButton_1.setVisible(false);
 			radioButton_2.setVisible(false);
@@ -533,21 +526,17 @@ public class Settings extends JFrame implements ActionListener {
 			label_2.setVisible(false);
 			label_3.setVisible(false);
 			btnConfirm.setVisible(false);
-			textField.setVisible(false);
-			lblEmptyBox.setVisible(false);
-			lblChange1.setVisible(false);
 			btnConfirm2.setVisible(false);
-			textField4.setVisible(false);
-			lblEmptyBox.setVisible(false);
-			lblChange2.setVisible(false);
 			btnConfirm3.setVisible(false);
-			textField2.setVisible(false);
-			textField3.setVisible(false);
+			btnConfirm4.setVisible(false);
+			lblChange1.setVisible(false);
+			lblChange2.setVisible(false);
 			lblChange3.setVisible(false);
 			lblChange4.setVisible(false);
-			lblEmptyBox.setVisible(false);
-			lblPass.setVisible(false);
-			btnConfirm4.setVisible(false);
+			confirmPassField.setVisible(false);
+			btnBack.setVisible(true);
+			btnCancel.setVisible(false);
+			
 		}
 		newInfo = new Player(name, userName, password, picName);
 	}
