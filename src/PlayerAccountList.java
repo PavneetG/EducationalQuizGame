@@ -157,10 +157,6 @@ public class PlayerAccountList {
 		}
 		return -2;
 	}
-	
-	public Player getPlayer (){
-		return ;
-	}
 
 	public boolean change(Player oldR, Player newR){ // method used to change an account
 		if(delete(oldR)){ // deletes old account and inserts new account
