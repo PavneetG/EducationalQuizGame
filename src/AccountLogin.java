@@ -17,6 +17,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 //Authour: Janujan Gathieswaran
 
 public class AccountLogin extends JFrame implements ActionListener {
@@ -25,15 +26,19 @@ public class AccountLogin extends JFrame implements ActionListener {
 	private JLabel background, lblUserName, lblPassword, lblStatus;
 	private JPasswordField passwordField;
 	private int tries = 0; 
-	private String password = "admin", userName = "admin";
+	private String password, userName;
 	private JLabel lblCreateAccount;
+	PlayerAccountList accounts = new PlayerAccountList();
 
 
-	public AccountLogin() {
+	public AccountLogin() throws IOException {
 		super("Login");  // title for the frame
 
 		setSize(350,500);
 		getContentPane().setLayout(null);
+		
+		accounts.loadFile("Players.txt");
+		
 		txtUserName = new JTextField("");
 		txtUserName.addKeyListener(new KeyAdapter() {
 
@@ -96,7 +101,11 @@ public class AccountLogin extends JFrame implements ActionListener {
 		lblCreateAccount = new JLabel("Create Account");
 		lblCreateAccount.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent arg0) {
-				JOptionPane.showMessageDialog(null, "Slithering Jonathan");
+				try {
+					new CreateAccount();
+				} catch (IOException e) {
+				}
+				dispose();
 			}
 		});
 		lblCreateAccount.setHorizontalAlignment(SwingConstants.CENTER);
@@ -108,7 +117,7 @@ public class AccountLogin extends JFrame implements ActionListener {
 		getContentPane().add(btnClear1);
 		btnClear1.setVisible(false);
 		btnClear1.addActionListener(this);
-		
+
 		btnClear2 = new JButton("X");
 		btnClear2.setBounds(280, 231, 44, 23);
 		getContentPane().add(btnClear2);
@@ -138,9 +147,11 @@ public class AccountLogin extends JFrame implements ActionListener {
 			btnClear1.setVisible(false);
 		}
 		if(e.getSource()==btnLogin){
-			if(access()==true && tries < 5) {
-				JOptionPane.showMessageDialog(null,"Success");
+			if(accounts.checkLogin(txtUserName.getText(), passwordField.getText()) && tries < 5) {
+
 				lblStatus.setText("");
+				new HomeMenuGUI();
+				dispose();
 			}
 			else{
 				txtUserName.setText("");
@@ -159,20 +170,20 @@ public class AccountLogin extends JFrame implements ActionListener {
 		}
 	}
 	//getter methods
-	public String getPassword() {
-		return password;
-	}
-	public String getUserName() {
-		return userName;
-	}
-	//setter methods
-	public void setPassword(String password) {
-		this.password = password;
-	}
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
-	public static void main(String[] args) {
+	//	public String getPassword() {
+	//		return password;
+	//	}
+	//	public String getUserName() {
+	//		return userName;
+	//	}
+	//	//setter methods
+	//	public void setPassword(String password) {
+	//		this.password = password;
+	//	}
+	//	public void setUserName(String userName) {
+	//		this.userName = userName;
+	//	}
+	public static void main(String[] args) throws IOException {
 		AccountLogin accountLogin = new AccountLogin();
 	}
 }
