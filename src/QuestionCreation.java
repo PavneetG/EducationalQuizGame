@@ -449,28 +449,41 @@ public class QuestionCreation extends JFrame implements ActionListener {
 			else if (selectedItem.equals("Check Box"));
 			{
 				questionTitle = textArea.getText(); //getting questionTitle
-				
-				String checkBoxAnswer = ""; 
+				ArrayList<String>  checkBoxAnswer = new ArrayList<String>(); 
+				ArrayList<String>  options = new ArrayList<String>(); 
+				options.add(textField.getText());
+				options.add(textField_1.getText());
+				options.add(textField_2.getText());
+				options.add(textField_3.getText());
 				
 				if (e.getSource()== radioButton)
 				{
-					checkBoxAnswer += " "+textField.getText(); 
+					checkBoxAnswer.add(textField.getText());
 				}
 				
 				if (e.getSource() == radioButton_1); 
 				{
-					checkBoxAnswer += " "+textField.getText(); 
+					checkBoxAnswer.add(textField_1.getText());
 				}
 				
 				if (e.getSource() == radioButton_2)
 				{
-					checkBoxAnswer += " "+textField.getText(); 
+					checkBoxAnswer.add(textField_2.getText());
 				}
 				
 				if (e.getSource() == radioButton_3)
 				{
-					checkBoxAnswer += " "+textField.getText(); 
+					checkBoxAnswer.add(textField_3.getText());
 				}
+				
+				QuestionCB cb = new QuestionCB(questionTitle);
+				
+				Data.q.addQuestion(cb);
+				System.out.println(cb.getQuestion());
+
+				
+				
+				
 				
 			}
 			//if (!questionTitle.equals("") || !questionTitle.equals("Untitled Question")) {
