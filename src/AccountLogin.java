@@ -23,7 +23,7 @@ import java.io.IOException;
 public class AccountLogin extends JFrame implements ActionListener {
 	private JButton btnLogin, btnClear1, btnClear2; 
 	private JTextField txtUserName; 
-	private JLabel background, lblUserName, lblPassword, lblStatus;
+	private JLabel background, lblUserName, lblPassword, lblStatus, picture;
 	private JPasswordField passwordField;
 	private int tries = 0; 
 	private String password, userName;
@@ -92,6 +92,10 @@ public class AccountLogin extends JFrame implements ActionListener {
 		lblPassword = new JLabel("Password");
 		lblPassword.setBounds(70, 276, 84, 14);
 		getContentPane().add(lblPassword);
+		
+		picture = new JLabel(new ImageIcon("popQuiz.png"));
+		picture.setBounds(35, 0, 256, 256);
+		getContentPane().add(picture);
 
 		lblStatus = new JLabel("");
 		lblStatus.setHorizontalAlignment(SwingConstants.CENTER);
@@ -150,7 +154,12 @@ public class AccountLogin extends JFrame implements ActionListener {
 			if(accounts.checkLogin(txtUserName.getText(), passwordField.getText()) && tries < 5) {
 
 				lblStatus.setText("");
-				new HomeMenuGUI();
+				Data.userName = txtUserName.getText();
+				System.out.println(Data.accounts.getPic(Data.userName));
+				try {
+					new HomeMenuGUI();
+				} catch (IOException e1) {
+				}
 				dispose();
 			}
 			else{
@@ -169,20 +178,7 @@ public class AccountLogin extends JFrame implements ActionListener {
 			}
 		}
 	}
-	//getter methods
-	//	public String getPassword() {
-	//		return password;
-	//	}
-	//	public String getUserName() {
-	//		return userName;
-	//	}
-	//	//setter methods
-	//	public void setPassword(String password) {
-	//		this.password = password;
-	//	}
-	//	public void setUserName(String userName) {
-	//		this.userName = userName;
-	//	}
+
 	public static void main(String[] args) throws IOException {
 		AccountLogin accountLogin = new AccountLogin();
 	}

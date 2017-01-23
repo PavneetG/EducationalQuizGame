@@ -34,13 +34,14 @@ public class Player {
 	}
 
 	//Overloads Constructor initializes the customer data
-	public Player(String name, String userName, String password, String picName)
+	
+	public Player(String name, String userName, String password, String picName, Statistics stats)
 	{
 			this.name= name; 
 			this.userName = userName; 
 			this.password = password; 
 			this.picName = picName;
-			this.stats = null;
+			this.stats = new Statistics();
 	}
 	
 	public Player (String info)
@@ -141,7 +142,7 @@ public class Player {
 				
 				System.out.println("Password: " + playerRecord.getPassword()); 
 				
-				System.out.println("Stats: " + playerRecord.getStats().getOverallPercentage()); 
+				System.out.println("Stats: " + playerRecord.getStats()); 
 	}
 
 }

@@ -12,13 +12,12 @@ import java.awt.event.KeyEvent;
 
 public class CreateAccount extends JFrame implements ActionListener{
 
-	private JPanel contentPane;
+	private JPanel contentPane; // declaring variables
 	private JButton btnLogin, btnClear1, btnClear2, btnClear3, btnClear4, btnCreateAccount; 
 	private JRadioButton radioButton, radioButton_1, radioButton_2, radioButton_3;
-	private JTextField txtUserName,passwordField,userNameField,confirmPassField,nameField; 
+	private JTextField passwordField,userNameField,confirmPassField,nameField; 
 	private JLabel lblPickAPicture,lblEnterAUsername,lblEnterYourName,lblEnterPassword,lblComfirmPassword,
-	label,label_1,label_2,label_3,lblMatch,lblTaken,background,lblUserName,lblPassword,lblStatus,lblPicWarning,lblEmpty;
-	PlayerAccountList accounts = new PlayerAccountList(); 
+	label,label_1,label_2,label_3,lblMatch,lblTaken,lblPicWarning,lblEmpty;
 
 	public CreateAccount() throws IOException {
 
@@ -196,7 +195,7 @@ public class CreateAccount extends JFrame implements ActionListener{
 		radioButton_2.addActionListener(this);
 		radioButton_3.addActionListener(this);
 
-		accounts.loadFile("Players.txt"); // loads the players.txt file
+		Data.accounts.loadFile("Players.txt"); // loads the players.txt file
 
 		setSize(350,500); // sets window size
 		setVisible(true);
@@ -254,13 +253,13 @@ public class CreateAccount extends JFrame implements ActionListener{
 				pic = "p1.jpg";
 			}
 			else if (radioButton_1.isSelected()){
-				pic = "p2.png";
+				pic = "p4.png";
 			}
 			else if (radioButton_2.isSelected()){
 				pic = "p3.jpg";
 			}
 			else if (radioButton_3.isSelected()){
-				pic = "p4.png";
+				pic = "p2.png";
 			}
 
 			if(nameField.getText().equals("")||userNameField.getText().equals("")||passwordField.getText().equals("")||confirmPassField.getText().equals("") ){ // If any textField is empty, the user will be notified 
@@ -269,7 +268,7 @@ public class CreateAccount extends JFrame implements ActionListener{
 				lblPicWarning.setVisible(false);
 				lblEmpty.setVisible(true);
 			}
-			else if(!accounts.checkUserName(userNameField.getText())){ // If UserName is taken, the user will be notified
+			else if(!Data.accounts.checkUserName(userNameField.getText())){ // If UserName is taken, the user will be notified
 				lblMatch.setVisible(false);
 				lblTaken.setVisible(true);
 				lblPicWarning.setVisible(false);
@@ -289,11 +288,11 @@ public class CreateAccount extends JFrame implements ActionListener{
 				lblEmpty.setVisible(false);
 			}
 			else{
-
-				Player playerInfo = new Player(name + "," + userName + "," + password + "," + pic); // creates new Player object
-				accounts.insert(playerInfo); // inserts new player info 
+				String t = name + ";" + userName + ";" + password + ";" + pic + ";0|0|0|0.0|0.0|1|[empty]";
+				Player playerInfo = new Player(t); // creates new Player object
+				Data.accounts.insert(playerInfo); // inserts new player info 
 				try {
-					accounts.writeFile("Players.txt"); // saves the file
+					Data.accounts.writeFile("Players.txt"); // saves the file
 				} catch (IOException e1) {
 				}
 				try {

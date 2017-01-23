@@ -33,13 +33,14 @@ import java.io.IOException;
 
 public class HomeMenuGUI extends JFrame implements MouseListener{
 	private JTextField txtSearch;
-	private JLabel lblSettings, lblCreate, lblLogout, lblCredits, lblStatistics;
+	private JLabel lblSettings, lblCreate, lblLogout, lblCredits, lblStatistics, lblPic;
 
-	public HomeMenuGUI() {
+
+	public HomeMenuGUI() throws IOException {
 
 		//http://stackoverflow.com/questions/8701716/how-to-remove-title-bar-in-jframe
 		//Reference to remove title bar of the JFrame
-
+		Data.accounts.loadFile("Players.txt");
 		setContentPane (new JLabel(new ImageIcon ("Images/HomeMenuGUI.png")));
 		setSize(500,700);
 		//setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -64,6 +65,11 @@ public class HomeMenuGUI extends JFrame implements MouseListener{
 		lblStatistics.setHorizontalAlignment(SwingConstants.CENTER);
 		lblStatistics.setBounds(36, 363, 78, 16);
 		getContentPane().add(lblStatistics);
+
+		lblPic = new JLabel(new ImageIcon(Data.accounts.getPic(Data.userName)));
+		lblPic.setHorizontalAlignment(SwingConstants.CENTER);
+		lblPic.setBounds(30, 30, 60, 60);
+		getContentPane().add(lblPic);
 
 		lblCreate = new JLabel("Create");
 		lblCreate.setHorizontalAlignment(SwingConstants.CENTER);
@@ -151,12 +157,13 @@ public class HomeMenuGUI extends JFrame implements MouseListener{
 		});
 		button_11.setBounds(149, 6, 32, 26);
 		getContentPane().add(button_11);
+
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setVisible(true);
 
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		HomeMenuGUI homeMenu = new HomeMenuGUI ();
 	}
 

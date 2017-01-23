@@ -15,12 +15,12 @@ public class Settings extends JFrame implements ActionListener {
 	private JLabel lblChange1, lblChange2, lblChange3, lblChange4, label, label_1, label_2, label_3, lblUserName, lblPassword, lblStatus; // declared variables as JLabels
 	private JTextField confirmPassField, universalField; // declared variables as JTextField
 	private JRadioButton radioButton, radioButton_1, radioButton_2, radioButton_3; // declared variables as JRadioButton
-	private String name, userName, password, picName; // declared variables as String
+	private String name, userName, password, picName, stats; // declared variables as String
+	private Statistics stat;
 	private JPasswordField passwordField; // declared variable as JPasswordField
 	private int key; // decalred variable as int, it is a key for btnConfirm
-	PlayerAccountList accounts = new PlayerAccountList();  // created PlayerAccountList object
 	Player newInfo, oldInfo; // declared variables as Player
-
+	PlayerAccountList accounts = new PlayerAccountList();
 	public Settings() throws IOException {
 		super("Settings");  // title for the frame
 
@@ -218,17 +218,21 @@ public class Settings extends JFrame implements ActionListener {
 				} catch (IOException e1) {
 				}
 			}
-			new HomeMenuGUI(); // calls HomeMenuGUI
+			try {
+				new HomeMenuGUI();
+			} catch (IOException e1) {
+			} // calls HomeMenuGUI
 			dispose(); // closes settings gui
 		}
 		if(e.getSource() == btnVerifyLogin){ // performs when Verify login is pressed is pressed
-			if(accounts.checkLogin(universalField.getText(), passwordField.getText())){
+			if(Data.userName.equalsIgnoreCase(universalField.getText()) && accounts.checkLogin(universalField.getText(), passwordField.getText())){
 				userName = universalField.getText(); // setting variables to the pre-existing player information
 				password = passwordField.getText();
-				picName = accounts.getPic(userName);
-				//name = accounts.; 
-				name = accounts.getName(userName);
-				oldInfo = new Player(name, userName, password, picName);
+				picName = Data.accounts.getPic(userName);
+				stats = Data.accounts.getStats(userName).toString();
+				name = Data.accounts.getName(userName);
+				oldInfo = new Player(name + ";" + userName + ";" + password + ";" + picName + ";" +  stats);
+				System.out.println("oldInfo: " + oldInfo);
 				/*
 				 * Setting visibility of buttons, labels, and textfields 
 				 * to either true or false
@@ -520,7 +524,8 @@ public class Settings extends JFrame implements ActionListener {
 				btnCancel.setVisible(false);
 
 			}
-			newInfo = new Player(name, userName, password, picName); // creating Player object called newInfo with new information
+			newInfo = new Player(name + ";" + userName + ";" + password + ";" + picName + ";" +  stats); // creating Player object called newInfo with new information
+			System.out.println("newInfo: " + newInfo);
 		}
 	}
 	public static void main(String[] args) throws IOException {

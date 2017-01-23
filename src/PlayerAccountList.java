@@ -95,6 +95,15 @@ public class PlayerAccountList {
 		}
 		return true; 
 	}
+	
+	public Statistics getStats(String userName){ // method to check if username is available
+		for(int i = 0; i < size; i++){
+			if(userName.equalsIgnoreCase(list[i].getUserName())){ // compares usernames
+				return list[i].getStats();
+			}
+		}
+		return null;
+	}
 
 	public boolean checkLogin(String userName, String password){ // method to check if username and password meet
 		for(int i = 0; i < size; i++){
@@ -205,6 +214,7 @@ public class PlayerAccountList {
 				}
 				System.out.println("Name: " + accounts.getName(playerInfo.getUserName()));
 				System.out.println("Pic Name: " + accounts.getPic(playerInfo.getUserName()));
+				System.out.println("Stats: " + accounts.getStats(playerInfo.getUserName()));
 				break;
 			}
 			case 'F':{ // inserts all player info from txt file
