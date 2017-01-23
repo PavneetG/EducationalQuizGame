@@ -6,10 +6,13 @@ import java.io.IOException;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JTable;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.SystemColor;
+import javax.swing.table.DefaultTableModel;
 
 public class StatisticsGUI extends JFrame {
 
@@ -17,10 +20,6 @@ public class StatisticsGUI extends JFrame {
 	private JLabel lblPicture, lblPlayerName; 
 	private JTable table;
 
-	/**
-	 * Launch the application.
-	 * @throws IOException 
-	 */
 	public static void main(String[] args) throws IOException {
 		StatisticsGUI statistics = new StatisticsGUI();
 	}
@@ -41,13 +40,16 @@ public class StatisticsGUI extends JFrame {
 			Data.accounts.getStats(Data.userName).getOverallPercentage(), Data.accounts.getStats(Data.userName).getAverageTime()}};
 		
 		table = new JTable(data, columns);
-		table.setBounds(41, 217, 250, 173);
+		table.getColumnModel().getColumn(1).setPreferredWidth(92);
+		table.getColumnModel().getColumn(2).setPreferredWidth(98);
+		table.getColumnModel().getColumn(4).setPreferredWidth(87);
+		table.setBounds(38, 289, 250, 37);
 		table.setPreferredScrollableViewportSize(new Dimension(500, 50));
 		table.setFillsViewportHeight(true);
 		getContentPane().add(table);
 		
 		lblPicture = new JLabel(new ImageIcon(Data.accounts.getPic(Data.userName)));
-		lblPlayerName = new JLabel(Data.userName + "'s Statistics");
+		lblPlayerName = new JLabel("<html>" + Data.userName + "'s Statistics" + "<html>");
 		
 		lblPlayerName.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		

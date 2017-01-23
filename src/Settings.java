@@ -81,7 +81,7 @@ public class Settings extends JFrame implements ActionListener {
 		btnChange4.setVisible(false);
 		btnConfirm.setVisible(false);
 		btnCancel.setVisible(false);
-		btnBack.setVisible(false);
+		//btnBack.setVisible(false);
 		/*
 		 * Added actionlistener to all JButtons
 		 */
@@ -212,16 +212,19 @@ public class Settings extends JFrame implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == btnBack){
-			if(accounts.change(oldInfo, newInfo)){ // when the information is changed, it saves to the file
-				try {
+			try{
+				if(accounts.change(oldInfo, newInfo)){ // when the information is changed, it saves to the file
+
 					accounts.writeFile("Players.txt");
-				} catch (IOException e1) {
+
 				}
-			}
-			try {
 				new HomeMenuGUI();
-			} catch (IOException e1) {
-			} // calls HomeMenuGUI
+			} catch (ArrayIndexOutOfBoundsException e1) {
+				accounts.change(newInfo, oldInfo);
+			} catch(IOException e2){
+				
+			}
+
 			dispose(); // closes settings gui
 		}
 		if(e.getSource() == btnVerifyLogin){ // performs when Verify login is pressed is pressed
@@ -232,6 +235,8 @@ public class Settings extends JFrame implements ActionListener {
 				stats = Data.accounts.getStats(userName).toString();
 				name = Data.accounts.getName(userName);
 				oldInfo = new Player(name + ";" + userName + ";" + password + ";" + picName + ";" +  stats);
+				newInfo = new Player(name + ";" + userName + ";" + password + ";" + picName + ";" +  stats);
+				System.out.println("newInfo: " + oldInfo);
 				System.out.println("oldInfo: " + oldInfo);
 				/*
 				 * Setting visibility of buttons, labels, and textfields 
