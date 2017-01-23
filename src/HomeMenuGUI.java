@@ -65,6 +65,7 @@ public class HomeMenuGUI extends JFrame implements MouseListener{
 		lblStatistics.setHorizontalAlignment(SwingConstants.CENTER);
 		lblStatistics.setBounds(36, 363, 78, 16);
 		getContentPane().add(lblStatistics);
+		lblStatistics.addMouseListener(this);
 
 		lblPic = new JLabel(new ImageIcon(Data.accounts.getPic(Data.userName)));
 		lblPic.setHorizontalAlignment(SwingConstants.CENTER);
@@ -186,6 +187,14 @@ public class HomeMenuGUI extends JFrame implements MouseListener{
 		else if(e.getSource() == lblCreate){
 
 			new TriviaCreationGUI();
+			dispose();
+		}
+		else if(e.getSource() == lblStatistics){
+
+			try {
+				new StatisticsGUI();
+			} catch (IOException e1) {
+			}
 			dispose();
 		}
 	}
