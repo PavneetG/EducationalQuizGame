@@ -13,6 +13,7 @@ import javax.swing.JTextArea;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.awt.event.ActionEvent;
 import javax.swing.border.TitledBorder;
 import javax.swing.border.LineBorder;
@@ -95,7 +96,13 @@ public class TriviaCreationGUI extends JFrame implements ActionListener {
 	
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == btnBack){
+			
+			try {
 			new HomeMenuGUI();
+			} catch (Exception f) {
+				// TODO Auto-generated catch block
+				//e.printStackTrace();
+			}
 			dispose();
 		}
 		else if(e.getSource() == btnCreate){

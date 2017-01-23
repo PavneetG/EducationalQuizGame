@@ -95,17 +95,25 @@ public class QuestionCBGUI extends JFrame implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		
 		input = new ArrayList();
+//		for (int f = 0; f<input.size();f++) {
+//			System.out.print(input.get(f) + ", ");
+//			System.out.println();
+//		}
 		
 		for(int i = 0; i < optionSize; i++){
 			if(e.getSource() == checkBox[i]){
 				if(checkBox[i].isSelected()){
 					input.add(options.get(i));
+					
+					
+					//enhanced if statement
+//					"The checkbox is "+(cb.isSelected()?"":"not ")+"selected");}});
 				}
 
 			}
 		}
 		
-		//System.out.println(input.);
+		//System.out.println(input);
 	}
 
 }
