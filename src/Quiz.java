@@ -40,6 +40,15 @@ public class Quiz {
 	 * ==============================
 	 */
 
+	//default constructor
+	public Quiz () {
+		this.quizID = 0;
+		this.category = "";
+		this.quizName = "";
+		this.size = 0;
+		this.questions = new ArrayList<Question>();
+	}
+	
 	// constructor for new quiz
 	public Quiz(String category, String quizName) {
 		this.quizID = generateQuizID();
@@ -57,6 +66,8 @@ public class Quiz {
 		this.size = questions.size();
 	}
 
+
+
 	/*
 	 * ==============================
 	 * Functions
@@ -67,7 +78,7 @@ public class Quiz {
 		questions.add(q); // add question
 		size++; // increase size counter
 	}
-	
+
 	public void createQuestion(Question q)
 	{
 		questions.add(q); 
@@ -85,7 +96,7 @@ public class Quiz {
 
 		return false;
 	}
-	
+
 	public int searchQuestion(String q) {
 		for (int i = 0; i < size; i++) {
 			if (questions.get(i).getQuestion().equals(q)) {
@@ -104,7 +115,7 @@ public class Quiz {
 			this.quizName = newQuizName;
 			return true;
 		}
-		
+
 		return false;
 	}
 
@@ -119,7 +130,7 @@ public class Quiz {
 		 * adding 100000000 + rnd.nextInt(999999999) would yield 100000000 to 1,099,999,998
 		 * so instead, subtract 999999999 - 100000000 and add 1 to get correct range
 		 */
-		
+
 		// http://stackoverflow.com/questions/5392693/java-random-number-with-given-length
 		Random r = new Random(); // used to generate random numbers
 		return 100000000 + r.nextInt(900000000); // generate random numbers from 100000000 to 999999999
@@ -141,7 +152,7 @@ public class Quiz {
 	 * ==============================
 	 */
 
-	public boolean readFromFile(String fileName) {
+	public boolean readFromFile(String fileName){
 		try {
 			BufferedReader br = new BufferedReader(new FileReader(fileName));
 
@@ -180,9 +191,9 @@ public class Quiz {
 
 				line = br.readLine(); // read next line
 			}
-			
+
 			br.close();
-			
+
 			return true;
 		}
 		catch (IOException e) {
@@ -213,7 +224,7 @@ public class Quiz {
 	 * Getters
 	 * ==============================
 	 */
-	
+
 	public long getQuizID() {
 		return quizID;
 	}
@@ -229,7 +240,7 @@ public class Quiz {
 	public int getSize() {
 		return size; 
 	}
-	
+
 	public ArrayList<Question> getQuestions() {
 		return questions;
 	}
@@ -251,7 +262,7 @@ public class Quiz {
 	 * Setters
 	 * ==============================
 	 */
-	
+
 	public void setQuizID (long quizID) {
 		this.quizID = quizID;
 	}
@@ -271,7 +282,7 @@ public class Quiz {
 	public void setQuestions (ArrayList<Question> questions) {
 		this.questions = questions;
 	}
-	
+
 	public void setNumCorrect(int numCorrect) {
 		this.numCorrect = numCorrect;
 	}
@@ -305,7 +316,7 @@ public class Quiz {
 			switch(button[command].charAt(0)) {
 			case 'A': { // add
 				int typeAdd = Integer.parseInt(JOptionPane.showInputDialog(null, 
-						"Type of question: (1 Ð TF, 2 Ð MC, 3 Ð CB)"));
+						"Type of question: (1 ï¿½ TF, 2 ï¿½ MC, 3 ï¿½ CB)"));
 
 				switch(typeAdd) {
 				case 1: // true or false
@@ -389,7 +400,7 @@ public class Quiz {
 			case 'D': // delete
 				String question = JOptionPane.showInputDialog(null, 
 						"Enter a question to delete:");
-				
+
 				if (quiz.removeQuestion(question)) {
 					JOptionPane.showMessageDialog(null, "Done");
 				}
@@ -401,7 +412,7 @@ public class Quiz {
 			case 'C': // change
 				String oldQuestion = JOptionPane.showInputDialog(null, 
 						"Enter a question to change:");
-				
+
 				int index = quiz.searchQuestion(oldQuestion);
 				if (index > -1) {
 					switch(quiz.questions.get(index).getType()) {
@@ -472,7 +483,7 @@ public class Quiz {
 						QuestionCB qCB = new QuestionCB(questionCB, optionsCB, answersCB);
 						quiz.questions.set(index, qCB);
 						break;
-	
+
 					default:
 						System.err.println("Error: Quiz main()");
 					}

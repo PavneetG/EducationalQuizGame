@@ -110,7 +110,7 @@ public class QuestionMC extends Question {
 	}
 	
 	public boolean checkAnswer(String a) {
-		return answer == a;
+		return answer.equals(a);
 	}
 	
 	public int searchOptions(String o) {
