@@ -21,8 +21,10 @@ import javax.swing.border.LineBorder;
 public class TriviaCreationGUI extends JFrame implements ActionListener {
 	private JTextField txtLabel;
 	private JTextField textField;
-	private JTextField textField_1;
+	private JTextArea textField_1;
 	private JButton btnBack, btnCreate;
+	private String options [] = {"1","2","3","4","5","6","7","8","9","10"}; 
+	private JComboBox comboBox = new JComboBox(options);
 
 	/**
 	 * Launch the application.
@@ -73,8 +75,7 @@ public class TriviaCreationGUI extends JFrame implements ActionListener {
 		lblNumberOfQuestioms.setBounds(86, 472, 133, 14);
 		getContentPane().add(lblNumberOfQuestioms);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(235, 469, 28, 20);
+		comboBox.setBounds(235, 469, 50, 20);
 		getContentPane().add(comboBox);
 		comboBox.setActionCommand("Question #");
 		
@@ -83,7 +84,9 @@ public class TriviaCreationGUI extends JFrame implements ActionListener {
 		getContentPane().add(btnCreate);
 		btnCreate.addActionListener(this);
 		
-		textField_1 = new JTextField();
+		textField_1 = new JTextArea();
+		textField_1.setWrapStyleWord(true);
+		textField_1.setLineWrap(true);
 		textField_1.setBounds(35, 184, 400, 228);
 		getContentPane().add(textField_1);
 		textField_1.setColumns(10);
@@ -96,6 +99,9 @@ public class TriviaCreationGUI extends JFrame implements ActionListener {
 			dispose();
 		}
 		else if(e.getSource() == btnCreate){
+			Data.q.setQuizName(textField.getText());
+			String selectedItem = (String) comboBox.getSelectedItem();//getting selected item on comboBox box 
+			Data.q.setSize(Integer.parseInt(selectedItem));
 			new QuestionCreation();
 			dispose();
 		}

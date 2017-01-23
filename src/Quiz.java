@@ -29,7 +29,6 @@ public class Quiz {
 	private String quizName;
 	private int size; // number of total questions
 	private ArrayList<Question> questions; // list of questions
-
 	// variables for quiz results
 	private int numCorrect;
 	private int numWrong;
@@ -68,6 +67,12 @@ public class Quiz {
 		questions.add(q); // add question
 		size++; // increase size counter
 	}
+	
+	public void createQuestion(Question q)
+	{
+		questions.add(q); 
+	}
+
 
 	public boolean removeQuestion(String question) {
 		int index = searchQuestion(question);

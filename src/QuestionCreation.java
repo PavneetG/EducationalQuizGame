@@ -60,6 +60,8 @@ public class QuestionCreation extends JFrame implements ActionListener {
 	
 	private Border redline = BorderFactory.createLineBorder(Color.RED,10); 
 	
+	private JButton btnConfirm = new JButton ("Confirm"); 
+	
 	private JTextField textField= new JTextField();
 	private JTextField textField_1= new JTextField();;
 	private JTextField textField_2= new JTextField();
@@ -155,6 +157,15 @@ public class QuestionCreation extends JFrame implements ActionListener {
 
 		scrollBar.setBounds(22, 81, 437, 64);
 		
+		if (Data.questionNum == Data.q.getSize()-1) {
+			
+			btnNext.setEnabled(false);
+			
+			btnNext.setBounds(0, 0, 0, 0);
+			
+			btnConfirm.setBounds (241, 382, 89, 23); 
+		}
+		
 		//adding things to frame 
 		add(lblOptions);
 		
@@ -191,6 +202,8 @@ public class QuestionCreation extends JFrame implements ActionListener {
 		add(radioButton_3); 
 		
 		add(btnNext);
+		
+		add (btnConfirm); 
 
 		//adding action listener to combox and check boxes and button next and previous, radio buttons
 		checkBox.addActionListener(this);
@@ -204,6 +217,7 @@ public class QuestionCreation extends JFrame implements ActionListener {
 		radioButton_2.addActionListener(this);
 		radioButton_3.addActionListener(this);
 		btnNext.addActionListener(this);
+		btnConfirm.addActionListener(this);
 		//btnPrevious.addActionListener(this);
 
 		//getContentPane().add(btnPrevious);
@@ -382,10 +396,10 @@ public class QuestionCreation extends JFrame implements ActionListener {
 		{
 
 			//if ()
-			//Data.questionNum++; //adding to question num 
-//			if (Data.questionNum>size) {
-//				btnNext.setEnabled(false);
-//			}
+			Data.questionNum++;
+			System.out.println(Data.q.getSize());
+			System.out.println(Data.questionNum);
+			
 
 			if (selectedItem.equals("True or False")) {
 				//get question title
@@ -403,7 +417,7 @@ public class QuestionCreation extends JFrame implements ActionListener {
 					QuestionTF tf = new QuestionTF(questionTitle, Boolean.parseBoolean(answer));
 
 					//add question to quiz
-					Data.q.addQuestion(tf);
+					Data.q.createQuestion(tf);
 					
 					//Data.q.getQuestions().set(Data.questionNum, tf); 
 					//Data.q.getQuestions().add (Data.questionNum, tf);
@@ -441,7 +455,7 @@ public class QuestionCreation extends JFrame implements ActionListener {
 				
 				QuestionMC mc = new QuestionMC (questionTitle, optionslist, answer); //creating new multiple choice question
 				
-				Data.q.addQuestion(mc);
+				Data.q.createQuestion(mc);
 				
 				//Data.q.getQuestions().set(Data.questionNum, mc); 
 				
@@ -478,11 +492,9 @@ public class QuestionCreation extends JFrame implements ActionListener {
 				
 				QuestionCB cb = new QuestionCB(questionTitle);
 				
-				Data.q.addQuestion(cb);
+				Data.q.createQuestion(cb);
+				
 				System.out.println(cb.getQuestion());
-
-				
-				
 				
 				
 			}
@@ -492,6 +504,108 @@ public class QuestionCreation extends JFrame implements ActionListener {
 			//}
 
 		}
+		else if (e.getSource() == btnConfirm)
+		{
+			System.out.println(Data.q.getSize());
+			System.out.println(Data.questionNum);
+			
+			if (selectedItem.equals("True or False")) {
+				//get question title
+				questionTitle = textArea.getText();//getting questionTitle 
+
+				if (questionTitle.equals("Untitled Question")) {
+					scrollBar.setBorder(redline); //changing border if someone leaves it blank 
+					//btnNext.setEnabled(false);
+
+				}
+				else{
+					answer = correctAnswer;
+
+					//create new true false question
+					QuestionTF tf = new QuestionTF(questionTitle, Boolean.parseBoolean(answer));
+
+					//add question to quiz
+					Data.q.createQuestion(tf);
+					
+					//Data.q.getQuestions().set(Data.questionNum, tf); 
+					//Data.q.getQuestions().add (Data.questionNum, tf);
+					
+					//System.out.println(q.getQuestionsTF());
+					//System.out.println(questionNum);
+					//System.out.print(Data.q.getQuestions().get(questionNum));
+
+
+					//System.out.println(((QuestionTF)q.getQuestions().get(0)).getQuestion());
+					//					//format to string
+					//					String question = questionType + "|" + questionTitle + "|" + answer;
+
+					//					//add question to array list
+					//					questions.add(question);	
+				}
+
+			}
+			else if (selectedItem.equals("Multiple Choice"))
+			{
+				questionTitle = textArea.getText(); //getting questionTitle
+				
+				answer = correctAnswer; 
+				
+				//getting inputs of textFields for different options 
+				String optionMC [] = {textField.getText(),textField_1.getText(),textField_2.getText(),textField_3.getText()}; 
+				
+				//ArrayList<String> options = new ArrayList<String>(); // all possible options
+				
+				//adding options to list
+				for (int i=0; i< optionMC.length; i++)
+				{
+					optionslist.add(optionMC[i]);
+				}
+				
+				QuestionMC mc = new QuestionMC (questionTitle, optionslist, answer); //creating new multiple choice question
+				
+				Data.q.createQuestion(mc);
+				
+				//Data.q.getQuestions().set(Data.questionNum, mc); 
+				
+			}
+			else if (selectedItem.equals("Check Box"));
+			{
+				questionTitle = textArea.getText(); //getting questionTitle
+				ArrayList<String>  checkBoxAnswer = new ArrayList<String>(); 
+				ArrayList<String>  options = new ArrayList<String>(); 
+				//gets textFieldText for selected options 
+				options.add(textField.getText());
+				options.add(textField_1.getText());
+				options.add(textField_2.getText());
+				options.add(textField_3.getText());
+				
+				//reads selected radio button
+				if (e.getSource()== radioButton)
+				{
+					checkBoxAnswer.add(textField.getText());
+				}
+				
+				if (e.getSource() == radioButton_1); 
+				{
+					checkBoxAnswer.add(textField_1.getText());
+				}
+				
+				if (e.getSource() == radioButton_2)
+				{
+					checkBoxAnswer.add(textField_2.getText());
+				}
+				
+				if (e.getSource() == radioButton_3)
+				{
+					checkBoxAnswer.add(textField_3.getText());
+				}
+				
+				QuestionCB cb = new QuestionCB(questionTitle);
+				
+				Data.q.createQuestion(cb);
+		}
+			Data.q.writeToFile(Data.q.getQuizName(),Data.q.toString(),false); 
+	}
 		/*else if (e.getSource() == btnPrevious)
 		{
 			//			if (questionNum<0) {

@@ -14,6 +14,7 @@ import javax.swing.SwingConstants;
 
 
 public class QuestionTypeSelection extends JFrame {
+	
 	private JTextField txtSelectFromFollowing;
 
 
@@ -31,10 +32,6 @@ public class QuestionTypeSelection extends JFrame {
 		getContentPane().setLayout(null);
 		
 		JButton btnA = new JButton("A");
-		btnA.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
 		btnA.setEnabled(false);
 		btnA.setBounds(118, 74, 96, 36);
 		getContentPane().add(btnA);
@@ -46,9 +43,6 @@ public class QuestionTypeSelection extends JFrame {
 		
 		JButton btnB = new JButton("B");
 		btnB.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
 		btnB.setEnabled(false);
 		btnB.setBounds(235, 74, 96, 36);
 		getContentPane().add(btnB);
