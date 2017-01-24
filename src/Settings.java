@@ -27,7 +27,7 @@ public class Settings extends JFrame implements ActionListener {
 	private JComboBox comboBox; // created a comboBox
 	Player newInfo, oldInfo; // declared variables as Player
 	PlayerAccountList accounts = new PlayerAccountList(); // Created PlayerAccountList object
-	
+
 	public Settings() throws IOException {
 		super("Settings");  // title for the frame
 
@@ -225,6 +225,7 @@ public class Settings extends JFrame implements ActionListener {
 		label_3.setVisible(false);
 		lblStatus.setVisible(false);
 		lblSeconds.setVisible(false);
+		lblStatus.setForeground(Color.RED);
 		comboBox.setVisible(false); // setting visibility for comboBox
 
 		setSize(350,500); // set size of window
