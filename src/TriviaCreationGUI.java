@@ -108,7 +108,8 @@ public class TriviaCreationGUI extends JFrame implements ActionListener {
 		else if(e.getSource() == btnCreate){
 			Data.q.setQuizName(textField.getText());
 			String selectedItem = (String) comboBox.getSelectedItem();//getting selected item on comboBox box 
-			Data.q.setSize(Integer.parseInt(selectedItem));
+			Data.totalQuestions = Integer.parseInt(selectedItem); 
+			//Data.q.setSize(Integer.parseInt(selectedItem));
 			new QuestionCreation();
 			dispose();
 		}

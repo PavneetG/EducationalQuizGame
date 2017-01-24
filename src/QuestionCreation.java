@@ -157,7 +157,7 @@ public class QuestionCreation extends JFrame implements ActionListener {
 
 		scrollBar.setBounds(22, 81, 437, 64);
 		
-		if (Data.questionNum == Data.q.getSize()-1) {
+		if (Data.questionNum == Data.totalQuestions-1) {
 			
 			btnNext.setEnabled(false);
 			
@@ -417,7 +417,7 @@ public class QuestionCreation extends JFrame implements ActionListener {
 					QuestionTF tf = new QuestionTF(questionTitle, Boolean.parseBoolean(answer));
 
 					//add question to quiz
-					Data.q.createQuestion(tf);
+					Data.q.addQuestion(tf);
 					
 					//Data.q.getQuestions().set(Data.questionNum, tf); 
 					//Data.q.getQuestions().add (Data.questionNum, tf);
@@ -455,7 +455,7 @@ public class QuestionCreation extends JFrame implements ActionListener {
 				
 				QuestionMC mc = new QuestionMC (questionTitle, optionslist, answer); //creating new multiple choice question
 				
-				Data.q.createQuestion(mc);
+				Data.q.addQuestion(mc);
 				
 				//Data.q.getQuestions().set(Data.questionNum, mc); 
 				
@@ -492,7 +492,7 @@ public class QuestionCreation extends JFrame implements ActionListener {
 				
 				QuestionCB cb = new QuestionCB(questionTitle);
 				
-				Data.q.createQuestion(cb);
+				Data.q.addQuestion(cb);
 				
 				System.out.println(cb.getQuestion());
 				
@@ -525,7 +525,7 @@ public class QuestionCreation extends JFrame implements ActionListener {
 					QuestionTF tf = new QuestionTF(questionTitle, Boolean.parseBoolean(answer));
 
 					//add question to quiz
-					Data.q.createQuestion(tf);
+					Data.q.addQuestion(tf);
 					
 					//Data.q.getQuestions().set(Data.questionNum, tf); 
 					//Data.q.getQuestions().add (Data.questionNum, tf);
@@ -563,7 +563,7 @@ public class QuestionCreation extends JFrame implements ActionListener {
 				
 				QuestionMC mc = new QuestionMC (questionTitle, optionslist, answer); //creating new multiple choice question
 				
-				Data.q.createQuestion(mc);
+				Data.q.addQuestion(mc);
 				
 				//Data.q.getQuestions().set(Data.questionNum, mc); 
 				
@@ -600,11 +600,13 @@ public class QuestionCreation extends JFrame implements ActionListener {
 					checkBoxAnswer.add(textField_3.getText());
 				}
 				
-				QuestionCB cb = new QuestionCB(questionTitle);
+				QuestionCB cb = new QuestionCB(questionTitle, options, checkBoxAnswer);
 				
-				Data.q.createQuestion(cb);
+				Data.q.addQuestion(cb);
 		}
-			Data.q.writeToFile(Data.q.getQuizName(),Data.q.toString(),false); 
+			System.out.println(Data.q.getQuestions().get(0).toString());
+			
+			//Data.q.writeToFile(Data.q.getQuizName(),Data.q.toString(),false); 
 	}
 		/*else if (e.getSource() == btnPrevious)
 		{
