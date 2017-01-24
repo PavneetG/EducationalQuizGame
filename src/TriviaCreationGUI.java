@@ -8,6 +8,9 @@ import javax.swing.JTextField;
 import javax.swing.JLabel;
 import java.awt.Color;
 import javax.swing.SwingConstants;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+
 import java.awt.Font;
 import javax.swing.JTextArea;
 import javax.swing.JButton;
@@ -35,6 +38,15 @@ public class TriviaCreationGUI extends JFrame implements ActionListener {
 	 * Create the frame.
 	 */
 	public TriviaCreationGUI() {
+		
+//		try {
+//			UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+//		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+//				| UnsupportedLookAndFeelException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+		
 		getContentPane().setFont(new Font("Segoe UI", Font.PLAIN, 11));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(500,700);

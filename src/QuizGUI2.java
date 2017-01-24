@@ -18,7 +18,7 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.EmptyBorder;
 
-public class QuizGUI2 extends JFrame {
+public class QuizGUI2 extends JFrame implements ActionListener {
 
 	private Quiz q; 
 	private int type = 0; 
@@ -90,6 +90,23 @@ public class QuizGUI2 extends JFrame {
 		qCPanel.setBounds(34, 213, 436, 438);
 		getContentPane().add(qCPanel);
 		
+		btnTrue = new JButton("True"); // initializing btnTrue
+		btnTrue.setFont(new Font("Tahoma", Font.PLAIN, 38)); // setting font for btnTrue
+		btnTrue.setBounds(57, 298, 374, 94); // setting bounds for btnTrue
+		getContentPane().add(btnTrue); // adding btnTrue
+		btnTrue.addActionListener(this); // adding actionlistener for btnTrue
+
+		btnFalse = new JButton("False"); // initializing btnFalse
+		btnFalse.setFont(new Font("Tahoma", Font.PLAIN, 38)); // setting font for btnFalse
+		btnFalse.setBounds(57, 461, 374, 94); // setting bounds for btnFalse
+		getContentPane().add(btnFalse); // adding btnFalse
+		btnFalse.addActionListener(this); // adding actionlistener for btnTrue
+
+		lblTitle.setText("<html>" + questionTF.getQuestion() + "</html>"); // Wrappinh title text in order to fit
+
+		setLocationRelativeTo(null);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setVisible(true);
 		
 		
 		mCPanel = new JPanel();
@@ -237,5 +254,13 @@ public class QuizGUI2 extends JFrame {
 	public static void main(String[] args) throws InterruptedException {
 		QuizGUI2 qGUI = new QuizGUI2 ();
 
+	}
+
+
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 }
