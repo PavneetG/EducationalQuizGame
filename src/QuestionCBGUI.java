@@ -26,8 +26,7 @@ public class QuestionCBGUI extends JFrame implements ActionListener{
 	ArrayList<String> options, answers, input;
 	QuestionCB cbQ;
 	boolean close = false;
-	private int seconds = 20;
-	private Thread timer;
+
 	private JLabel lblTimer;
 	JProgressBar progress;
 

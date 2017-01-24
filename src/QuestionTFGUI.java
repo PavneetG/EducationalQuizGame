@@ -27,8 +27,7 @@ public class QuestionTFGUI extends JFrame implements ActionListener{
 	private boolean correctAnswer; 
 	private boolean close = false;
 	QuestionTF tfQ; // tfQ object created
-	private int seconds = 20;
-	private Thread timer;
+
 	private JLabel lblTimer;
 
 	JProgressBar progress;

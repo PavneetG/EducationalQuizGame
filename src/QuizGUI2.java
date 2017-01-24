@@ -3,9 +3,12 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -15,7 +18,7 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.EmptyBorder;
 
-public class QuizGUI extends JFrame {
+public class QuizGUI2 extends JFrame {
 
 	private Quiz q; 
 	private int type = 0; 
@@ -33,8 +36,26 @@ public class QuizGUI extends JFrame {
 	int size, questions; 
 	private Thread timer = new Thread();
 
+	
+	//TF GUI
+	private JButton btnTrue, btnFalse; // private variables for true and false buttons
+	private JLabel lblNewLabel_1; // private variable for label
+	private boolean correctAnswer; 
+	
+	//MC GUI
+	private JButton [] btnOptions;
+	private QuestionMC mcQ;
+	//private int optionSize = 0;
+	String answer;
+	
+	//checkbox GUI
+	private JCheckBox [] checkBox;
+	//private int optionSize, answerSize;
+	private JButton btnOK; 
+	ArrayList<String> options, answers, input;
+	QuestionCB cbQ;
 
-	public QuizGUI() throws InterruptedException {
+	public QuizGUI2() throws InterruptedException {
 
 		//Reference for cross platform look
 		//https://docs.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
@@ -214,7 +235,7 @@ public class QuizGUI extends JFrame {
 
 	//self-testing main
 	public static void main(String[] args) throws InterruptedException {
-		QuizGUI qGUI = new QuizGUI ();
+		QuizGUI2 qGUI = new QuizGUI2 ();
 
 	}
 }

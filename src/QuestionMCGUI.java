@@ -27,8 +27,7 @@ public class QuestionMCGUI extends JFrame implements ActionListener{
 	private int optionSize = 0;
 	String answer;
 	boolean close = false; 
-	private int seconds = 20;
-	private Thread timer;
+
 	private JLabel lblTimer;
 	JProgressBar progress;
 
