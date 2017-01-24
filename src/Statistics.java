@@ -75,6 +75,16 @@ public class Statistics {
 	 * ==============================
 	 */
 	
+	public void updateStats(int numQ, int numT, int numC, double time) {
+		double prevTime = averageTime * numTotal; // get total time for previous questions
+		
+		numQuizzes += numQ;
+		numTotal += numT;
+		numCorrect += numC;
+		overallPercentage = (double) numCorrect / numTotal * 100;
+		averageTime = (prevTime + time) / numTotal;
+	}
+	
 	public String toString() {
 		// example: 3|20|18|90.0|3.5|3|[American History, European History, World History]
 		
@@ -98,12 +108,12 @@ public class Statistics {
 		return numQuizzes;
 	}
 	
-	public int getNumCorrect() {
-		return numCorrect;
-	}
-	
 	public int getNumTotal() {
 		return numTotal;
+	}
+	
+	public int getNumCorrect() {
+		return numCorrect;
 	}
 	
 	public double getOverallPercentage() {
@@ -128,14 +138,14 @@ public class Statistics {
 		this.numQuizzes = numQuizzes;
 	}
 
-	public void setNumCorrect(int numCorrect) {
-		this.numCorrect = numCorrect;
-	}
-	
 	public void setNumTotal(int numTotal) {
 		this.numTotal = numTotal;
 	}
 
+	public void setNumCorrect(int numCorrect) {
+		this.numCorrect = numCorrect;
+	}
+	
 	public void setOverallPercentage(double overallPercentage) {
 		this.overallPercentage = overallPercentage;
 	}
@@ -155,10 +165,22 @@ public class Statistics {
 	 */
 	
 	public static void main(String[] args) {
-		String str = "3|20|18|90.0|3.5|3|[American History, European History, World History]";
+		String str = "3|20|18|90.0|4|3|[American History, European History, World History]";
 		String[] info = str.split("\\|");
-		
 		Statistics stats = new Statistics(info);
+		
+		System.out.println("Quizzes: " + stats.getNumQuizzes());
+		System.out.println("Total: " + stats.getNumTotal());
+		System.out.println("Correct: " + stats.getNumCorrect());
+		System.out.println("Percentage: " + stats.getOverallPercentage() + "%");
+		System.out.println("Time: " + stats.getAverageTime() + "s");
+		
+		stats.updateStats(1, 10, 6, 10);
+		System.out.println("\nUpdated Statistics\n");
+		
+		System.out.println("Quizzes: " + stats.getNumQuizzes());
+		System.out.println("Total: " + stats.getNumTotal());
+		System.out.println("Correct: " + stats.getNumCorrect());
 		System.out.println("Percentage: " + stats.getOverallPercentage() + "%");
 		System.out.println("Time: " + stats.getAverageTime() + "s");
 	}
