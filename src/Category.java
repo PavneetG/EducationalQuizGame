@@ -1,7 +1,27 @@
 /*
  * Authors: Lily Liu and Pavneet Gill
  * Date: Monday, January 9, 2017
- * Description: This class separates the quizzes into different categories with the option to add delete and change them.
+ * Description: This class separates the quizzes into different categories 
+ * 				with the option to add delete and change them.
+ * 
+ * Method List:
+ * 		Constructors
+ * 			Category(String c) // constructor for category
+ * 		Functions
+ * 			String add(String title) // add quiz to category
+ * 			boolean change(String title, String newTitle) // change name of quiz
+ * 			boolean remove(String title) // remove quiz from category list
+ * 			int search(String title) // search quiz based on name and return index
+ * 			String toString() // convert category info to String for saving in file
+ * 		Reading and Writing
+ * 			boolean readFromFile(String fileName) // read and load info from file into Category object
+ * 			boolean writeToFile(String fileName, String contents, boolean append) // save info to file
+ * 		Getters
+ * 			ArrayList<String> getList()
+ * 			String getCategory()
+ * 			int getSize()
+ * 		Self-Testing Main
+ * 			static void main(String[] args) throws IOException
  */
 
 import java.io.BufferedReader;
@@ -20,8 +40,8 @@ public class Category {
 	 */
 
 	ArrayList<String> list; // titles of quizzes
-	String category;
-	int size;
+	String category; // subject
+	int size; // number of quizzes
 	
 	/*
 	 * ==============================
@@ -29,6 +49,7 @@ public class Category {
 	 * ==============================
 	 */
 	
+	// constructor for category
 	public Category(String c) {
 		list = new ArrayList<String>();
 		category = c;
@@ -41,6 +62,7 @@ public class Category {
 	 * ==============================
 	 */
 	
+	// add quiz to category
 	public String add(String title) {
 		String newTitle = title;
 		
@@ -58,6 +80,7 @@ public class Category {
 		return title;
 	}
 	
+	// change name of quiz
 	public boolean change(String title, String newTitle) {
 		int index = search(title);
 		
@@ -71,6 +94,7 @@ public class Category {
 		return false;
 	}
 	
+	// remove quiz from category list
 	public boolean remove(String title) {
 		int index = search(title);
 		
@@ -85,6 +109,7 @@ public class Category {
 		return false;
 	}
 	
+	// search quiz based on name and return index
 	public int search(String title) {
 		for (int i = 0; i < size; i++) {
 			if (list.get(i).equals(title)) {
@@ -95,6 +120,7 @@ public class Category {
 		return -1; // not found
 	}
 	
+	// convert category info to String for saving in file
 	public String toString() {
 		String str = list.get(0);
 		
@@ -111,6 +137,7 @@ public class Category {
 	 * ==============================
 	 */
 	
+	// read and load info from file into Category object
 	public boolean readFromFile(String fileName) {
 		try {
 			BufferedReader br = new BufferedReader(new FileReader(fileName));
@@ -133,6 +160,7 @@ public class Category {
 		}
 	}
 	
+	// save info to file
 	public boolean writeToFile(String fileName, String contents, boolean append) {
 		try {
 		    FileWriter fw = new FileWriter(fileName, append); // true tells to append data

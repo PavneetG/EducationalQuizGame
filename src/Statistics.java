@@ -1,7 +1,31 @@
 /*
  * Authors: Lily Liu and Pavneet Gill 
  * Date: Wednesday, December 28, 2016
- * Description: This class keeps track of the player stats. 
+ * Description: This class keeps track of the player stats.
+ * 
+ * Method List:
+ * 		Constructors
+ * 			Statistics() // constructor for new statistics
+ * 			Statistics(String[] info) // constructor for reading from file
+ * 		Functions
+ * 			void updateStats(int numQ, int numT, int numC, double time) // update statistics after each quiz
+ * 			String toString() // converts statistics info to String for saving in file
+ * 		Getters
+ * 			int getNumQuizzes()
+ * 			int getNumTotal()
+ * 			int getNumCorrect()
+ * 			double getOverallPercentage()
+ * 			double getAverageTime()
+ * 			ArrayList<String> getQuizHistory()
+ * 		Setters
+ * 			void setNumQuizzes(int numQuizzes)
+ * 			void setNumTotal(int numTotal)
+ * 			void setNumCorrect(int numCorrect)
+ * 			void setOverallPercentage(double overallPercentage)
+ * 			void setAverageTime(double averageTime)
+ * 			void setQuizHistory(ArrayList<String> quizHistory)
+ * 		Self-Testing Main
+ * 			static void main(String[] args)
  */
 
 import java.util.ArrayList;
@@ -18,8 +42,8 @@ public class Statistics {
 	private int numTotal; // total number of questions
 	private int numCorrect; // total number of correct questions
 	
-	private double overallPercentage; 
-	private double averageTime; 
+	private double overallPercentage; // percentage of questions correct
+	private double averageTime; // average time spent on each question
 	
 	private int size; // number of most recent quizzes
 	private ArrayList<String> quizHistory; // stores name of most recent quizzes 
@@ -75,6 +99,7 @@ public class Statistics {
 	 * ==============================
 	 */
 	
+	// update statistics after each quiz
 	public void updateStats(int numQ, int numT, int numC, double time) {
 		double prevTime = averageTime * numTotal; // get total time for previous questions
 		
@@ -85,6 +110,7 @@ public class Statistics {
 		averageTime = (prevTime + time) / numTotal;
 	}
 	
+	// converts statistics info to String for saving in file
 	public String toString() {
 		// example: 3|20|18|90.0|3.5|3|[American History, European History, World History]
 		

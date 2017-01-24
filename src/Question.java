@@ -2,6 +2,23 @@
  * Author: Lily Liu
  * Date: Monday, January 9, 2016
  * Description: Generic question class.
+ * 
+ * Method List:
+ * 		Constructors
+ * 			Question() // default constructor
+ * 			Question(String q, int t) // constructor for question
+ * 		Functions
+ * 			String toString() // convert question info to String for saving in file
+ * 		Getters
+ * 			int getType()
+ * 			String getQuestion()
+ * 			double getTime()
+ * 		Setters
+ * 			void setType(int t)
+ * 			void setQuestion(String q)
+ * 			void setTime(double t)
+ * 		Self-Testing Main
+ * 			static void main(String[] args)
  */
 
 public class Question {
@@ -20,9 +37,9 @@ public class Question {
 	 * 3 = check box question
 	 */
 	
-	private int type;
-	private String question;
-	private double time;
+	private int type; // type of question
+	private String question; // question
+	private double time; // length of time spent on question
 	
 	/*
 	 * ==============================
@@ -50,7 +67,8 @@ public class Question {
 	 * ==============================
 	 */
 	
-	public String toString() { // method to change inputed variable to full form and return a string record
+	// convert question info to String for saving in file
+	public String toString() {
 		return question;
 	}
 

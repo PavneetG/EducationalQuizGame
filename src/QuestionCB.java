@@ -2,6 +2,33 @@
  * Author: Lily Liu
  * Date: Monday, January 9, 2016
  * Description: Checkbox question class.
+ * 
+ * Method List:
+ * 		Constructors
+ * 			QuestionCB() // default constructor
+ * 			QuestionCB(String q) // constructor for new question
+ * 			QuestionCB(String q, ArrayList<String> o, ArrayList<String> a) // constructor for existing question
+ * 			QuestionCB(String[] info) // constructor for reading from file
+ * 		Functions
+ * 			boolean addOption(String o) // add option to question
+ * 			boolean removeOption(String o) // remove option from question
+ * 			boolean addAnswer(String a) // add answer to question
+ * 			boolean removeAnswer(String a) // remove answer from question
+ * 			boolean checkAnswer(ArrayList<String> input) // verify answers
+ * 			String toString() // convert question info to String for saving in file
+ * 		Getters
+ * 			ArrayList<String> getOptions()
+ * 			ArrayList<String> getAnswers()
+ * 			int getOSize()
+ * 			int getMinSize()
+ * 			int getMaxSize()
+ * 		Setters
+ * 			void setOptions(ArrayList<String> o)
+ * 			void setAnswer(ArrayList<String> a)
+ * 			void setOSize(int s)
+ * 			void setASize(int s)
+ * 		Self-Testing Main
+ * 			static void main(String[] args)
  */
 
 import java.util.ArrayList;
@@ -94,6 +121,7 @@ public class QuestionCB extends Question {
 	 * ==============================
 	 */
 	
+	// add option to question
 	public boolean addOption(String o) {
 		if (oSize < maxSize) {
 			options.add(o);
@@ -104,6 +132,7 @@ public class QuestionCB extends Question {
 		return false;
 	}
 	
+	// remove option from question
 	public boolean removeOption(String o) {
 		if (oSize > minSize) {
 			options.remove(o);
@@ -114,6 +143,7 @@ public class QuestionCB extends Question {
 		return false;
 	}
 	
+	// add answer to question
 	public boolean addAnswer(String a) {
 		if (aSize < maxSize) {
 			answers.add(a);
@@ -124,6 +154,18 @@ public class QuestionCB extends Question {
 		return false;
 	}
 	
+	// remove answer from question
+	public boolean removeAnswer(String a) {
+		if (aSize > minSize) {
+			answers.remove(a);
+			aSize--;
+			return true;
+		}
+		
+		return false;
+	}
+	
+	// verify answers
 	public boolean checkAnswer(ArrayList<String> input) {
 		int numCorrect = 0;
 		int size = input.size();
@@ -141,6 +183,7 @@ public class QuestionCB extends Question {
 		return numCorrect == answers.size();
 	}
 	
+	// convert question info to String for saving in file
 	public String toString() {
 		// example: 3|What are the branches of government?|[Executive,Legislative,Judicial,Municipal]|[Executive,Legislative,Judicial]
 		
@@ -201,6 +244,10 @@ public class QuestionCB extends Question {
 	
 	public void setOSize(int s) {
 		oSize = s;
+	}
+	
+	public void setASize(int s) {
+		aSize = s;
 	}
 	
 	/*

@@ -1,9 +1,45 @@
 /* 
  * Authors: Janujan Gathieswaran, Kevin Subhash and Lily Liu
  * Date: Monday, January 9, 2016
- * Description: The quiz class for creating quizzes, contributing questions and 
- * 				changing previously made quizzes and questions. 
+ * Description: The quiz class for creating quizzes, contributing questions 
+ * 				and changing previously made quizzes and questions.
+ * 
  * Method List:
+ * 		Constructors
+ * 			Quiz() // default constructor
+ * 			Quiz(String category, String quizName) // constructor for new quiz
+ * 			Quiz(long quizID, String category, String quizName, ArrayList<Question> questions) // constructor for existing quiz
+ * 		Functions
+ * 			void addQuestion(Question q) // add question and increase counter
+ * 			void createQuestion(Question q) // add question without increasing counter
+ * 			boolean removeQuestion(String question) // remove question from list
+ * 			int searchQuestion(String q) // search question based on question name
+ * 			boolean changeQuizName(String newQuizName) // change quiz name and save to file
+ * 			long generateQuizID() // generate 9-digit quiz ID
+ * 			String toString() // converts quiz info to String for saving in file
+ * 		Reading and Writing
+ * 			boolean readFromFile(String fileName) // read and load info from file into Quiz object
+ * 			boolean writeToFile(String fileName, String contents, boolean append) // save info to file
+ * 		Getters
+ * 			long getQuizID()
+ * 			String getCategory()
+ * 			String getQuizName()
+ * 			int getSize()
+ * 			ArrayList<Question> getQuestions()
+ * 			int getNumCorrect()
+ * 			int getNumWrong()
+ * 			double getAverageTime()
+ * 		Setters
+ * 			void setQuizID(long quizID)
+ * 			void setCategory(String category)
+ * 			void setQuizName(String quizName)
+ * 			void setSize(int size)
+ * 			void setQuestions(ArrayList<Question> questions)
+ * 			void setNumCorrect(int numCorrect)
+ * 			void setNumWrong(int numWrong)
+ * 			void setAverageTime(int averageTime)
+ * 		Self-Testing Main
+ * 			static void main(String[] args)
  */
 
 import java.io.BufferedReader;
@@ -24,15 +60,16 @@ public class Quiz {
 	 */
 
 	// variables for quiz basic information
-	private long quizID;
-	private String category;
-	private String quizName;
+	private long quizID; // unique 9-digit quiz ID
+	private String category; // subject
+	private String quizName; // name of quiz
 	private int size; // number of total questions
 	private ArrayList<Question> questions; // list of questions
+	
 	// variables for quiz results
-	private int numCorrect;
-	private int numWrong;
-	private double averageTime;
+	private int numCorrect; // number of correct questions
+	private int numWrong; // number of wrong questions
+	private double averageTime; // average time spent on each question
 
 	/*
 	 * ==============================
@@ -40,8 +77,8 @@ public class Quiz {
 	 * ==============================
 	 */
 
-	//default constructor
-	public Quiz () {
+	// default constructor
+	public Quiz() {
 		this.quizID = 0;
 		this.category = "";
 		this.quizName = "";
@@ -66,25 +103,24 @@ public class Quiz {
 		this.size = questions.size();
 	}
 
-
-
 	/*
 	 * ==============================
 	 * Functions
 	 * ==============================
 	 */
 
+	// add question and increase counter
 	public void addQuestion(Question q) {
 		questions.add(q); // add question
 		size++; // increase size counter
 	}
-
-	public void createQuestion(Question q)
-	{
+	
+	// add question without increasing counter
+	public void createQuestion(Question q) {
 		questions.add(q); 
 	}
 
-
+	// remove question from list
 	public boolean removeQuestion(String question) {
 		int index = searchQuestion(question);
 
@@ -97,6 +133,7 @@ public class Quiz {
 		return false;
 	}
 
+	// search question based on question name
 	public int searchQuestion(String q) {
 		for (int i = 0; i < size; i++) {
 			if (questions.get(i).getQuestion().equals(q)) {
@@ -107,6 +144,7 @@ public class Quiz {
 		return -1;
 	}
 
+	// change quiz name and save to file
 	public boolean changeQuizName(String newQuizName) {
 		Category c = new Category(category); // read and load data from file
 		c.readFromFile(c.getCategory() + ".txt");
@@ -119,6 +157,7 @@ public class Quiz {
 		return false;
 	}
 
+	// generate 9-digit quiz ID
 	public long generateQuizID() {
 		/*
 		 * basic functionality of random
@@ -136,6 +175,7 @@ public class Quiz {
 		return 100000000 + r.nextInt(900000000); // generate random numbers from 100000000 to 999999999
 	}
 
+	// converts quiz info to String for saving in file
 	public String toString() {
 		String s = quizID + "\n" + category + "\n" + quizName + "\n" + size + "\n";
 
@@ -152,7 +192,8 @@ public class Quiz {
 	 * ==============================
 	 */
 
-	public boolean readFromFile(String fileName){
+	// read and load info from file into Quiz object
+	public boolean readFromFile(String fileName) {
 		try {
 			BufferedReader br = new BufferedReader(new FileReader(fileName));
 
@@ -203,6 +244,7 @@ public class Quiz {
 		}
 	}
 
+	// save info to file
 	public boolean writeToFile(String fileName, String contents, boolean append) {
 		try {
 			FileWriter fw = new FileWriter(fileName, append); // true tells to append data
@@ -263,7 +305,7 @@ public class Quiz {
 	 * ==============================
 	 */
 
-	public void setQuizID (long quizID) {
+	public void setQuizID(long quizID) {
 		this.quizID = quizID;
 	}
 
@@ -279,7 +321,7 @@ public class Quiz {
 		this.size = size;
 	}
 
-	public void setQuestions (ArrayList<Question> questions) {
+	public void setQuestions(ArrayList<Question> questions) {
 		this.questions = questions;
 	}
 

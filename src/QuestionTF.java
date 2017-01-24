@@ -2,6 +2,22 @@
  * Author: Lily Liu
  * Date: Monday, January 9, 2016
  * Description: True or false question class.
+ * 
+ * Method List:
+ * 		Constructors
+ * 			QuestionTF() // default constructor
+ * 			QuestionTF(String q) // constructor for new question
+ * 			QuestionTF(String q, boolean a) // constructor for existing question
+ * 			QuestionTF(String[] info) // constructor for reading from file
+ * 		Functions
+ * 			boolean checkAnswer(boolean a) // verify answer
+ * 			String toString() // convert question info to String for saving in file
+ * 		Getters
+ * 			boolean getAnswer()
+ * 		Setters
+ * 			void setAnswer(boolean a)
+ * 		Self-Testing Main
+ * 			static void main(String[] args)
  */
 
 public class QuestionTF extends Question {
@@ -34,10 +50,6 @@ public class QuestionTF extends Question {
 		answer = false;
 	}
 
-	public int getType() {
-		return type;
-	}
-
 	// constructor for existing question
 	public QuestionTF(String q, boolean a) {
 		super(q, type);
@@ -63,10 +75,12 @@ public class QuestionTF extends Question {
 	 * ==============================
 	 */
 
+	// verify answer
 	public boolean checkAnswer(boolean a) {
 		return answer == a;
 	}
 
+	// convert question info to String for saving in file
 	public String toString() {
 		// example: 1|George Washington is the first POTUS.|true
 

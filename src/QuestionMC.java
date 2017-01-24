@@ -2,6 +2,31 @@
  * Author: Lily Liu
  * Date: Monday, January 9, 2016
  * Description: Multiple-choice question class.
+ * 
+ * Method List:
+ * 		Constructors
+ * 			QuestionMC() // default constructor
+ * 			QuestionMC(String q) // constructor for new question
+ * 			QuestionMC(String q, ArrayList<String> o, String a) // constructor for existing question
+ * 			QuestionMC(String[] info) // constructor for reading from file
+ * 		Functions
+ * 			boolean addOption(String o) // add option to question
+ * 			boolean removeOption(String o) // remove option from question
+ * 			boolean checkAnswer(String a) // verify answer
+ * 			int searchOptions(String o) // search through options and return index
+ * 			String toString() // convert question info to String for saving in file
+ * 		Getters
+ * 			ArrayList<String> getOptions()
+ * 			String getAnswer()
+ * 			int getSize()
+ * 			int getMinSize()
+ * 			int getMaxSize()
+ * 		Setters
+ * 			void setOptions(ArrayList<String> o)
+ * 			void setAnswer(String a)
+ * 			void setSize(int s)
+ * 		Self-Testing Main
+ * 			static void main(String[] args)
  */
 
 import java.util.ArrayList;
@@ -83,6 +108,7 @@ public class QuestionMC extends Question {
 	 * ==============================
 	 */
 	
+	// add option to question
 	public boolean addOption(String o) {
 		if (size < maxSize) {
 			options.add(o);
@@ -93,6 +119,7 @@ public class QuestionMC extends Question {
 		return false;
 	}
 	
+	// remove option from question
 	public boolean removeOption(String o) {
 		int index = searchOptions(o);
 		
@@ -105,14 +132,12 @@ public class QuestionMC extends Question {
 		return false;
 	}
 	
-	public int getType() {
-		return type;
-	}
-	
+	// verify answer
 	public boolean checkAnswer(String a) {
 		return answer.equals(a);
 	}
 	
+	// search through options and return index
 	public int searchOptions(String o) {
 		for (int i = 0; i < size; i++) {
 			if (options.get(i).equals(o)) {
@@ -123,6 +148,7 @@ public class QuestionMC extends Question {
 		return -1; // not found
 	}
 	
+	// convert question info to String for saving in file
 	public String toString() {
 		// example: 2|In what year was the Declaration of Independence signed?|[1776,1789,1800]|1776
 		
@@ -208,9 +234,6 @@ public class QuestionMC extends Question {
 		
 		System.out.println("\nIs correct: " + q.checkAnswer(input));
 		System.out.println("To string: " + q.toString());
-		
-		//--use file read constructor to create multiple choice question 
-		// QuestionMC q2 = new QuestionMC ()
 	}
 
 }
