@@ -1,3 +1,7 @@
+//Name: Pavneet Gill 
+//Date: 2017-01-23
+//Description: This is a triviaCreationGUI which creates the quiz and sets the quiz name 
+
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
@@ -8,9 +12,6 @@ import javax.swing.JTextField;
 import javax.swing.JLabel;
 import java.awt.Color;
 import javax.swing.SwingConstants;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
-
 import java.awt.Font;
 import javax.swing.JTextArea;
 import javax.swing.JButton;
@@ -23,12 +24,17 @@ import javax.swing.border.LineBorder;
 
 
 public class TriviaCreationGUI extends JFrame implements ActionListener {
+	
+	//creating variabiles for txt fields, options, lables 
 	private JTextField txtLabel;
 	private JTextField textField;
-	private JTextArea textField_1;
 	private JButton btnBack, btnCreate;
-	private String options [] = {"1","2","3","4","5","6","7","8","9","10"}; 
+	private String options [] = {"","5","6","7","8","9","10"}; 
 	private JComboBox comboBox = new JComboBox(options);
+	private JTextField textField_1;
+	private JLabel lblError; 
+	private JLabel lblCategoryError; 
+	private JLabel lblErrorUnselected;
 
 	/**
 	 * Launch the application.
@@ -38,46 +44,36 @@ public class TriviaCreationGUI extends JFrame implements ActionListener {
 	 * Create the frame.
 	 */
 	public TriviaCreationGUI() {
-		
-//		try {
-//			UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
-//		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
-//				| UnsupportedLookAndFeelException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-		
 		getContentPane().setFont(new Font("Segoe UI", Font.PLAIN, 11));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(500,700);
+		setSize(500,420);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(null);
 		
+		lblError = new JLabel("");
+		lblCategoryError = new JLabel("");
+		lblErrorUnselected = new JLabel(""); 
+		
 		txtLabel = new JTextField();
+		txtLabel.setEditable(false);
 		txtLabel.setBackground(new Color(255, 255, 255));
-		txtLabel.setFont(new Font("Plantagenet Cherokee", Font.PLAIN, 11));
+		txtLabel.setFont(new Font("Yu Gothic Light", Font.PLAIN, 16));
 		txtLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		txtLabel.setText("Trivia Creation");
-		txtLabel.setBounds(0, 0, 484, 48);
+		txtLabel.setBounds(0, 0, 484, 42);
 		getContentPane().add(txtLabel);
 		txtLabel.setColumns(10);
 		
 		JLabel lblTriviaName = new JLabel("Trivia Name");
-		lblTriviaName.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblTriviaName.setFont(new Font("Segoe UI Historic", Font.PLAIN, 15));
 		lblTriviaName.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTriviaName.setBounds(10, 87, 115, 20);
 		getContentPane().add(lblTriviaName);
 		
 		textField = new JTextField();
-		textField.setBounds(35, 110, 400, 32);
+		textField.setBounds(35, 118, 400, 32);
 		getContentPane().add(textField);
 		textField.setColumns(10);
-		
-		JLabel lblDescription = new JLabel("Description");
-		lblDescription.setHorizontalAlignment(SwingConstants.CENTER);
-		lblDescription.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblDescription.setBounds(10, 153, 115, 20);
-		getContentPane().add(lblDescription);
 		
 		btnBack = new JButton("Back");
 		btnBack.setBounds(10, 53, 89, 23);
@@ -85,24 +81,43 @@ public class TriviaCreationGUI extends JFrame implements ActionListener {
 		btnBack.addActionListener(this);
 		
 		JLabel lblNumberOfQuestioms = new JLabel("Number of Question(s):");
-		lblNumberOfQuestioms.setBounds(86, 472, 133, 14);
+		lblNumberOfQuestioms.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 11));
+		lblNumberOfQuestioms.setBounds(113, 268, 133, 14);
 		getContentPane().add(lblNumberOfQuestioms);
 		
-		comboBox.setBounds(235, 469, 50, 20);
+		comboBox.setBounds(256, 265, 50, 20);
 		getContentPane().add(comboBox);
 		comboBox.setActionCommand("Question #");
 		
 		btnCreate = new JButton("Create");
-		btnCreate.setBounds(160, 544, 139, 36);
+		btnCreate.setBounds(167, 333, 139, 36);
 		getContentPane().add(btnCreate);
 		btnCreate.addActionListener(this);
 		
-		textField_1 = new JTextArea();
-		textField_1.setWrapStyleWord(true);
-		textField_1.setLineWrap(true);
-		textField_1.setBounds(35, 184, 400, 228);
-		getContentPane().add(textField_1);
+		
+		JLabel lblCategory = new JLabel("Category");
+		lblCategory.setHorizontalAlignment(SwingConstants.CENTER);
+		lblCategory.setFont(new Font("Segoe UI Historic", Font.PLAIN, 15));
+		lblCategory.setBounds(0, 161, 115, 20);
+		getContentPane().add(lblCategory);
+		
+		textField_1 = new JTextField();
 		textField_1.setColumns(10);
+		textField_1.setBounds(35, 192, 400, 32);
+		getContentPane().add(textField_1);
+		
+		
+		lblError.setForeground(Color.RED);
+		lblError.setBackground(Color.RED);
+		getContentPane().add(lblError);
+		
+		lblCategoryError.setForeground(Color.RED);
+		lblCategoryError.setBackground(Color.RED);
+		getContentPane().add(lblCategoryError);
+		
+		lblErrorUnselected.setForeground(Color.RED);
+		lblErrorUnselected.setBackground(Color.RED);
+		getContentPane().add(lblErrorUnselected);
 		setVisible (true); 
 	}
 	
@@ -118,12 +133,67 @@ public class TriviaCreationGUI extends JFrame implements ActionListener {
 			dispose();
 		}
 		else if(e.getSource() == btnCreate){
-			Data.q.setQuizName(textField.getText());
+			
 			String selectedItem = (String) comboBox.getSelectedItem();//getting selected item on comboBox box 
-			Data.totalQuestions = Integer.parseInt(selectedItem); 
-			//Data.q.setSize(Integer.parseInt(selectedItem));
-			new QuestionCreation();
-			dispose();
+			
+			String categoryName = textField_1.getText(); 
+			
+			int maxlength = 20; 
+			
+			String quizName = textField.getText(); 
+			
+			
+			if ((categoryName.length() > maxlength) || (quizName.length() > maxlength) || selectedItem == "" || (categoryName.isEmpty()) || (quizName.isEmpty()))
+			{
+				if (quizName.length() > maxlength)
+				{
+					lblError.setText("Shorten QuizName to 20 characters");
+					
+					lblError.setBounds(167, 104, 268, 14);
+				}
+				
+				if (categoryName.isEmpty())
+				{
+					lblCategoryError.setText("Empty Category Name");
+					
+					lblCategoryError.setBounds(280, 178, 155, 14);
+				}
+				
+				if (quizName.isEmpty())
+				{
+					lblError.setText("EmptyQuizName");
+					
+					lblError.setBounds(320, 104, 115, 14);
+				}
+				
+				if (categoryName.length() > maxlength)
+				{
+					lblCategoryError.setText("Shorten CategoryName to 20 characters");
+					
+					lblCategoryError.setBounds(181, 178, 254, 14);
+				}
+				
+				if (selectedItem.equalsIgnoreCase (""))
+				{
+					lblErrorUnselected.setText("Unselected Questions");
+					
+					lblErrorUnselected.setBounds(220, 293, 158, 14);
+				}
+			}
+			else  
+			{
+				Data.q.getQuestions().clear();
+				
+				Data.q.setQuizName(textField.getText());
+				
+				Data.q.setCategory(textField_1.getText());
+				
+				Data.totalQuestions = Integer.parseInt(selectedItem);
+				
+				new QuestionCreation();
+				
+				dispose();
+			}
 		}
 	}
 
