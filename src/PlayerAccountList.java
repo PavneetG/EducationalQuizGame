@@ -10,6 +10,28 @@ import java.io.PrintWriter;
 import javax.swing.JOptionPane;
 /*
  * Author: Kevin Subhash
+ * Date: January 2017
+ * Description: This class allows us to insert, delete, and change player accounts as well as search for different player info
+ * through the list of accounts. This class also contains sort methods, check if login works, and is able to read from files 
+ * and write to files.
+ * 
+ * Method List:
+ * public PlayerAccountList()
+ * public PlayerAccountList(int maxSize)
+ * public void loadFile (String file) throws IOException
+ * public void writeFile (String file) throws IOException
+ * public boolean insert(Player record)
+ * public boolean delete(Player record)
+ * public boolean checkUserName(String userName)
+ * public Statistics getStats(String userName)
+ * public boolean checkLogin(String userName, String password)
+ * public String getName(String userName)
+ * public String getPic(String userName)
+ * public void insertSort ()
+ * public int binarySearch(String searchKey)
+ * public boolean change(Player oldR, Player newR)
+ * public int getSize()
+ * public Player[] getList()
  */
 
 public class PlayerAccountList {

@@ -20,7 +20,6 @@ public class Data {
 	public static int totalQuestions =0; 
 	public static PlayerAccountList accounts = new PlayerAccountList();
 	public static String userName;
-	public static int seconds;
 
 	public static int getPoints () {
 		return points; 
