@@ -13,7 +13,9 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.SystemColor;
 import javax.swing.table.DefaultTableModel;
-
+/*
+ * Author: Kevin Subhash
+ */
 public class StatisticsGUI extends JFrame {
 
 	private JPanel contentPane;

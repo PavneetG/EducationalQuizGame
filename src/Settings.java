@@ -1,7 +1,9 @@
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -21,11 +23,11 @@ public class Settings extends JFrame implements ActionListener {
 	private JRadioButton radioButton, radioButton_1, radioButton_2, radioButton_3; // declared variables as JRadioButton
 	private String name, userName, password, picName, stats; // declared variables as String
 	private JPasswordField passwordField; // declared variable as JPasswordField
-	private int key; // decalred variable as int, it is a key for btnConfirm
-	private double time;
+	private int key,time; // decalred variables as int, it is a key for btnConfirm and time for questions
 	private JComboBox comboBox; // created a comboBox
 	Player newInfo, oldInfo; // declared variables as Player
-	PlayerAccountList accounts = new PlayerAccountList();
+	PlayerAccountList accounts = new PlayerAccountList(); // Created PlayerAccountList object
+	
 	public Settings() throws IOException {
 		super("Settings");  // title for the frame
 
@@ -223,7 +225,7 @@ public class Settings extends JFrame implements ActionListener {
 		label_3.setVisible(false);
 		lblStatus.setVisible(false);
 		lblSeconds.setVisible(false);
-		comboBox.setVisible(false);
+		comboBox.setVisible(false); // setting visibility for comboBox
 
 		setSize(350,500); // set size of window
 		setVisible(true);
@@ -233,16 +235,12 @@ public class Settings extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == btnBack){
 			try{
-				System.out.println(accounts.change(oldInfo, newInfo));
 				if(accounts.change(oldInfo, newInfo)){ // when the information is changed, it saves to the file
-
 					accounts.writeFile("Players.txt");
-
 				}
 				new HomeMenuGUI();
 			} catch(IOException e2){
 			}
-			System.out.println(Data.seconds);
 			dispose(); // closes settings gui
 		}
 		if(e.getSource() == btnVerifyLogin){ // performs when Verify login is pressed is pressed
@@ -284,44 +282,46 @@ public class Settings extends JFrame implements ActionListener {
 			{
 			case "15":
 			{
-				time = 15.0;
+				time = 15;
 				break;
 			}
 			case "20":
 			{
-				time = 20.0;
+				time = 20;
 				break;
 			}
 			case "25":
 			{
-				time = 25.0;
+				time = 25;
 				break;
 			}
 			case "30":
 			{
-				time = 30.0;
+				time = 30;
 				break;
 			}
 			case "35":
 			{
-				time = 35.0;
+				time = 35;
 				break;
 			}
 			case "40":
 			{
-				time = 40.0;
+				time = 40;
 				break;
 			}
 			case "45":
 			{
-				time = 45.0;
+				time = 45;
 				break;
 			}
 			}
-			Data.seconds = time;
-			accounts.getStats(oldInfo.getUserName()).setAverageTime(time);
-			stats = accounts.getStats(oldInfo.getUserName()).toString();
-			System.out.println("newInfo<time>: " + stats);
+			try {
+				PrintWriter pw = new PrintWriter(new FileWriter("time.txt")); // writes the time to a file
+				pw.println(time);
+				pw.close();
+			} catch (IOException e1) {
+			}
 		}
 		if (e.getSource() == btnChange1) { // performs when btnChange1 is pressed
 			/*

@@ -9,11 +9,14 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 //Author: Kevin Subhash
+//Date: January 2017
+//Description: This class allows the user to create an account. After inputing the information, 
+//it uses the information to create a new player object and stores the valid information in a 
+//textfile
 
 public class CreateAccount extends JFrame implements ActionListener{
 
-	private JPanel contentPane; // declaring variables
-	private JButton btnLogin, btnClear1, btnClear2, btnClear3, btnClear4, btnCreateAccount; 
+	private JButton btnClear1, btnClear2, btnClear3, btnClear4, btnCreateAccount; 
 	private JRadioButton radioButton, radioButton_1, radioButton_2, radioButton_3;
 	private JTextField passwordField,userNameField,confirmPassField,nameField; 
 	private JLabel lblPickAPicture,lblEnterAUsername,lblEnterYourName,lblEnterPassword,lblComfirmPassword,
@@ -288,7 +291,7 @@ public class CreateAccount extends JFrame implements ActionListener{
 				lblEmpty.setVisible(false);
 			}
 			else{
-				String t = name + ";" + userName + ";" + password + ";" + pic + ";0|0|0|0.0|0.0|1|[empty]";
+				String t = name + ";" + userName + ";" + password + ";" + pic + ";0|0|0|0.0|0.0|1|[empty]"; // storing t with new Player Information
 				Player playerInfo = new Player(t); // creates new Player object
 				Data.accounts.insert(playerInfo); // inserts new player info 
 				try {

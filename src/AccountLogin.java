@@ -18,7 +18,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
-//Authour: Janujan Gathieswaran
+//Authour: Janujan Gathieswaran and Kevin Subhash
 
 public class AccountLogin extends JFrame implements ActionListener {
 	private JButton btnLogin, btnClear1, btnClear2; 
