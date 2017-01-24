@@ -7,18 +7,23 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 /*
  * Author: Kevin Subhash
+ * Date: January 2017
+ * Description: This class allows the user to change his/her information whether it is
+ * their name, username, password, or picture. The user can also change the seconds for
+ * each quiz.
  */
 public class Settings extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
 	private JButton btnChange1, btnChange2, btnChange3, btnChange4,btnConfirm,btnBack,btnVerifyLogin, btnCancel; // declared variables as JButtons
-	private JLabel lblChange1, lblChange2, lblChange3, lblChange4, label, label_1, label_2, label_3, lblUserName, lblPassword, lblStatus; // declared variables as JLabels
+	private JLabel lblChange1, lblChange2, lblChange3, lblChange4, label, label_1, label_2, label_3, lblUserName, lblPassword, lblStatus, lblSeconds; // declared variables as JLabels
 	private JTextField confirmPassField, universalField; // declared variables as JTextField
 	private JRadioButton radioButton, radioButton_1, radioButton_2, radioButton_3; // declared variables as JRadioButton
 	private String name, userName, password, picName, stats; // declared variables as String
-	private Statistics stat;
+	private Statistics stat; // created stats which is Statistics
 	private JPasswordField passwordField; // declared variable as JPasswordField
-	private int key; // decalred variable as int, it is a key for btnConfirm
+	private int key,time; // decalred variable as int, it is a key for btnConfirm
+	private JComboBox comboBox; // created a comboBox
 	Player newInfo, oldInfo; // declared variables as Player
 	PlayerAccountList accounts = new PlayerAccountList();
 	public Settings() throws IOException {
@@ -81,7 +86,7 @@ public class Settings extends JFrame implements ActionListener {
 		btnChange4.setVisible(false);
 		btnConfirm.setVisible(false);
 		btnCancel.setVisible(false);
-		//btnBack.setVisible(false);
+		btnBack.setVisible(false);
 		/*
 		 * Added actionlistener to all JButtons
 		 */
@@ -164,6 +169,7 @@ public class Settings extends JFrame implements ActionListener {
 		lblStatus = new JLabel("Invalid UserName/Password");
 		lblUserName = new JLabel("User Name");
 		lblPassword = new JLabel("Password");
+		lblSeconds = new JLabel("Seconds:");
 		/*
 		 * SetBounds for labels
 		 */
@@ -178,6 +184,7 @@ public class Settings extends JFrame implements ActionListener {
 		label_3.setBounds(246, 280, 60, 60);
 		lblUserName.setBounds(91, 149, 83, 14);
 		lblPassword.setBounds(91, 205, 83, 14);
+		lblSeconds.setBounds(248, 335, 46, 14);
 		/*
 		 * Added labels to frame
 		 */
@@ -192,6 +199,18 @@ public class Settings extends JFrame implements ActionListener {
 		getContentPane().add(lblUserName);
 		getContentPane().add(lblPassword);
 		getContentPane().add(lblStatus);
+		getContentPane().add(lblSeconds);
+		/*
+		 * Creating comboBox and setting
+		 * it up
+		 */
+		comboBox = new JComboBox();
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"15", "20", "25", "30", "35", "40", "45"}));
+		comboBox.setActionCommand("access");
+		comboBox.addActionListener(this);
+		comboBox.setSelectedIndex (1);
+		comboBox.setBounds(246, 360, 48, 20);
+		add(comboBox);
 		/*
 		 * set visibility for certain labels to false
 		 */
@@ -204,6 +223,8 @@ public class Settings extends JFrame implements ActionListener {
 		label_2.setVisible(false);
 		label_3.setVisible(false);
 		lblStatus.setVisible(false);
+		lblSeconds.setVisible(false);
+		comboBox.setVisible(false);
 
 		setSize(350,500); // set size of window
 		setVisible(true);
@@ -222,20 +243,20 @@ public class Settings extends JFrame implements ActionListener {
 			} catch (ArrayIndexOutOfBoundsException e1) {
 				accounts.change(newInfo, oldInfo);
 			} catch(IOException e2){
-				
-			}
 
+			}
+			System.out.println(Data.seconds);
 			dispose(); // closes settings gui
 		}
 		if(e.getSource() == btnVerifyLogin){ // performs when Verify login is pressed is pressed
 			if(Data.userName.equalsIgnoreCase(universalField.getText()) && accounts.checkLogin(universalField.getText(), passwordField.getText())){
-				userName = universalField.getText(); // setting variables to the pre-existing player information
-				password = passwordField.getText();
-				picName = Data.accounts.getPic(userName);
-				stats = Data.accounts.getStats(userName).toString();
-				name = Data.accounts.getName(userName);
-				oldInfo = new Player(name + ";" + userName + ";" + password + ";" + picName + ";" +  stats);
-				newInfo = new Player(name + ";" + userName + ";" + password + ";" + picName + ";" +  stats);
+				userName = universalField.getText(); // stores userName of player
+				password = passwordField.getText(); // stores password of player
+				picName = Data.accounts.getPic(userName); // stores picture of player
+				stats = Data.accounts.getStats(userName).toString(); // stores stats of player
+				name = Data.accounts.getName(userName); // stores name of player
+				oldInfo = new Player(name + ";" + userName + ";" + password + ";" + picName + ";" +  stats); // adds information to oldInfo Player Object
+				newInfo = new Player(name + ";" + userName + ";" + password + ";" + picName + ";" +  stats); // adds information to newInfo Player Object in case if user does not change anything
 				System.out.println("newInfo: " + oldInfo);
 				System.out.println("oldInfo: " + oldInfo);
 				/*
@@ -248,6 +269,8 @@ public class Settings extends JFrame implements ActionListener {
 				btnChange2.setVisible(true);
 				btnChange3.setVisible(true);
 				btnChange4.setVisible(true);
+				comboBox.setVisible(true);
+				lblSeconds.setVisible(true);
 				universalField.setVisible(false);
 				passwordField.setVisible(false);
 				lblUserName.setVisible(false);
@@ -258,6 +281,51 @@ public class Settings extends JFrame implements ActionListener {
 				lblStatus.setText("Invalid UserName/Password"); // notifies user if login has failed
 				lblStatus.setVisible(true);
 			}
+		}
+		if (e.getActionCommand().equals("hello"))
+		{
+			//switching depending on selection item
+			switch ((String) comboBox.getSelectedItem())
+			{
+			case "15":
+			{
+				time = 15;
+				break;
+			}
+			case "20":
+			{
+				time = 20;
+				break;
+			}
+			case "25":
+			{
+				time = 25;
+				break;
+			}
+			case "30":
+			{
+				time = 30;
+				break;
+			}
+			case "35":
+			{
+				time = 35;
+				break;
+			}
+			case "40":
+			{
+				time = 40;
+				break;
+			}
+			case "45":
+			{
+				time = 45;
+				break;
+			}
+			}
+			accounts.getStats(oldInfo.getUserName()).setAverageTime(time);
+			stats = accounts.getStats(oldInfo.getUserName()).toString();
+			System.out.println(stats);
 		}
 		if (e.getSource() == btnChange1) { // performs when btnChange1 is pressed
 			/*
