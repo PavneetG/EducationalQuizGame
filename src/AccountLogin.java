@@ -155,7 +155,6 @@ public class AccountLogin extends JFrame implements ActionListener {
 
 				lblStatus.setText("");
 				Data.userName = txtUserName.getText();
-				Data.seconds = (int) accounts.getStats(txtUserName.getText()).getAverageTime();
 				System.out.println(Data.accounts.getPic(Data.userName));
 				try {
 					new HomeMenuGUI();

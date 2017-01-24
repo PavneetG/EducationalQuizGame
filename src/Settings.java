@@ -20,9 +20,9 @@ public class Settings extends JFrame implements ActionListener {
 	private JTextField confirmPassField, universalField; // declared variables as JTextField
 	private JRadioButton radioButton, radioButton_1, radioButton_2, radioButton_3; // declared variables as JRadioButton
 	private String name, userName, password, picName, stats; // declared variables as String
-	private Statistics stat; // created stats which is Statistics
 	private JPasswordField passwordField; // declared variable as JPasswordField
-	private int key,time; // decalred variable as int, it is a key for btnConfirm
+	private int key; // decalred variable as int, it is a key for btnConfirm
+	private double time;
 	private JComboBox comboBox; // created a comboBox
 	Player newInfo, oldInfo; // declared variables as Player
 	PlayerAccountList accounts = new PlayerAccountList();
@@ -184,7 +184,7 @@ public class Settings extends JFrame implements ActionListener {
 		label_3.setBounds(246, 280, 60, 60);
 		lblUserName.setBounds(91, 149, 83, 14);
 		lblPassword.setBounds(91, 205, 83, 14);
-		lblSeconds.setBounds(248, 335, 46, 14);
+		lblSeconds.setBounds(246, 352, 86, 14);
 		/*
 		 * Added labels to frame
 		 */
@@ -208,9 +208,8 @@ public class Settings extends JFrame implements ActionListener {
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"15", "20", "25", "30", "35", "40", "45"}));
 		comboBox.setActionCommand("access");
 		comboBox.addActionListener(this);
-		comboBox.setSelectedIndex (1);
-		comboBox.setBounds(246, 360, 48, 20);
-		add(comboBox);
+		comboBox.setBounds(246, 367, 48, 20);
+		getContentPane().add(comboBox);
 		/*
 		 * set visibility for certain labels to false
 		 */
@@ -234,16 +233,14 @@ public class Settings extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == btnBack){
 			try{
+				System.out.println(accounts.change(oldInfo, newInfo));
 				if(accounts.change(oldInfo, newInfo)){ // when the information is changed, it saves to the file
 
 					accounts.writeFile("Players.txt");
 
 				}
 				new HomeMenuGUI();
-			} catch (ArrayIndexOutOfBoundsException e1) {
-				accounts.change(newInfo, oldInfo);
 			} catch(IOException e2){
-
 			}
 			System.out.println(Data.seconds);
 			dispose(); // closes settings gui
@@ -255,9 +252,7 @@ public class Settings extends JFrame implements ActionListener {
 				picName = Data.accounts.getPic(userName); // stores picture of player
 				stats = Data.accounts.getStats(userName).toString(); // stores stats of player
 				name = Data.accounts.getName(userName); // stores name of player
-				oldInfo = new Player(name + ";" + userName + ";" + password + ";" + picName + ";" +  stats); // adds information to oldInfo Player Object
-				newInfo = new Player(name + ";" + userName + ";" + password + ";" + picName + ";" +  stats); // adds information to newInfo Player Object in case if user does not change anything
-				System.out.println("newInfo: " + oldInfo);
+				oldInfo = new Player(name + ";" + userName + ";" + password + ";" + picName + ";" + stats); // adds information to oldInfo Player Object
 				System.out.println("oldInfo: " + oldInfo);
 				/*
 				 * Setting visibility of buttons, labels, and textfields 
@@ -282,50 +277,51 @@ public class Settings extends JFrame implements ActionListener {
 				lblStatus.setVisible(true);
 			}
 		}
-		if (e.getActionCommand().equals("hello"))
+		if (e.getActionCommand().equals("access"))
 		{
 			//switching depending on selection item
 			switch ((String) comboBox.getSelectedItem())
 			{
 			case "15":
 			{
-				time = 15;
+				time = 15.0;
 				break;
 			}
 			case "20":
 			{
-				time = 20;
+				time = 20.0;
 				break;
 			}
 			case "25":
 			{
-				time = 25;
+				time = 25.0;
 				break;
 			}
 			case "30":
 			{
-				time = 30;
+				time = 30.0;
 				break;
 			}
 			case "35":
 			{
-				time = 35;
+				time = 35.0;
 				break;
 			}
 			case "40":
 			{
-				time = 40;
+				time = 40.0;
 				break;
 			}
 			case "45":
 			{
-				time = 45;
+				time = 45.0;
 				break;
 			}
 			}
+			Data.seconds = time;
 			accounts.getStats(oldInfo.getUserName()).setAverageTime(time);
 			stats = accounts.getStats(oldInfo.getUserName()).toString();
-			System.out.println(stats);
+			System.out.println("newInfo<time>: " + stats);
 		}
 		if (e.getSource() == btnChange1) { // performs when btnChange1 is pressed
 			/*
@@ -409,6 +405,35 @@ public class Settings extends JFrame implements ActionListener {
 			lblChange4.setVisible(true);
 			btnConfirm.setVisible(true);
 			btnCancel.setVisible(true);
+		}
+		if (e.getSource() == btnCancel) { // performs when btnCancel is pressed
+			/*
+			 * Setting visibility of buttons, labels, and textfields 
+			 * to either true or false
+			 */
+			universalField.setVisible(false);
+			lblStatus.setVisible(false);
+			btnChange1.setVisible(true); 
+			btnChange2.setVisible(true);
+			btnChange3.setVisible(true);
+			btnChange4.setVisible(true);	
+			radioButton.setVisible(false);
+			radioButton_1.setVisible(false);
+			radioButton_2.setVisible(false);
+			radioButton_3.setVisible(false);
+			label.setVisible(false);
+			label_1.setVisible(false);
+			label_2.setVisible(false);
+			label_3.setVisible(false);
+			btnConfirm.setVisible(false);
+			lblChange1.setVisible(false);
+			lblChange2.setVisible(false);
+			lblChange3.setVisible(false);
+			lblChange4.setVisible(false);
+			confirmPassField.setVisible(false);
+			btnBack.setVisible(true);
+			btnCancel.setVisible(false);
+
 		}
 		/*
 		 * Radiobuttons are set to selected false when radioButton
@@ -566,40 +591,10 @@ public class Settings extends JFrame implements ActionListener {
 					lblChange4.setVisible(false);
 					btnConfirm.setVisible(false);
 				}
-			}
-
-			if (e.getSource() == btnCancel) { // performs when btnCancel is pressed
-				/*
-				 * Setting visibility of buttons, labels, and textfields 
-				 * to either true or false
-				 */
-				universalField.setVisible(false);
-				lblStatus.setVisible(false);
-				btnChange1.setVisible(true); 
-				btnChange2.setVisible(true);
-				btnChange3.setVisible(true);
-				btnChange4.setVisible(true);	
-				radioButton.setVisible(false);
-				radioButton_1.setVisible(false);
-				radioButton_2.setVisible(false);
-				radioButton_3.setVisible(false);
-				label.setVisible(false);
-				label_1.setVisible(false);
-				label_2.setVisible(false);
-				label_3.setVisible(false);
-				btnConfirm.setVisible(false);
-				lblChange1.setVisible(false);
-				lblChange2.setVisible(false);
-				lblChange3.setVisible(false);
-				lblChange4.setVisible(false);
-				confirmPassField.setVisible(false);
-				btnBack.setVisible(true);
-				btnCancel.setVisible(false);
-
-			}
-			newInfo = new Player(name + ";" + userName + ";" + password + ";" + picName + ";" +  stats); // creating Player object called newInfo with new information
-			System.out.println("newInfo: " + newInfo);
+			}	
 		}
+		newInfo = new Player(name + ";" + userName + ";" + password + ";" + picName + ";" +  stats); // creating Player object called newInfo with new information
+		System.out.println("newInfo: " + newInfo);
 	}
 	public static void main(String[] args) throws IOException {
 		Settings settings = new Settings();
