@@ -14,6 +14,9 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.SystemColor;
 import javax.swing.table.DefaultTableModel;
+
+import javafx.scene.control.Tooltip;
+
 import javax.swing.border.BevelBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.SwingConstants;
@@ -25,18 +28,17 @@ import java.awt.event.ActionEvent;
  * Description: This class is the GUI for the the player Statistics. It displays
  * the player's quizzes attempted, total questions attempted, correct answers,
  * overall percentage, and average time.
+ * 
+ * Method List:
+ * public void actionPerformed(ActionEvent e) 
+ * public StatisticsGUI() throws IOException
  */
-public class StatisticsGUI extends JFrame {
+public class StatisticsGUI extends JFrame implements ActionListener {
 
-	private JLabel lblPicture, lblPlayerName, userName; //creating JLabels and JTable
-	private JTable table;
-	private JButton btnBack;
-	private JScrollPane scrollPane;
-	private JLabel label;
-
-	public static void main(String[] args) throws IOException {
-		StatisticsGUI statistics = new StatisticsGUI();
-	}
+	private JLabel lblPicture, lblPlayerName, userName, picLogo; //Declaring JLabels
+	private JTable table; // declaring a JTable
+	private JButton btnBack; // declaring JButton
+	private JScrollPane scrollPane; // Declaring JScrollPane
 
 	public StatisticsGUI() throws IOException {
 
@@ -47,53 +49,62 @@ public class StatisticsGUI extends JFrame {
 
 		String[] columns = {"Quizzes", "Total\nQuestions", "Correct Answers", "Overall %", "Average Time"}; // creating columns for JTable
 		Object [][] data = {{Data.accounts.getStats(Data.userName).getNumQuizzes(), Data.accounts.getStats(Data.userName).getNumTotal(), Data.accounts.getStats(Data.userName).getNumCorrect(),
-			Data.accounts.getStats(Data.userName).getOverallPercentage(), Data.accounts.getStats(Data.userName).getAverageTime()}}; // Creating and declaring 2D Arrays which contain data for the JTablee
+			Data.accounts.getStats(Data.userName).getOverallPercentage(), Data.accounts.getStats(Data.userName).getAverageTime()}}; // Creating and declaring 2D Arrays which contain data for the JTable
 
-		table = new JTable(data, columns);
-		table.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		table.setFillsViewportHeight(true);
-		table.setPreferredScrollableViewportSize(new Dimension(500, 50));
-		table.setFillsViewportHeight(true);
+		table = new JTable(data, columns); // creating JTable with data and columns
+		table.setToolTipText("Quizzes, Total Questions Attempted, Correct Answers, Overall %, Average Time"); // setting tool tip for table
+		table.setEnabled(false); // setEnabled is set to false for table
+		table.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null)); // setting border for table
+		table.setFillsViewportHeight(true); // set fill viewport height to true
+		table.setPreferredScrollableViewportSize(new Dimension(500, 50)); // set preferred scroallable viewport size to 500,50
 
-		scrollPane = new JScrollPane(table);
-		btnBack = new JButton("Back");
-		btnBack.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(e.getSource() == btnBack){
-					new HomeGUI();
-					dispose();
-				}
-			}
-		});
-		btnBack.setFont(new Font("Comic Sans MS", Font.PLAIN, 15));
+		scrollPane = new JScrollPane(table); // created JScrollPane with table
+		scrollPane.setEnabled(false); // setEnabled false for scrollPane
+		btnBack = new JButton("Back"); // created JButton
+		
+		btnBack.setFont(new Font("Comic Sans MS", Font.PLAIN, 15)); // setting font for back button
 
-		lblPicture = new JLabel(new ImageIcon(Data.accounts.getPic(Data.userName)));
-		lblPlayerName = new JLabel("<html>" + Data.accounts.getName(Data.userName) + "'s Statistics" + "<html>");
-		lblPlayerName.setHorizontalAlignment(SwingConstants.CENTER);
-		userName = new JLabel("<html>" + "UserName: " + Data.userName + "<html>");
-		userName.setFont(new Font("Comic Sans MS", Font.PLAIN, 11));
-		userName.setHorizontalAlignment(SwingConstants.CENTER);
+		lblPicture = new JLabel(new ImageIcon(Data.accounts.getPic(Data.userName))); // creating JLabel with player's profile picture
+		lblPlayerName = new JLabel("<html>" + Data.accounts.getName(Data.userName) + "'s Statistics" + "<html>"); // created JLabel with player's name
+		picLogo = new JLabel(new ImageIcon("tree.png"));	 // created label with picture of tree
+		userName = new JLabel("<html>" + "UserName: " + Data.userName + "<html>"); // created label for player's username
+		userName.setFont(new Font("Comic Sans MS", Font.PLAIN, 11)); // setting font for userName
+		lblPlayerName.setFont(new Font("Comic Sans MS", Font.PLAIN, 20)); // setting font for playername
+		userName.setHorizontalAlignment(SwingConstants.CENTER); // centering userName
+		lblPlayerName.setHorizontalAlignment(SwingConstants.CENTER); // centering PlayerName
 
-		lblPlayerName.setFont(new Font("Comic Sans MS", Font.PLAIN, 20));
-
-		lblPicture.setBounds(138, 68, 60, 60);
+		lblPicture.setBounds(138, 68, 60, 60); // setting bounds for button, scrollpane, and labels
 		btnBack.setBounds(10, 11, 89, 23);
 		lblPlayerName.setBounds(10, 150, 324, 85);
 		scrollPane.setBounds(10, 278, 324, 44);
 		userName.setBounds(10, 232, 314, 14);
-
-		getContentPane().add(lblPicture);
+		picLogo.setBounds(99, 333, 138, 127);
+		
+		getContentPane().add(lblPicture); // adding scrollbar, button, and labels to frame
 		getContentPane().add(lblPlayerName);
 		getContentPane().add(userName);
 		getContentPane().add(scrollPane);
 		getContentPane().add(btnBack);
+		getContentPane().add(picLogo);
 		
-		label = new JLabel(new ImageIcon("tree.png"));
-		label.setBounds(99, 333, 138, 127);
-		getContentPane().add(label);
+		btnBack.addActionListener(this); // adding actionlistener to back button
 
 		setSize(350,500); // set size of window
 		setVisible(true); // setting the visibility to true
 		setResizable(false); // cannot resize window
+	}
+	
+	public void actionPerformed(ActionEvent e) { // actionPerformed method
+		if(e.getSource() == btnBack){ // when back button is pressed, it opens HomeMenuGUI and disposes this gui
+			try {
+				new HomeMenuGUI();
+			} catch (IOException e1) {
+			}
+			dispose();
+		}
+	}
+	
+	public static void main(String[] args) throws IOException {
+		StatisticsGUI statistics = new StatisticsGUI();
 	}
 }
