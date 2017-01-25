@@ -8,19 +8,24 @@ import java.io.IOException;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-//Author: Kevin Subhash
-//Date: January 2017
-//Description: This class allows the user to create an account. After inputing the information, 
-//it uses the information to create a new player object and stores the valid information in a 
-//textfile
+
+/*
+ *Author: Kevin Subhash
+ *Date: January 2017
+ *Description: This class allows the user to create an account. After inputing the information, 
+ *it uses the information to create a new player object and stores the valid information in a 
+ *textfile
+ */
+
 
 public class CreateAccount extends JFrame implements ActionListener{
 
-	private JButton btnClear1, btnClear2, btnClear3, btnClear4, btnCreateAccount; 
-	private JRadioButton radioButton, radioButton_1, radioButton_2, radioButton_3;
-	private JTextField passwordField,userNameField,confirmPassField,nameField; 
-	private JLabel lblPickAPicture,lblEnterAUsername,lblEnterYourName,lblEnterPassword,lblComfirmPassword,
-	label,label_1,label_2,label_3,lblMatch,lblTaken,lblPicWarning,lblEmpty;
+	private JButton btnClear1, btnClear2, btnClear3, btnClear4, btnCreateAccount; // Declaring JButtons
+	private JRadioButton radioButton, radioButton_1, radioButton_2, radioButton_3; // Declaring JRadioButtons
+	private JTextField passwordField,userNameField,confirmPassField,nameField; // Declaring JTextFields
+	private JLabel lblPickAPicture,lblEnterAUsername,lblEnterYourName,lblEnterPassword,lblComfirmPassword, // Declaring JLabels
+	label,label_1,label_2,label_3,lblMatch,lblTaken,lblPicWarning,lblEmpty; 
+	private ButtonGroup bg = new ButtonGroup();
 
 	public CreateAccount() throws IOException {
 
@@ -173,6 +178,7 @@ public class CreateAccount extends JFrame implements ActionListener{
 		 * Created JRadioButtons
 		 */
 		radioButton = new JRadioButton();
+		radioButton.setSelected(true); // setSelected set to true
 		radioButton_1 = new JRadioButton();
 		radioButton_2 = new JRadioButton();
 		radioButton_3 = new JRadioButton();
@@ -191,12 +197,12 @@ public class CreateAccount extends JFrame implements ActionListener{
 		getContentPane().add(radioButton_2);
 		getContentPane().add(radioButton_3);
 		/*
-		 * Added actionlistener to radiobuttons
+		 * Added radiobuttons to buttongroup
 		 */
-		radioButton.addActionListener(this);
-		radioButton_1.addActionListener(this);
-		radioButton_2.addActionListener(this);
-		radioButton_3.addActionListener(this);
+		bg.add(radioButton);
+		bg.add(radioButton_1);
+		bg.add(radioButton_2);
+		bg.add(radioButton_3);
 
 		Data.accounts.loadFile("Players.txt"); // loads the players.txt file
 
@@ -221,26 +227,6 @@ public class CreateAccount extends JFrame implements ActionListener{
 		if (e.getSource() == btnClear2) { // clears nameField
 			nameField.setText("");
 			btnClear2.setVisible(false);
-		}
-		if (e.getSource() == radioButton){ // Unselects other radiobuttons when radioButton is selected 
-			radioButton_1.setSelected(false);
-			radioButton_2.setSelected(false);
-			radioButton_3.setSelected(false);
-		}
-		if (e.getSource() == radioButton_1){ // Unselects other radiobuttons when radioButton_1 is selected 
-			radioButton.setSelected(false);
-			radioButton_2.setSelected(false);
-			radioButton_3.setSelected(false);
-		}
-		if (e.getSource() == radioButton_2){ // Unselects other radiobuttons when radioButton_2 is selected 
-			radioButton_1.setSelected(false);
-			radioButton.setSelected(false);
-			radioButton_3.setSelected(false);
-		}
-		if (e.getSource() == radioButton_3){ // Unselects other radiobuttons when radioButton_3 is selected 
-			radioButton_1.setSelected(false);
-			radioButton_2.setSelected(false);
-			radioButton.setSelected(false);
 		}
 		if (e.getSource() == btnCreateAccount) {
 			String info, password = null, pic = null, name = nameField.getText(), userName = userNameField.getText(); // created string variables with values from textfields

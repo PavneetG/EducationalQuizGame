@@ -25,6 +25,7 @@ public class Settings extends JFrame implements ActionListener {
 	private JPasswordField passwordField; // declared variable as JPasswordField
 	private int key,time; // decalred variables as int, it is a key for btnConfirm and time for questions
 	private JComboBox comboBox; // created a comboBox
+	private ButtonGroup bg = new ButtonGroup();
 	Player newInfo, oldInfo; // declared variables as Player
 	PlayerAccountList accounts = new PlayerAccountList(); // Created PlayerAccountList object
 
@@ -122,19 +123,19 @@ public class Settings extends JFrame implements ActionListener {
 		getContentPane().add(radioButton_2);
 		getContentPane().add(radioButton_3);
 		/*
+		 * Added radioButtons to ButtonGroup
+		 */
+		bg.add(radioButton);
+		bg.add(radioButton_1);
+		bg.add(radioButton_2);
+		bg.add(radioButton_3);
+		/*
 		 * Set visibility of radioButtons to false
 		 */
 		radioButton.setVisible(false);
 		radioButton_1.setVisible(false);
 		radioButton_2.setVisible(false);
-		radioButton_3.setVisible(false);
-		/*
-		 * Added actionlistener to radiobuttons
-		 */
-		radioButton.addActionListener(this);
-		radioButton_1.addActionListener(this);
-		radioButton_2.addActionListener(this);
-		radioButton_3.addActionListener(this);
+		radioButton_3.setVisible(false);	
 		/*
 		 * Creted JTextFields with 10 columns 
 		 */
@@ -252,7 +253,6 @@ public class Settings extends JFrame implements ActionListener {
 				stats = Data.accounts.getStats(userName).toString(); // stores stats of player
 				name = Data.accounts.getName(userName); // stores name of player
 				oldInfo = new Player(name + ";" + userName + ";" + password + ";" + picName + ";" + stats); // adds information to oldInfo Player Object
-				System.out.println("oldInfo: " + oldInfo);
 				/*
 				 * Setting visibility of buttons, labels, and textfields 
 				 * to either true or false
@@ -436,42 +436,6 @@ public class Settings extends JFrame implements ActionListener {
 			btnCancel.setVisible(false);
 
 		}
-		/*
-		 * Radiobuttons are set to selected false when radioButton
-		 * is selected
-		 */
-		if (e.getSource() == radioButton) {
-			radioButton_1.setSelected(false);
-			radioButton_2.setSelected(false);
-			radioButton_3.setSelected(false);
-		}
-		/*
-		 * Radiobuttons are set to selected false when radioButton_1
-		 * is selected
-		 */
-		if (e.getSource() == radioButton_1) {
-			radioButton.setSelected(false);
-			radioButton_2.setSelected(false);
-			radioButton_3.setSelected(false);
-		}
-		/*
-		 * Radiobuttons are set to selected false when radioButton_2
-		 * is selected
-		 */
-		if (e.getSource() == radioButton_2) {
-			radioButton_1.setSelected(false);
-			radioButton.setSelected(false);
-			radioButton_3.setSelected(false);
-		}
-		/*
-		 * Radiobuttons are set to selected false when radioButton_3
-		 * is selected
-		 */
-		if (e.getSource() == radioButton_3) {
-			radioButton_1.setSelected(false);
-			radioButton_2.setSelected(false);
-			radioButton.setSelected(false);
-		}
 		if (e.getSource() == btnConfirm) { // Performs when btnConfirm is pressed
 			if (key == 1){ // performs when key is 1
 				/*
@@ -595,7 +559,6 @@ public class Settings extends JFrame implements ActionListener {
 			}	
 		}
 		newInfo = new Player(name + ";" + userName + ";" + password + ";" + picName + ";" +  stats); // creating Player object called newInfo with new information
-		System.out.println("newInfo: " + newInfo);
 	}
 	public static void main(String[] args) throws IOException {
 		Settings settings = new Settings();
