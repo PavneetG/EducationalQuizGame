@@ -43,6 +43,12 @@ public class TriviaCreationGUI extends JFrame implements ActionListener {
 	private JLabel lblCategoryError; 
 	
 	private JLabel lblErrorUnselected;
+	
+	private JLabel lblCategory = new JLabel("Category");
+	
+	private JLabel lblNumberOfQuestions; 
+	
+	private JLabel lblTriviaName; 
 
 	public TriviaCreationGUI() {
 		
@@ -82,8 +88,8 @@ public class TriviaCreationGUI extends JFrame implements ActionListener {
 		
 		txtLabel.setColumns(10);
 		
-		//creating and declaring jlabel for triviaName and setting bounds and adding to frame 
-		JLabel lblTriviaName = new JLabel("Trivia Name");
+		//creating jlabel for triviaName and setting bounds and adding to frame 
+		lblTriviaName = new JLabel("Trivia Name");
 		lblTriviaName.setFont(new Font("Segoe UI Historic", Font.PLAIN, 15));
 		lblTriviaName.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTriviaName.setBounds(10, 87, 115, 20);
@@ -101,11 +107,11 @@ public class TriviaCreationGUI extends JFrame implements ActionListener {
 		getContentPane().add(btnBack);
 		btnBack.addActionListener(this); //adding action listener 
 		
-		//creating and declaring jlabel for number of questions and setting bounds and adding to frame 
-		JLabel lblNumberOfQuestioms = new JLabel("Number of Question(s):");
-		lblNumberOfQuestioms.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 11));
-		lblNumberOfQuestioms.setBounds(113, 268, 133, 14);
-		getContentPane().add(lblNumberOfQuestioms);
+		//creating jlabel for number of questions and setting bounds and adding to frame 
+		lblNumberOfQuestions = new JLabel("Number of Question(s):");
+		lblNumberOfQuestions.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 11));
+		lblNumberOfQuestions.setBounds(113, 268, 133, 14);
+		getContentPane().add(lblNumberOfQuestions);
 		
 		//adding comboBox to frame and setting bounds 
 		comboBox.setBounds(256, 265, 50, 20);
@@ -119,7 +125,7 @@ public class TriviaCreationGUI extends JFrame implements ActionListener {
 		btnCreate.addActionListener(this);
 		
 		//creating a category label and adding it to frame, setting bounds and text and adding actionListener 
-		JLabel lblCategory = new JLabel("Category");
+		lblCategory = new JLabel("Category"); 
 		lblCategory.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCategory.setFont(new Font("Segoe UI Historic", Font.PLAIN, 15));
 		lblCategory.setBounds(0, 161, 115, 20);
