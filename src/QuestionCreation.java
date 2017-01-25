@@ -457,7 +457,6 @@ public class QuestionCreation extends JFrame implements ActionListener {
 
 					//add question to quiz
 					Data.q.addQuestion(tf);
-
 				}
 				else if (selectedItem.equals("Multiple Choice"))
 				{
@@ -474,7 +473,7 @@ public class QuestionCreation extends JFrame implements ActionListener {
 
 					Data.q.addQuestion(mc);
 				}
-				else if (selectedItem.equals("Check Box"));
+				else if (selectedItem.equals("Check Box"))
 				{
 					//gets textFieldText for selected options 
 					options.add(textField.getText());

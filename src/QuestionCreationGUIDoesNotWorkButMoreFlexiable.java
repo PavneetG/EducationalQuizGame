@@ -701,9 +701,6 @@ public class QuestionCreationGUIDoesNotWorkButMoreFlexiable extends JFrame imple
 
 					//add question to quiz
 					Data.q.addQuestion(tf);
-					
-					Data.q.writeToFile(Data.q.getQuizName(), Data.q.toString(), false);
-
 			}
 			else if (selectedItem.equals("Multiple Choice"))
 			{
@@ -746,11 +743,8 @@ public class QuestionCreationGUIDoesNotWorkButMoreFlexiable extends JFrame imple
 				QuestionMC mc = new QuestionMC (questionTitle, optionslist, answer); //creating new multiple choice question
 
 				Data.q.addQuestion(mc); //adding multiple choice question to quiz 
-				
-				Data.q.writeToFile(Data.q.getQuizName(), Data.q.toString(), false);
-
 			}
-			else if (selectedItem.equals("Check Box"));
+			else if (selectedItem.equals("Check Box"))
 			{
 				//declaring and assigning  array of options 
 				String optionCB [] = {textField.getText(),textField_1.getText(),textField_2.getText(),textField_3.getText(),textField_4.getText()}; 
@@ -793,10 +787,9 @@ public class QuestionCreationGUIDoesNotWorkButMoreFlexiable extends JFrame imple
 				QuestionCB cb = new QuestionCB(questionTitle, options, checkBoxAnswer); //creates check box question
 
 				Data.q.addQuestion(cb); //adding question to list 
-				
-				Data.q.writeToFile(Data.q.getQuizName(), Data.q.toString(), false);
-
 			}
+		
+			Data.q.writeToFile(Data.q.getQuizName(), Data.q.toString(), false);
 			
 			try {
 				new HomeMenuGUI ();
