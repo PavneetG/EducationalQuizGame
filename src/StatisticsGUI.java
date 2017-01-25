@@ -38,12 +38,8 @@ public class StatisticsGUI extends JFrame implements ActionListener {
 
 		Data.accounts.loadFile("Players.txt"); // loads Players.txt
 
-		try {
-			setContentPane (new JLabel(new ImageIcon (ImageIO.read(getClass().getResource("Images/stats.png")))));
-		}
-		catch (IOException e) {
-			e.printStackTrace();
-		}
+		setContentPane (new JLabel(new ImageIcon ("Images/stats.png")));
+
 		setSize(350,500); // set size of window
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
 		getContentPane().setLayout(null); // setting layout to null
@@ -62,23 +58,16 @@ public class StatisticsGUI extends JFrame implements ActionListener {
 
 		scrollPane = new JScrollPane(table); // created JScrollPane with table
 		scrollPane.setEnabled(false); // setEnabled false for scrollPane
-		
+
 		btnBack = new JButton("Back"); // created JButton
 		btnBack.setFont(new Font("Comic Sans MS", Font.PLAIN, 15)); // setting font for back button
 
-		try {
-			lblPicture = new JLabel(new ImageIcon(ImageIO.read(getClass().getResource(Data.accounts.getPic(Data.userName))))); // creating JLabel with player's profile picture
-		}
-		catch (IOException e) {
-			e.printStackTrace();
-		}
+		lblPicture = new JLabel(new ImageIcon(Data.accounts.getPic(Data.userName))); // creating JLabel with player's profile picture
+
 		lblPlayerName = new JLabel("<html>" + Data.accounts.getName(Data.userName) + "'s Statistics" + "<html>"); // created JLabel with player's name
-		try {
-			picLogo = new JLabel(new ImageIcon(ImageIO.read(getClass().getResource("tree.png"))));	 // created label with picture of tree
-		}
-		catch (IOException e) {
-			e.printStackTrace();
-		}
+
+		picLogo = new JLabel(new ImageIcon("tree.png"));	 // created label with picture of tree
+
 		userName = new JLabel("<html>" + "UserName: " + Data.userName + "<html>"); // created label for player's username
 		userName.setFont(new Font("Comic Sans MS", Font.PLAIN, 11)); // setting font for userName
 		lblPlayerName.setFont(new Font("Comic Sans MS", Font.PLAIN, 20)); // setting font for playername
@@ -91,21 +80,21 @@ public class StatisticsGUI extends JFrame implements ActionListener {
 		scrollPane.setBounds(10, 278, 324, 44);
 		userName.setBounds(10, 232, 314, 14);
 		picLogo.setBounds(99, 333, 138, 127);
-		
+
 		getContentPane().add(lblPicture); // adding scrollbar, button, and labels to frame
 		getContentPane().add(lblPlayerName);
 		getContentPane().add(userName);
 		getContentPane().add(scrollPane);
 		getContentPane().add(btnBack);
 		getContentPane().add(picLogo);
-		
+
 		btnBack.addActionListener(this); // adding actionlistener to back button
 
-		
+
 		setVisible(true); // setting the visibility to true
 		setResizable(false); // cannot resize window
 	}
-	
+
 	public void actionPerformed(ActionEvent e) { // actionPerformed method
 		if(e.getSource() == btnBack){ // when back button is pressed, it opens HomeMenuGUI and disposes this gui
 			try {
@@ -115,7 +104,7 @@ public class StatisticsGUI extends JFrame implements ActionListener {
 			dispose();
 		}
 	}
-	
+
 	public static void main(String[] args) throws IOException {
 		StatisticsGUI statistics = new StatisticsGUI();
 	}

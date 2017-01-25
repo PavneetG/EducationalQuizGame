@@ -35,12 +35,9 @@ public class Settings extends JFrame implements ActionListener {
 		super("Settings");  // title for the frame
 
 		accounts.loadFile("Players.txt");
-		try {
-			setContentPane (new JLabel(new ImageIcon (ImageIO.read(getClass().getResource("Images/settings.png")))));
-		}
-		catch (IOException e) {
-			e.printStackTrace();
-		}
+
+		setContentPane (new JLabel(new ImageIcon ("Images/settings.png")));
+
 		setSize(350,500); // set size of window
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
@@ -174,15 +171,12 @@ public class Settings extends JFrame implements ActionListener {
 		lblChange2 = new JLabel("Enter New UserName");
 		lblChange3 = new JLabel("Enter New Password");
 		lblChange4 = new JLabel("Confirm Password");
-		try {
-			label = new JLabel(new ImageIcon(ImageIO.read(getClass().getResource("p1.jpg"))));
-			label_1 = new JLabel(new ImageIcon(ImageIO.read(getClass().getResource("p4.png"))));
-			label_2 = new JLabel(new ImageIcon(ImageIO.read(getClass().getResource("p3.jpg"))));
-			label_3 = new JLabel(new ImageIcon(ImageIO.read(getClass().getResource("p2.png"))));
-		}
-		catch (IOException e) {
-			e.printStackTrace();
-		}
+
+		label = new JLabel(new ImageIcon("p1.jpg"));
+		label_1 = new JLabel(new ImageIcon("p4.png"));
+		label_2 = new JLabel(new ImageIcon("p3.jpg"));
+		label_3 = new JLabel(new ImageIcon("p2.png"));
+
 		lblStatus = new JLabel("Invalid UserName/Password");
 		lblUserName = new JLabel("User Name");
 		lblPassword = new JLabel("Password");
@@ -249,7 +243,7 @@ public class Settings extends JFrame implements ActionListener {
 		lblStatus.setForeground(Color.DARK_GRAY);
 		comboBox.setVisible(false); // setting visibility for comboBox
 
-		
+
 		setVisible(true);
 		setResizable(false); // cannot resize window
 	}

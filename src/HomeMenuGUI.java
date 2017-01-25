@@ -37,18 +37,15 @@ public class HomeMenuGUI extends JFrame implements ActionListener, MouseListener
 	//labels for settings, create, logout, statistics and picture
 	private JLabel lblSettings, lblCreate, lblLogout, lblStatistics, lblPic;
 	JButton [] btnQuiz;
-	
+
 	QuizGUI q;
 	//-----------------------
 
 	public HomeMenuGUI() throws IOException {
-		//Data.accounts.loadFile("Players.txt");
-		try {
-			setContentPane (new JLabel(new ImageIcon (ImageIO.read(getClass().getResource("Images/HomeMenuGUI.png")))));
-		}
-		catch (IOException e) {
-			e.printStackTrace();
-		}
+		Data.accounts.loadFile("Players.txt");
+
+		setContentPane (new JLabel(new ImageIcon ("Images/HomeMenuGUI.png")));
+
 		setSize(500,700);
 		//setResizable(false);
 		setLocationRelativeTo(null);
@@ -71,12 +68,9 @@ public class HomeMenuGUI extends JFrame implements ActionListener, MouseListener
 		lblStatistics.addMouseListener(this);
 
 		//create a picture label
-		try {
-			lblPic = new JLabel(new ImageIcon(ImageIO.read(getClass().getResource(Data.accounts.getPic(Data.userName)))));
-		}
-		catch (IOException e) {
-			e.printStackTrace();
-		}
+
+		lblPic = new JLabel(new ImageIcon(Data.accounts.getPic(Data.userName)));
+
 		lblPic.setHorizontalAlignment(SwingConstants.CENTER);
 		lblPic.setBounds(30, 30, 60, 60);
 		getContentPane().add(lblPic);
@@ -208,12 +202,12 @@ public class HomeMenuGUI extends JFrame implements ActionListener, MouseListener
 	}
 	//method to listen to button clicks
 	public void actionPerformed (ActionEvent e) {
-		
+
 		//depending on which quiz button pressed, a QuizGUI is called and a quiz can be run
 		for (int i = 0; i < btnQuiz.length; i++) {
 			if (e.getSource() == btnQuiz[i]) {
 				String fileName = btnQuiz[i].getText().substring(6,btnQuiz[i].getText().length()-6) + ".txt";
-				
+
 				//cannot call Quiz GUI because it is using thread.sleep
 				try {
 					new QuizGUI (fileName);

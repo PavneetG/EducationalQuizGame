@@ -49,12 +49,9 @@ public class AccountLogin extends JFrame implements ActionListener {
 	public AccountLogin() throws IOException { //constructor for GUI
 		//load the different players from a file
 		accounts.loadFile("Players.txt");
-		try {
-			setContentPane (new JLabel(new ImageIcon (ImageIO.read(getClass().getResource("Images/accountlogin.png")))));
-		}
-		catch (IOException e) {
-			e.printStackTrace();
-		}
+
+		setContentPane (new JLabel(new ImageIcon ("Images/accountlogin.png")));
+
 		setSize(350,500); // set size of window
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
@@ -158,7 +155,7 @@ public class AccountLogin extends JFrame implements ActionListener {
 		getContentPane().add(btnClear2);
 		btnClear2.setVisible(false);
 		btnClear2.addActionListener(this);
-		
+
 		setVisible(true);
 
 	}
