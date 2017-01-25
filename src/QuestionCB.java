@@ -34,28 +34,28 @@
 import java.util.ArrayList;
 
 public class QuestionCB extends Question {
-	
+
 	/*
-	 * ==============================
+	 * ==
 	 * Variables
-	 * ==============================
+	 * ==
 	 */
-	
+
 	private static final int type = 3; // 3 = check box question
 	private static final int minSize = 3; // minimum number of options
 	private static final int maxSize = 5; // maximum number of options
-	
+
 	private ArrayList<String> options; // all possible options
 	private ArrayList<String> answers; // correct answers
 	private int oSize; // number of options
 	private int aSize; // number of answers
-	
+
 	/*
-	 * ==============================
+	 * ==
 	 * Constructors
-	 * ==============================
+	 * ==
 	 */
-	
+
 	// default constructor
 	public QuestionCB() {
 		super();
@@ -64,7 +64,7 @@ public class QuestionCB extends Question {
 		oSize = 0;
 		aSize = 0;
 	}
-	
+
 	// constructor for new question
 	public QuestionCB(String q) {
 		super(q, type);
@@ -73,7 +73,7 @@ public class QuestionCB extends Question {
 		oSize = 0;
 		aSize = 0;
 	}
-	
+
 	// constructor for existing question
 	public QuestionCB(String q, ArrayList<String> o, ArrayList<String> a) {
 		super(q, type);
@@ -82,7 +82,7 @@ public class QuestionCB extends Question {
 		oSize = o.size();
 		aSize = a.size();
 	}
-	
+
 	// constructor for reading from file
 	public QuestionCB(String[] info) {
 		/*
@@ -92,33 +92,33 @@ public class QuestionCB extends Question {
 		 * [2] - options
 		 * [3] - answers
 		 */
-				
+
 		super(info[1], type);
 		options = new ArrayList<String>();
 		answers = new ArrayList<String>();
-			
+
 		// add options to array list
 		String[] option = info[2].substring(1, info[2].length() - 1).split(","); // get array of options
 		oSize = option.length;
-		
+
 		for (int i = 0; i < oSize; i++) {
 			options.add(option[i]); // add each option to array list
 		}
-		
+
 		// add answers to array list
 		String str = info[3].substring(1, info[3].length() - 1); // remove first and last character
 		String[] answer = str.split(","); // get array of answers
 		aSize = answer.length;
-				
+
 		for (int i = 0; i < aSize; i++) {
 			answers.add(answer[i]); // add each answer to array list
 		}
 	}
-	
+
 	/*
-	 * ==============================
+	 * ==
 	 * Functions
-	 * ==============================
+	 * ==
 	 */
 	
 	// add option to question
@@ -128,7 +128,7 @@ public class QuestionCB extends Question {
 			oSize++;
 			return true;
 		}
-		
+
 		return false;
 	}
 	
@@ -139,10 +139,10 @@ public class QuestionCB extends Question {
 			oSize--;
 			return true;
 		}
-		
+
 		return false;
 	}
-	
+
 	// add answer to question
 	public boolean addAnswer(String a) {
 		if (aSize < maxSize) {
@@ -150,10 +150,9 @@ public class QuestionCB extends Question {
 			aSize++;
 			return true;
 		}
-		
+
 		return false;
 	}
-	
 	// remove answer from question
 	public boolean removeAnswer(String a) {
 		if (aSize > minSize) {
@@ -164,12 +163,11 @@ public class QuestionCB extends Question {
 		
 		return false;
 	}
-	
 	// verify answers
 	public boolean checkAnswer(ArrayList<String> input) {
 		int numCorrect = 0;
 		int size = input.size();
-		
+
 		for (int i = 0; i < aSize; i++) {
 			for (int j = 0; j < size; j++) {
 				if (answers.get(i).equals(input.get(j))) {
@@ -179,87 +177,96 @@ public class QuestionCB extends Question {
 			}
 			// break will take you here
 		}
-		
+
 		return numCorrect == answers.size();
 	}
-	
+	public boolean checkSelectedItem(String input) {
+		for (int i = 0; i < aSize; i++) {
+			if (answers.get(i).equals(input)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+
 	// convert question info to String for saving in file
 	public String toString() {
 		// example: 3|What are the branches of government?|[Executive,Legislative,Judicial,Municipal]|[Executive,Legislative,Judicial]
-		
+
 		String s = type + "|" + getQuestion() + "|[" + options.get(0);
-		
+
 		for (int i = 1; i < oSize; i++) {
 			s += "," + options.get(i);
 		}
-		
+
 		s += "]|[" + answers.get(0);
-		
+
 		for (int i = 1; i < aSize; i++) {
 			s += "," + answers.get(i);
 		}
-		
+
 		return s += "]";
 	}
-	
+
 	/*
-	 * ==============================
+	 * ==
 	 * Getters
-	 * ==============================
+	 * ==
 	 */
-	
+
 	public ArrayList<String> getOptions() {
 		return options;
 	}
-	
+
 	public ArrayList<String> getAnswers() {
 		return answers;
 	}
-	
+
 	public int getOSize() {
 		return oSize;
 	}
-	
+
 	public int getMinSize() {
 		return minSize;
 	}
-	
+
 	public int getMaxSize() {
 		return maxSize;
 	}
-	
+
 	/*
-	 * ==============================
+	 * ==
 	 * Setters
-	 * ==============================
+	 * ==
 	 */
-	
+
 	public void setOptions(ArrayList<String> o) {
 		options = o;
 	}
-	
+
 	public void setAnswer(ArrayList<String> a) {
 		answers = a;
 	}
-	
+
 	public void setOSize(int s) {
 		oSize = s;
-	}
-	
+	}	
 	public void setASize(int s) {
 		aSize = s;
 	}
 	
+
 	/*
-	 * ==============================
+	 * ==
 	 * Self-Testing Main
-	 * ==============================
+	 * ==
 	 */
-	
+
 	public static void main(String[] args) {
 		QuestionCB q = new QuestionCB("What are the branches of government?");
 		System.out.println(q.getQuestion());
-		
+
 		// add options
 		String[] options = {"Executive", "Legislative", "Judicial", "Municipal"};
 		int oSize = options.length;
@@ -267,14 +274,14 @@ public class QuestionCB extends Question {
 			q.addOption(options[i]);
 		}
 		System.out.println("\nOptions: " + q.getOptions());
-		
+
 		/*
 		// remove option
 		System.out.println("    remove municipal: " + q.removeOption("Municipal"));
 		System.out.println("    remove federal: " + q.removeOption("Federal"));
 		System.out.println("Options: " + q.getOptions());
-		*/
-		
+		 */
+
 		// add answers
 		String[] answers = {"Executive", "Legislative", "Judicial"};
 		int aSize = answers.length;
@@ -282,14 +289,14 @@ public class QuestionCB extends Question {
 			q.addAnswer(answers[i]);
 		}
 		System.out.println("\nAnswers: " + q.getAnswers());
-		
+
 		// user input
 		ArrayList<String> input = new ArrayList<String>();
 		input.add("Executive");
 		input.add("Legislative");
 		input.add("Judicial");
 		System.out.println("Input: " + input);
-		
+
 		System.out.println("\nIs correct: " + q.checkAnswer(input));
 		System.out.println("To string: " + q.toString());
 	}

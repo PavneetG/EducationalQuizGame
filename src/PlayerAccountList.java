@@ -16,7 +16,7 @@ import javax.swing.JOptionPane;
  * and write to files.
  * 
  * Method List:
- * public PlayerAccountList()
+ * public PlayerAccountList() 
  * public PlayerAccountList(int maxSize)
  * public void loadFile (String file) throws IOException
  * public void writeFile (String file) throws IOException

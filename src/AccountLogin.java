@@ -1,57 +1,85 @@
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
-import javax.swing.border.EmptyBorder;
-import javax.swing.SwingConstants;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.io.IOException;
-//Authour: Janujan Gathieswaran and Kevin Subhash
+import java.awt.event.*;
+import javax.swing.*;
+import java.awt.event.*;
+import java.io.*;
+/*
+ * Author: Janujan and Kevin
+ * Date: January 24 2017
+ * Description: Account login GUI with functionality to login into home menu
+ * 
+ * Method List:
+ * 		Constructors
+ * 			AccountLogin() //default constructor
+ * 
+ * 		Functions
+ * 			void actionPerformed (ActionEvent e) //method to determine what buttons pressed
+ 
+ * 		Self-Testing Main
+ * 			static void main(String[] args) //create an object of the class
+ */
 
 public class AccountLogin extends JFrame implements ActionListener {
+
+	//---[Variable Declaration]------------
+	//buttons for login and clear
 	private JButton btnLogin, btnClear1, btnClear2; 
+
+	//text field for user name
 	private JTextField txtUserName; 
-	private JLabel background, lblUserName, lblPassword, lblStatus, picture;
+
+	//labels for user name, password, status, picture and create account
+	private JLabel lblUserName, lblPassword, lblStatus, picture, lblCreateAccount;
+
+	//password field for user to enter password
 	private JPasswordField passwordField;
+
+	//variable for number of tries for login
 	private int tries = 0; 
+
+	//variables for entered password and user name
 	private String password, userName;
-	private JLabel lblCreateAccount;
-	PlayerAccountList accounts = new PlayerAccountList();
 
+	//create a PlayerAccountList object
+	private PlayerAccountList accounts = new PlayerAccountList();
 
-	public AccountLogin() throws IOException {
+	//----------------------------------
+	
+	public AccountLogin() throws IOException { //constructor for GUI
 		super("Login");  // title for the frame
 
 		setSize(350,500);
 		getContentPane().setLayout(null);
-		
+		setLocationRelativeTo(null);
+
+		//load the different players from a file
 		accounts.loadFile("Players.txt");
-		
+
+		/*
+		 * create text user name text field add a key listener 
+		 * to check if anything entered and display clear button
+		 */
 		txtUserName = new JTextField("");
+		txtUserName.setBounds(70,230,200,25);
+		getContentPane().add(txtUserName);
 		txtUserName.addKeyListener(new KeyAdapter() {
 
 			public void keyTyped(KeyEvent e) {
 				btnClear2.setVisible(true);
 			}
 		});
+
+		//create password field and add a key listener to check if anything entered
 		passwordField= new JPasswordField(10);
+		passwordField.setBounds(70,290,200,25);
+		passwordField.addActionListener(this);
+		getContentPane().add(passwordField);
 		passwordField.addKeyListener(new KeyAdapter() {
+
+			//if enter key is pressed, check if password and user name are correct
 			public void keyPressed(KeyEvent key) {
 				if (key.getKeyCode() == KeyEvent.VK_ENTER) { 
 					if(access()==true && tries < 5) {
-						JOptionPane.showMessageDialog(null,"Success");
+						//JOptionPane.showMessageDialog(null,"Success");
 						lblStatus.setText("");
 					}
 					else{
@@ -69,40 +97,44 @@ public class AccountLogin extends JFrame implements ActionListener {
 					}
 				}
 			}
+			//if a key is pressed, display the clear button
 			public void keyTyped(KeyEvent arg0) {
 				btnClear1.setVisible(true);
 			}
 		});
+
+		//create a login button
 		btnLogin = new JButton("Login");
-		background = new JLabel (new ImageIcon ("pic3.jpg"));
-		background.setBounds(0,0,334,462);
-		txtUserName.setBounds(70,230,200,25);
-		passwordField.setBounds(70,290,200,25);
 		btnLogin.setBounds(131,340,75,40);
-
-		getContentPane().add(txtUserName);
 		getContentPane().add(btnLogin);
-		getContentPane().add(passwordField);
-		//add(background);
+		btnLogin.addActionListener(this);
 
+		//create a username label 
 		lblUserName = new JLabel("User Name");
 		lblUserName.setBounds(70, 213, 84, 14);
 		getContentPane().add(lblUserName);
 
+		//create a password label
 		lblPassword = new JLabel("Password");
 		lblPassword.setBounds(70, 276, 84, 14);
 		getContentPane().add(lblPassword);
-		
+
+		//create a picture and set to image
 		picture = new JLabel(new ImageIcon("popQuiz.png"));
 		picture.setBounds(35, 0, 256, 256);
 		getContentPane().add(picture);
 
+		//create a status label
 		lblStatus = new JLabel("");
 		lblStatus.setHorizontalAlignment(SwingConstants.CENTER);
 		lblStatus.setBounds(58, 186, 217, 14);
 		getContentPane().add(lblStatus);
 
+		//create a create account label with a mouse listener to check if pressed
 		lblCreateAccount = new JLabel("Create Account");
+		lblCreateAccount.setHorizontalAlignment(SwingConstants.CENTER);
+		lblCreateAccount.setBounds(53, 419, 217, 14);
+		getContentPane().add(lblCreateAccount);
 		lblCreateAccount.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent arg0) {
 				try {
@@ -112,10 +144,8 @@ public class AccountLogin extends JFrame implements ActionListener {
 				dispose();
 			}
 		});
-		lblCreateAccount.setHorizontalAlignment(SwingConstants.CENTER);
-		lblCreateAccount.setBounds(53, 419, 217, 14);
-		getContentPane().add(lblCreateAccount);
 
+		//create two clear buttons
 		btnClear1 = new JButton("X");
 		btnClear1.setBounds(280, 291, 44, 23);
 		getContentPane().add(btnClear1);
@@ -128,11 +158,9 @@ public class AccountLogin extends JFrame implements ActionListener {
 		btnClear2.setVisible(false);
 		btnClear2.addActionListener(this);
 
-
 		setSize(350,500);
 		setVisible(true);
-		btnLogin.addActionListener(this);
-		passwordField.addActionListener(this);
+		
 	}
 	public boolean access(){
 		if(txtUserName.getText().equalsIgnoreCase(userName) && passwordField.getText().equalsIgnoreCase(password)){
@@ -142,14 +170,17 @@ public class AccountLogin extends JFrame implements ActionListener {
 	}
 	//method for actions events
 	public void actionPerformed (ActionEvent e){
+		//if second clear button pressed, hide the second clear button and empty the user name field
 		if (e.getSource() == btnClear2) {
 			txtUserName.setText("");
 			btnClear2.setVisible(false);
 		}
+		//if first clear button pressed, hide the first clear button and empty the password field 
 		if (e.getSource() == btnClear1) {
 			passwordField.setText("");
 			btnClear1.setVisible(false);
 		}
+		//if login button pressed, check if the entered information is valid and open a home menu GUI
 		if(e.getSource()==btnLogin){
 			if(accounts.checkLogin(txtUserName.getText(), passwordField.getText()) && tries < 5) {
 
@@ -163,6 +194,7 @@ public class AccountLogin extends JFrame implements ActionListener {
 				dispose();
 			}
 			else{
+				//if information is wrong, display invalid user name and password
 				txtUserName.setText("");
 				passwordField.setText("");
 				lblStatus.setText("Invalid username or password");
@@ -170,8 +202,8 @@ public class AccountLogin extends JFrame implements ActionListener {
 				btnClear1.setVisible(false);
 				btnClear2.setVisible(false);
 
-
-				if (tries >=3) {
+				//if more than 5 tries, display too many attemptes
+				if (tries >=5) {
 					lblStatus.setText("Too many attempts");
 					btnLogin.setEnabled(false);
 				}
@@ -179,6 +211,7 @@ public class AccountLogin extends JFrame implements ActionListener {
 		}
 	}
 
+	//create an account login object to run GUI
 	public static void main(String[] args) throws IOException {
 		AccountLogin accountLogin = new AccountLogin();
 	}

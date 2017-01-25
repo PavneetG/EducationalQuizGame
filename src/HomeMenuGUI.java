@@ -177,6 +177,7 @@ public class HomeMenuGUI extends JFrame implements MouseListener{
 			} catch (IOException e1) {
 			}
 		}
+
 		else if(e.getSource() == lblLogout){
 			try {
 				new AccountLogin();
@@ -198,7 +199,9 @@ public class HomeMenuGUI extends JFrame implements MouseListener{
 			dispose();
 		}
 	}
+	public void actionPerformed (ActionEvent e) {
 
+	}
 	public void mouseClicked(MouseEvent e) {
 
 	}
