@@ -439,8 +439,8 @@ public class QuestionCreation extends JFrame implements ActionListener {
 				QuestionMC mc = new QuestionMC (questionTitle, optionslist, answer); //creating new multiple choice question
 
 				Data.q.addQuestion(mc); //calling data class and adding question to quiz
-
-
+				
+				JOptionPane.showMessageDialog(null, "Question Added");
 			}
 			else if (selectedItem.equals("Check Box"));
 			{
@@ -475,9 +475,8 @@ public class QuestionCreation extends JFrame implements ActionListener {
 
 				Data.q.addQuestion(cb);
 
-				System.out.println(Data.q.getQuestions().get(0).toString());
-
-
+				JOptionPane.showMessageDialog(null, "Question Added");
+				
 			}
 			//if (!questionTitle.equals("") || !questionTitle.equals("Untitled Question")) {
 			super.dispose();
@@ -497,7 +496,6 @@ public class QuestionCreation extends JFrame implements ActionListener {
 				if (questionTitle.equals("Untitled Question")) {
 					scrollBar.setBorder(redline); //changing border if someone leaves it blank 
 					//btnNext.setEnabled(false);
-
 				}
 				else{
 					answer = correctAnswer;
@@ -508,8 +506,8 @@ public class QuestionCreation extends JFrame implements ActionListener {
 					//add question to quiz
 					Data.q.addQuestion(tf);
 
+					JOptionPane.showMessageDialog(null, "Question Added");
 				}
-				Data.q.writeToFile(Data.q.getQuizName()+".txt", Data.q.toString(), false); //writing to file 
 
 			}
 			else if (selectedItem.equals("Multiple Choice"))
@@ -528,6 +526,8 @@ public class QuestionCreation extends JFrame implements ActionListener {
 				QuestionMC mc = new QuestionMC (questionTitle, optionslist, answer); //creating new multiple choice question
 
 				Data.q.addQuestion(mc);
+				
+				JOptionPane.showMessageDialog(null, "Question Added");
 
 
 			}
@@ -565,7 +565,10 @@ public class QuestionCreation extends JFrame implements ActionListener {
 				QuestionCB cb = new QuestionCB(questionTitle, options, checkBoxAnswer);
 
 				Data.q.addQuestion(cb);
+				
+				JOptionPane.showMessageDialog(null, "Question Added");
 			}
+			Data.q.writeToFile(Data.q.getQuizName()+".txt", Data.q.toString(), false); //writing to file 
 		}
 	}
 	

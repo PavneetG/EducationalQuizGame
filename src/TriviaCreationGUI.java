@@ -225,7 +225,7 @@ public class TriviaCreationGUI extends JFrame implements ActionListener {
 				
 				Data.totalQuestions = Integer.parseInt(selectedItem); //getting total num of questions 
 				
-				new QuestionCreationGUIDoesNotWorkButMoreFlexiable();
+				new QuestionCreation();
 				
 				dispose();
 			}
