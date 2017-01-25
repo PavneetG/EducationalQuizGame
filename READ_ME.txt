@@ -19,10 +19,15 @@ recent games is stored. This data will help players identify their strengths and
 
 Notes:
 
+HOW TO RUN THE APPLICATION:
+
+The .jar file will only run if you open it in the folder it is located in.
+
 HOW TO CREATE AN ACCOUNT:
 
 On the Account Login screen, there is a label at the bottom called "Create Account".
 Simply click on the label and you can now create an account.
+Alternately, you can use username "admin" and password "admin" to login.
 
 HOW TO CREATE A QUIZ:
 
