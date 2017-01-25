@@ -150,7 +150,7 @@ public class QuestionCBGUI extends JFrame implements ActionListener{
 		//create a JPanel with a grid layout
 		p = new JPanel();
 		p.setLayout(new GridLayout (optionSize,1,5,5));
-		p.setBounds(32, 200, 443, 250);
+		p.setBounds(28, 200, 443, 250);
 		p.setBackground(new Color(201,77,63));
 		getContentPane().add(p);
 
@@ -206,7 +206,7 @@ public class QuestionCBGUI extends JFrame implements ActionListener{
 		//create an ok button 
 		btnOK = new JButton ("OK");
 		btnOK.addActionListener(this);
-		btnOK.setBounds(200,500,100,50);
+		btnOK.setBounds(200,600,100,50);
 		add(btnOK);
 
 		//create timer label for count down and center text
@@ -238,6 +238,7 @@ public class QuestionCBGUI extends JFrame implements ActionListener{
 	//method to display the correct answer
 	public void viewAnswer () {
 		for (int i = 0; i < optionSize; i++) {
+			checkBox[i].setEnabled(false);
 			String option = checkBox[i].getText();
 
 			if (cbQ.checkSelectedItem(option)) {
@@ -340,8 +341,6 @@ public class QuestionCBGUI extends JFrame implements ActionListener{
 
 		}
 	}
-
-
 	//self-testing main
 	public static void main(String[] args) throws InterruptedException {
 		//create options and answers array lists and create a check box question

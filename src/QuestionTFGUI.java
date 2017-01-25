@@ -71,6 +71,7 @@ public class QuestionTFGUI extends JFrame implements ActionListener{
 	//default constructor to run GUI
 	public QuestionTFGUI(QuestionTF questionTF) throws InterruptedException {
 		setSize(500,700);
+		setResizable(false);
 		getContentPane().setBackground(new Color(201,77,63));
 		getContentPane().setLayout(null);
 		setLocationRelativeTo(null);
@@ -189,10 +190,14 @@ public class QuestionTFGUI extends JFrame implements ActionListener{
 
 	//method to display the correct answer
 	public void viewAnswer () {
-		if (tfQ.getAnswer()) 
+		if (tfQ.getAnswer()) {
 			btnTrue.setBackground(green);
-		else 
+			btnTrue.setEnabled(false);
+		}
+		else {
 			btnFalse.setBackground(green);
+			btnFalse.setEnabled(false);
+		}
 	} 
 
 	//getters for the close state, button pressed and in timer booleans

@@ -34,8 +34,8 @@ public class QuizGUI extends JFrame implements ActionListener {
 	//button to go back home
 	private JButton btnHome; 
 
-	//label for title of quiz, results, correct and wrong answers, points and points number and average time
-	private JLabel lblTitle, lblResults, lblCorrect, lblWrong, lblPoints, lblPointsNum, lblAverageTime, lblMoreInfo;
+	//label for title of quiz, category, results, correct and wrong answers, points and points number and average time
+	private JLabel lblTitle, lblCategory, lblResults, lblCorrect, lblWrong, lblPoints, lblPointsNum, lblAverageTime, lblMoreInfo;
 
 	//variable for current seconds passed
 	private int currentSeconds = 0;
@@ -51,15 +51,13 @@ public class QuizGUI extends JFrame implements ActionListener {
 	//variable for size of questions
 	private int sizeOfQuestions; 
 
-	//thread to be used as a timer between questions
-	private Thread thread = new Thread();
-
 	//----------------------------------
 	//constructor with file name as a parameter to run GUI
 	public QuizGUI(String fileName) throws InterruptedException {
 		getContentPane().setBackground(new Color(201,77,63));
 
 		setSize(500,700);
+		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo (null);
 		getContentPane().setLayout(null);
@@ -81,9 +79,17 @@ public class QuizGUI extends JFrame implements ActionListener {
 		lblTitle = new JLabel(q.getQuizName());
 		lblTitle.setForeground(Color.WHITE);
 		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTitle.setFont(new Font("Lucida Grande", Font.PLAIN, 30));
-		lblTitle.setBounds(151, 175, 370, 131);
+		lblTitle.setFont(new Font("Lucida Grande", Font.PLAIN, 25));
+		lblTitle.setBounds(65, 304, 370, 131);
 		getContentPane().add(lblTitle);
+
+		//create a quiz title label with the quiz name of the quiz object as an argument
+		lblCategory = new JLabel(q.getCategory());
+		lblCategory.setForeground(Color.WHITE);
+		lblCategory.setHorizontalAlignment(SwingConstants.CENTER);
+		lblCategory.setFont(new Font("Lucida Grande", Font.BOLD, 35));
+		lblCategory.setBounds(65, 223, 370, 131);
+		getContentPane().add(lblCategory);
 
 		//create home button 
 		btnHome = new JButton ();
@@ -158,9 +164,9 @@ public class QuizGUI extends JFrame implements ActionListener {
 		//display the GUI
 		setVisible (true);
 
-		//delay of 10 seconds to display the tile of the quiz and picture
-		Thread.sleep(10000);
-
+		//delay of 15 seconds to display the tile of the quiz and picture
+		Thread.sleep(15000);
+		
 		//set the size of the questions to the size of the questions array of the quiz object
 		sizeOfQuestions = q.getQuestions().size();
 
@@ -330,15 +336,14 @@ public class QuizGUI extends JFrame implements ActionListener {
 		}
 		setVisible(true);
 
-		//hide the title and display all the results information
+		//hide the title and category and display all the results information
 		lblTitle.setVisible(false);
+		lblCategory.setVisible(false);
+		
 		lblCorrect.setText("Correct Answers: " + Data.correct);
 		lblWrong.setText("Wrong Answers: " + Data.incorrect);
 		lblAverageTime.setText("Average Time: " + Data.getAverageTime() + " secs");
 		lblPointsNum.setText(Integer.toString(Data.getPoints()));
-		
-		Data.accounts.getStats(Data.userName).setAverageTime(Data.getAverageTime());
-		
 
 		lblResults.setVisible(true);
 		lblPoints.setVisible(true);

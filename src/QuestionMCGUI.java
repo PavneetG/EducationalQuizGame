@@ -78,6 +78,7 @@ public class QuestionMCGUI extends JFrame implements ActionListener{
 
 	public QuestionMCGUI(QuestionMC mcQ) throws InterruptedException {
 		setSize(500,700);
+		setResizable(false);
 		getContentPane().setBackground(new Color(201,77,63));
 		getContentPane().setLayout(null);
 		setLocationRelativeTo(null);
@@ -138,7 +139,7 @@ public class QuestionMCGUI extends JFrame implements ActionListener{
 		//create progress bar to show count down timer
 		progress = new JProgressBar();
 		progress.setBounds(150,5,200,30);
-		add(progress);
+		getContentPane().add(progress);
 
 		//create timer label for count down and center text
 		lblTimer = new JLabel("");
@@ -168,7 +169,7 @@ public class QuestionMCGUI extends JFrame implements ActionListener{
 		//create a JPanel to evenly space out buttons depending on number of buttons
 		p = new JPanel();
 		p.setLayout(new GridLayout (optionSize,1,5,5)); 
-		p.setBounds(32, 237, 443, 393);
+		p.setBounds(28, 237, 443, 393);
 		p.setBackground(new Color(201,77,63));
 		getContentPane().add(p);
 
@@ -230,6 +231,7 @@ public class QuestionMCGUI extends JFrame implements ActionListener{
 		//loop through the buttons and check if the text of a certain button is the same as the answer
 		//and make it green
 		for (int i = 0; i < optionSize; i++) {
+			btnOptions[i].setEnabled(false);
 			if (btnOptions[i].getText().equals(answer)) {
 				btnOptions[i].setBackground(green);
 			}

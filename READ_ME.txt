@@ -2,11 +2,14 @@
 
 OPEN 'Reach Trivia' Executable Jar File TO PLAY!
 
+<<<<<<< HEAD
+=======
 *****************DEBUGING PROBLEMS*****************
 - When you select the Quiz you want to play, it doesn't load
 QuizGUI properly. The whole GUI goes to sleep because of Thread.Sleep(). You can
 still play any quiz by passing in the quiz text file in the main method of the QuizGUI class.
 
+>>>>>>> origin/master
 Game: Reach Trivia Game
 
 About the Game:
@@ -16,12 +19,6 @@ trivia games. Each player has to create an account to keep track of their scores
 she would like to play. Each quiz is focused on a certain subject (e.g. physics, history, mathematics, etc.). The player can also create their own 
 quiz for a category or contribute questions to existing quizzes and categories. Statistics are compiled for each player and a history of their most 
 recent games is stored. This data will help players identify their strengths and weaknesses to improve their performance.
-
-PC System Requirements:
-
-	Operating System: Any Windows versions or Any OS X versions
-	Memory: Atleast 512 MB
-
 
 Notes:
 

@@ -1,23 +1,12 @@
-import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.EventQueue;
 import java.io.IOException;
-
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.border.EmptyBorder;
 import javax.swing.JTable;
 import javax.swing.JLabel;
 import java.awt.Font;
-import java.awt.SystemColor;
-import javax.swing.table.DefaultTableModel;
-
-import javafx.scene.control.Tooltip;
-
-import javax.swing.border.BevelBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
@@ -63,8 +52,8 @@ public class StatisticsGUI extends JFrame implements ActionListener {
 
 		scrollPane = new JScrollPane(table); // created JScrollPane with table
 		scrollPane.setEnabled(false); // setEnabled false for scrollPane
-		btnBack = new JButton("Back"); // created JButton
 		
+		btnBack = new JButton("Back"); // created JButton
 		btnBack.setFont(new Font("Comic Sans MS", Font.PLAIN, 15)); // setting font for back button
 
 		lblPicture = new JLabel(new ImageIcon(Data.accounts.getPic(Data.userName))); // creating JLabel with player's profile picture
