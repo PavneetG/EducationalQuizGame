@@ -28,7 +28,7 @@ public class TriviaCreationGUI extends JFrame implements ActionListener {
 	//declaring variables for txt fields, options, labels 
 	private JTextField txtLabel;
 	
-	private JTextField textField;
+	private JTextField txtQuizName;
 	
 	private JButton btnBack, btnCreate;
 	
@@ -36,7 +36,7 @@ public class TriviaCreationGUI extends JFrame implements ActionListener {
 	
 	private JComboBox comboBox = new JComboBox(options); //creating comboBox with number of questions
 	
-	private JTextField textField_1;
+	private JTextField txtCategoryName;
 	
 	private JLabel lblError; 
 	
@@ -90,10 +90,10 @@ public class TriviaCreationGUI extends JFrame implements ActionListener {
 		getContentPane().add(lblTriviaName);
 		
 		//creating text field and setting bounds and adding to frame
-		textField = new JTextField();
-		textField.setBounds(35, 118, 400, 32);
-		getContentPane().add(textField);
-		textField.setColumns(10);
+		txtQuizName = new JTextField();
+		txtQuizName.setBounds(35, 118, 400, 32);
+		getContentPane().add(txtQuizName);
+		txtQuizName.setColumns(10);
 		
 		//creating button and setting bounds and adding to frame
 		btnBack = new JButton("Back");
@@ -126,10 +126,10 @@ public class TriviaCreationGUI extends JFrame implements ActionListener {
 		getContentPane().add(lblCategory);
 		
 		//creating textField and setting bounds and adding to frame
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		textField_1.setBounds(35, 192, 400, 32);
-		getContentPane().add(textField_1);
+		txtCategoryName = new JTextField();
+		txtCategoryName.setColumns(10);
+		txtCategoryName.setBounds(35, 192, 400, 32);
+		getContentPane().add(txtCategoryName);
 		
 		//setting color of error text and adding to frame
 		lblError.setForeground(Color.RED);
@@ -160,13 +160,13 @@ public class TriviaCreationGUI extends JFrame implements ActionListener {
 			String selectedItem = (String) comboBox.getSelectedItem();//getting selected item on comboBox box 
 			
 			//getting catergoryName fromTextField
-			String categoryName = textField_1.getText(); 
+			String categoryName = txtCategoryName.getText(); 
 			//
 			//creating variable for max length 
 			int maxlength = 20; 
 			
 			//getting quizName for textField 
-			String quizName = textField.getText(); 
+			String quizName = txtQuizName.getText(); 
 			
 			//checking for erros and long names than ruin gui design 
 			if ((categoryName.length() > maxlength) || (quizName.length() > maxlength) || selectedItem == "" || (categoryName.isEmpty()) || (quizName.isEmpty()))
@@ -212,10 +212,10 @@ public class TriviaCreationGUI extends JFrame implements ActionListener {
 				Data.q.getQuestions().clear();
 
 				//getting quizName 
-				Data.q.setQuizName(textField.getText());
+				Data.q.setQuizName(txtQuizName.getText());
 				
 				//getting category 
-				Data.q.setCategory(textField_1.getText());
+				Data.q.setCategory(txtCategoryName.getText());
 				
 				Data.totalQuestions = Integer.parseInt(selectedItem); //getting total num of questions 
 				
