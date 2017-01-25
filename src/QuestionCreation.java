@@ -158,10 +158,10 @@ public class QuestionCreation extends JFrame implements ActionListener {
 		scrollBar.setBorder(blackline);
 
 		scrollBar.setBounds(22, 81, 437, 64);
+		
+		btnNext.setEnabled (false); 
 
 		if (Data.questionNum == Data.totalQuestions-1) {
-
-			btnNext.setEnabled(false);
 
 			btnNext.setBounds(0, 0, 0, 0);
 
@@ -241,6 +241,10 @@ public class QuestionCreation extends JFrame implements ActionListener {
 				lblOptions.setBounds(1000,1000,1000,1000);
 
 				lblAnswer.setBounds(31, 209, 86, 20);
+				
+				trueButton.setSelected(true);
+				
+				btnNext.setEnabled (true); 
 
 				trueButton.setBounds(126, 208, 50, 23);
 
@@ -278,6 +282,8 @@ public class QuestionCreation extends JFrame implements ActionListener {
 
 				//setting bounds of new items or moving old items off screen 
 				checkBox.setBounds(324, 206, 26, 23);
+				
+				btnNext.setEnabled (true); 
 
 				checkBox_1.setBounds(324, 244, 26, 23);
 
@@ -317,6 +323,8 @@ public class QuestionCreation extends JFrame implements ActionListener {
 				//setting bounds of new items or moving old items off screen 
 				checkBox.setBounds(0,0,0,0);
 
+				btnNext.setEnabled (true); 
+				
 				checkBox_1.setBounds(0,0,0,0);
 
 				checkBox_2.setBounds(0,0,0,0);
