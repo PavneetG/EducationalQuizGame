@@ -2,6 +2,8 @@ import java.awt.event.*;
 import javax.swing.*;
 import java.awt.event.*;
 import java.io.*;
+import javax.imageio.ImageIO;
+
 /*
  * Author: Janujan and Kevin
  * Date: January 24 2017
@@ -47,7 +49,12 @@ public class AccountLogin extends JFrame implements ActionListener {
 	public AccountLogin() throws IOException { //constructor for GUI
 		//load the different players from a file
 		accounts.loadFile("Players.txt");
-		setContentPane (new JLabel(new ImageIcon ("Images/accountlogin.png")));
+		try {
+			setContentPane (new JLabel(new ImageIcon (ImageIO.read(getClass().getResource("Images/accountlogin.png")))));
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
 		setSize(350,500); // set size of window
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);

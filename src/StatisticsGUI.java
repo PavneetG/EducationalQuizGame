@@ -1,14 +1,19 @@
 import java.awt.Dimension;
 import java.io.IOException;
+
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JLabel;
+
 import java.awt.Font;
+
 import javax.swing.border.TitledBorder;
 import javax.swing.SwingConstants;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 /*
@@ -33,7 +38,12 @@ public class StatisticsGUI extends JFrame implements ActionListener {
 
 		Data.accounts.loadFile("Players.txt"); // loads Players.txt
 
-		setContentPane (new JLabel(new ImageIcon ("Images/stats.png")));
+		try {
+			setContentPane (new JLabel(new ImageIcon (ImageIO.read(getClass().getResource("Images/stats.png")))));
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
 		setSize(350,500); // set size of window
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
 		getContentPane().setLayout(null); // setting layout to null
@@ -56,9 +66,19 @@ public class StatisticsGUI extends JFrame implements ActionListener {
 		btnBack = new JButton("Back"); // created JButton
 		btnBack.setFont(new Font("Comic Sans MS", Font.PLAIN, 15)); // setting font for back button
 
-		lblPicture = new JLabel(new ImageIcon(Data.accounts.getPic(Data.userName))); // creating JLabel with player's profile picture
+		try {
+			lblPicture = new JLabel(new ImageIcon(ImageIO.read(getClass().getResource(Data.accounts.getPic(Data.userName))))); // creating JLabel with player's profile picture
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
 		lblPlayerName = new JLabel("<html>" + Data.accounts.getName(Data.userName) + "'s Statistics" + "<html>"); // created JLabel with player's name
-		picLogo = new JLabel(new ImageIcon("tree.png"));	 // created label with picture of tree
+		try {
+			picLogo = new JLabel(new ImageIcon(ImageIO.read(getClass().getResource("tree.png"))));	 // created label with picture of tree
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
 		userName = new JLabel("<html>" + "UserName: " + Data.userName + "<html>"); // created label for player's username
 		userName.setFont(new Font("Comic Sans MS", Font.PLAIN, 11)); // setting font for userName
 		lblPlayerName.setFont(new Font("Comic Sans MS", Font.PLAIN, 20)); // setting font for playername

@@ -1,6 +1,9 @@
 import java.awt.*;
+
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -30,7 +33,12 @@ public class CreateAccount extends JFrame implements ActionListener{
 
 		super("Create Account");  // title for the frame
 		Data.accounts.loadFile("Players.txt"); // loads the players.txt file
-		setContentPane (new JLabel(new ImageIcon ("Images/createaccount.png")));
+		try {
+			setContentPane (new JLabel(new ImageIcon (ImageIO.read(getClass().getResource("Images/createaccount.png")))));
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
 		setSize(350,500); // set size of window
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
@@ -93,10 +101,15 @@ public class CreateAccount extends JFrame implements ActionListener{
 		lblMatch = new JLabel("Passwords Do NOT Match.");
 		lblTaken = new JLabel("UserName Already Taken.");
 		lblPickAPicture = new JLabel("Select A Picture");
-		label = new JLabel(new ImageIcon("p1.jpg"));
-		label_1 = new JLabel(new ImageIcon("p4.png"));
-		label_2 = new JLabel(new ImageIcon("p3.jpg"));
-		label_3 = new JLabel(new ImageIcon("p2.png"));
+		try {
+			label = new JLabel(new ImageIcon(ImageIO.read(getClass().getResource("p1.jpg"))));
+			label_1 = new JLabel(new ImageIcon(ImageIO.read(getClass().getResource("p4.png"))));
+			label_2 = new JLabel(new ImageIcon(ImageIO.read(getClass().getResource("p3.jpg"))));
+			label_3 = new JLabel(new ImageIcon(ImageIO.read(getClass().getResource("p2.png"))));
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
 		lblEmpty = new JLabel("Fill in the Field(s).");
 		lblPicWarning = new JLabel("You Need To Pick A Picture.");
 		/*

@@ -26,7 +26,8 @@ public class QuizGUI extends JFrame implements ActionListener {
 
 	//--[Variable Declaration]--------
 	//create a quiz object
-	private Quiz q = new Quiz(); 
+	//private Quiz q = new Quiz();
+	private Quiz q;
 
 	//variable for type of question
 	private int type = 0; 
@@ -54,6 +55,7 @@ public class QuizGUI extends JFrame implements ActionListener {
 	//----------------------------------
 	//constructor with file name as a parameter to run GUI
 	public QuizGUI(String fileName) throws InterruptedException {
+		q = new Quiz();
 		getContentPane().setBackground(new Color(201,77,63));
 
 		setSize(500,700);

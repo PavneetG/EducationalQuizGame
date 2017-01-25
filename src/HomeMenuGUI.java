@@ -15,11 +15,14 @@
  */
 
 import java.awt.Font;
+
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
@@ -40,7 +43,12 @@ public class HomeMenuGUI extends JFrame implements ActionListener, MouseListener
 
 	public HomeMenuGUI() throws IOException {
 		//Data.accounts.loadFile("Players.txt");
-		setContentPane (new JLabel(new ImageIcon ("Images/HomeMenuGUI.png")));
+		try {
+			setContentPane (new JLabel(new ImageIcon (ImageIO.read(getClass().getResource("Images/HomeMenuGUI.png")))));
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
 		setSize(500,700);
 		//setResizable(false);
 		setLocationRelativeTo(null);
@@ -63,7 +71,12 @@ public class HomeMenuGUI extends JFrame implements ActionListener, MouseListener
 		lblStatistics.addMouseListener(this);
 
 		//create a picture label
-		lblPic = new JLabel(new ImageIcon(Data.accounts.getPic(Data.userName)));
+		try {
+			lblPic = new JLabel(new ImageIcon(ImageIO.read(getClass().getResource(Data.accounts.getPic(Data.userName)))));
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
 		lblPic.setHorizontalAlignment(SwingConstants.CENTER);
 		lblPic.setBounds(30, 30, 60, 60);
 		getContentPane().add(lblPic);
