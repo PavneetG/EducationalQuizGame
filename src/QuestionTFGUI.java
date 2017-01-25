@@ -15,6 +15,7 @@ import java.awt.event.*;
  * 
  * 		Functions
  * 			setTimerTitle (String txt) //method to set the timer title
+ * 			setQuestionNum (String txt) //method to set the question number
  * 			void updateProgressBar (int maxValue, int currentValue) //method to update the progress bar by passing 
  * 																	in the maximum value and the value that should be displayed
  * 			public void viewAnswer () //method to display the correct answer
@@ -31,6 +32,10 @@ import java.awt.event.*;
 public class QuestionTFGUI extends JFrame implements ActionListener{
 
 	//---[Variable Declaration]------
+	//new colours for green and red
+	private Color green = new Color (0,178,51);
+	private Color red = new Color (178,0,0);
+
 	//buttons for true and false
 	private JButton btnTrue, btnFalse; // private variables for true and false buttons
 
@@ -52,8 +57,8 @@ public class QuestionTFGUI extends JFrame implements ActionListener{
 	//variable for timer
 	private Timer timer;
 
-	//label for count down timer and question title
-	private JLabel lblTimer, lblTitle;
+	//label for count down timer, question title and question number
+	private JLabel lblTimer, lblTitle, lblQuestionNum;
 
 	//progress bar to show countdown graphically
 	private JProgressBar progress;
@@ -66,6 +71,7 @@ public class QuestionTFGUI extends JFrame implements ActionListener{
 	//default constructor to run GUI
 	public QuestionTFGUI(QuestionTF questionTF) throws InterruptedException {
 		setSize(500,700);
+		getContentPane().setBackground(new Color(201,77,63));
 		getContentPane().setLayout(null);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -127,12 +133,23 @@ public class QuestionTFGUI extends JFrame implements ActionListener{
 		//create timer label for count down and center text
 		lblTimer = new JLabel("");
 		lblTimer.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTimer.setBounds(218, 31, 61, 16);
+		lblTimer.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+		lblTimer.setForeground(Color.WHITE);
+		lblTimer.setBounds(218, 40, 61, 20);
 		getContentPane().add(lblTimer);
+
+		//create question number label
+		lblQuestionNum = new JLabel ("Results");
+		lblQuestionNum.setForeground(Color.WHITE);
+		lblQuestionNum.setHorizontalAlignment(SwingConstants.CENTER);
+		lblQuestionNum.setFont(new Font("Lucida Grande", Font.PLAIN, 25));
+		lblQuestionNum.setBounds(0, 60, 500, 50);
+		getContentPane().add(lblQuestionNum);
 
 		//create question title and center text
 		lblTitle = new JLabel(""); 
 		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTitle.setForeground(Color.WHITE);
 		lblTitle.setFont(new Font("Dialog", Font.PLAIN, 23)); // Setting font for title
 		lblTitle.setBounds(10, 90, 464, 139); // Setting bounds for title
 		lblTitle.setText("<html>" + questionTF.getQuestion() + "</html>"); //set text label to question title and wrap text to fit
@@ -159,6 +176,11 @@ public class QuestionTFGUI extends JFrame implements ActionListener{
 		lblTimer.setText(txt);
 	}
 
+	//method to set the question number
+	public void setQuestionNum (int num) { 
+		lblQuestionNum.setText("Question " + num);
+	}
+
 	//method to update the progress bar by passing in the maximum value and the value that should be displayed
 	public void updateProgressBar (int maxValue, int currentValue) {
 		progress.setMaximum(maxValue);
@@ -168,9 +190,9 @@ public class QuestionTFGUI extends JFrame implements ActionListener{
 	//method to display the correct answer
 	public void viewAnswer () {
 		if (tfQ.getAnswer()) 
-			btnTrue.setBackground(Color.GREEN);
+			btnTrue.setBackground(green);
 		else 
-			btnFalse.setBackground(Color.GREEN);
+			btnFalse.setBackground(green);
 	} 
 
 	//getters for the close state, button pressed and in timer booleans
@@ -194,17 +216,22 @@ public class QuestionTFGUI extends JFrame implements ActionListener{
 			if(tfQ.checkAnswer(true)){
 				//System.out.println("Correct");
 				incorrect = false;
-				btnTrue.setBackground(Color.GREEN);
+				Data.correct++;//add to correct variable in data class
+				btnTrue.setBackground(green);
 				timer.start(); 
 
-				//enhanced if statement (if timer is greater than 20 seconds add 10 points, else 5 points
-				//Data.addPoints(Integer.parseInt(lblTimer.getText())>20? 10: 5);
+				//enhanced if statement (if timer is greater than 15 seconds add 10 points, else 5 points
+				Data.addPoints(Integer.parseInt(lblTimer.getText())>15? 10: 5);
+
+				//add the time by subtracting the time limit by the current time
+				Data.addTime(Data.timeLimit - Integer.parseInt(lblTimer.getText()));
 			}
 			else{
 				//System.out.println("Incorrect");
 				//if answer wrong, make the true button red and delay to see chosen answer
 				incorrect = true;
-				btnTrue.setBackground(Color.RED);
+				Data.incorrect++;//add to incorrect variable in data class
+				btnTrue.setBackground(red);
 				timer.start();
 			}
 		}
@@ -213,17 +240,23 @@ public class QuestionTFGUI extends JFrame implements ActionListener{
 			if(tfQ.checkAnswer(false)){
 				//System.out.println("Correct");
 				incorrect = false;
-				btnFalse.setBackground(Color.GREEN);
+				Data.correct++;//add to correct variable in data class
+				btnFalse.setBackground(green);
 				timer.start(); 
 
-				//enhanced if statement (if timer is greater than 20 seconds add 10 points, else 5 points
-				//Data.addPoints(Integer.parseInt(lblTimer.getText())>20? 10: 5);
+				//enhanced if statement (if timer is greater than 15 seconds add 10 points, else 5 points
+				Data.addPoints(Integer.parseInt(lblTimer.getText())>15? 10: 5);
+
+				//add the time by subtracting the time limit by the current time
+				Data.addTime(Data.timeLimit - Integer.parseInt(lblTimer.getText()));
 			}
 			else{
 				//if answer wrong, make the false button red and delay to see chosen answer
 				//System.out.println("Incorrect");
 				incorrect = true;
-				btnFalse.setBackground(Color.RED);
+				Data.incorrect++;//add to incorrect variable in data class
+
+				btnFalse.setBackground(red);
 				timer.start();
 			}
 		}

@@ -1,12 +1,19 @@
 /*
  * Author: Janujan Gathieswaran
- * Date: January 10, 2017
+ * Date: January 24 2017
  * Description: The home GUI which allows the user to access a menu bar, recent quizzes, 
  * 				recommendations and favourite quizzes. 
+ * 
  * Method List:
- * 
- * 
+ * 		Constructors
+ * 			QuizGUI(String filename) //default constructor to run GUI
+
+ * 		Functions
+ * 			void actionPerformed (ActionEvent e) //method to check what buttons pressed
+ * 		Self-Testing Main
+ * 			static void main(String[] args) //create an object of the class
  */
+
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.EventQueue;

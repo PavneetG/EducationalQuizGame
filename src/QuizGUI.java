@@ -1,4 +1,9 @@
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import javax.swing.*;
 /*
  * Author: Janujan Gathieswaran
@@ -9,11 +14,15 @@ import javax.swing.*;
  * Method List:
  * 		Constructors
  * 			QuizGUI(String filename) //default constructor to run GUI
+
+ * 		Functions
+ * 			void actionPerformed (ActionEvent e) //method to check what buttons pressed
+ * 			public int readSecondsLimitFromFile () //method to read seconds limit from file
  * 
  * 		Self-Testing Main
  * 			static void main(String[] args) //create an object of the class
  */
-public class QuizGUI extends JFrame {
+public class QuizGUI extends JFrame implements ActionListener {
 
 	//--[Variable Declaration]--------
 	//create a quiz object
@@ -22,14 +31,17 @@ public class QuizGUI extends JFrame {
 	//variable for type of question
 	private int type = 0; 
 
-	//label for title of quiz
-	private JLabel lblTitle;
+	//button to go back home
+	private JButton btnHome; 
+
+	//label for title of quiz, results, correct and wrong answers, points and points number and average time
+	private JLabel lblTitle, lblResults, lblCorrect, lblWrong, lblPoints, lblPointsNum, lblAverageTime, lblMoreInfo;
 
 	//variable for current seconds passed
 	private int currentSeconds = 0;
 
 	//variable for time limit
-	private int timeLimit = 20;
+	private int timeLimit = readSecondsLimitFromFile();
 
 	//create object of true or false, multiple choice and check box GUIs
 	private QuestionTFGUI tF;
@@ -43,9 +55,9 @@ public class QuizGUI extends JFrame {
 	private Thread thread = new Thread();
 
 	//----------------------------------
-
 	//constructor with file name as a parameter to run GUI
 	public QuizGUI(String fileName) throws InterruptedException {
+		getContentPane().setBackground(new Color(201,77,63));
 
 		setSize(500,700);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -67,10 +79,81 @@ public class QuizGUI extends JFrame {
 
 		//create a quiz title label with the quiz name of the quiz object as an argument
 		lblTitle = new JLabel(q.getQuizName());
+		lblTitle.setForeground(Color.WHITE);
 		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTitle.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-		lblTitle.setBounds(67, 200, 379, 230);
+		lblTitle.setFont(new Font("Lucida Grande", Font.PLAIN, 30));
+		lblTitle.setBounds(151, 175, 370, 131);
 		getContentPane().add(lblTitle);
+
+		//create home button 
+		btnHome = new JButton ();
+		btnHome.setText("Home");
+		btnHome.setBounds(195, 605, 110, 55);
+		btnHome.addActionListener(this);
+		btnHome.setVisible(false);
+		getContentPane().add(btnHome);
+
+		//create results label
+		lblResults = new JLabel ("Results");
+		lblResults.setForeground(Color.WHITE);
+		lblResults.setHorizontalAlignment(SwingConstants.CENTER);
+		lblResults.setFont(new Font("Arial Black", Font.BOLD, 27));
+		lblResults.setBounds(60, 6, 379, 78);
+		lblResults.setVisible(false);
+		getContentPane().add(lblResults);
+
+		//create more information label
+		lblMoreInfo = new JLabel ("More Information");
+		lblMoreInfo.setHorizontalAlignment(SwingConstants.CENTER);
+		lblMoreInfo.setForeground(Color.WHITE);
+		lblMoreInfo.setFont(new Font("Lucida Grande", Font.BOLD, 23));
+		lblMoreInfo.setBounds(46, 273, 408, 55);
+		lblMoreInfo.setVisible(false);
+		getContentPane().add(lblMoreInfo);
+
+		//create correct answers label
+		lblCorrect = new JLabel ("Correct Answers");
+		lblCorrect.setHorizontalAlignment(SwingConstants.CENTER);
+		lblCorrect.setForeground(Color.WHITE);
+		lblCorrect.setFont(new Font("Lucida Grande", Font.PLAIN, 17));
+		lblCorrect.setBounds(46, 340, 408, 55);
+		lblCorrect.setVisible(false);
+		getContentPane().add(lblCorrect);
+
+		//create wrong answers label
+		lblWrong = new JLabel ("Wrong Answers");
+		lblWrong.setHorizontalAlignment(SwingConstants.CENTER);
+		lblWrong.setForeground(Color.WHITE);
+		lblWrong.setFont(new Font("Lucida Grande", Font.PLAIN, 17));
+		lblWrong.setBounds(50, 407, 399, 78);
+		lblWrong.setVisible(false);
+		getContentPane().add(lblWrong);
+
+		//create points label title
+		lblPoints = new JLabel ("Points");
+		lblPoints.setHorizontalAlignment(SwingConstants.CENTER);
+		lblPoints.setForeground(Color.WHITE);
+		lblPoints.setFont(new Font("Lucida Grande", Font.PLAIN, 21));
+		lblPoints.setBounds(98, 175, 304, 86);
+		lblPoints.setVisible(false);
+		getContentPane().add(lblPoints);
+
+		//create pointsNum label to display number
+		lblPointsNum = new JLabel ("45");
+		lblPointsNum.setHorizontalAlignment(SwingConstants.CENTER);
+		lblPointsNum.setForeground(Color.WHITE);
+		lblPointsNum.setFont(new Font("Lucida Grande", Font.PLAIN, 78));
+		lblPointsNum.setBounds(98, 96, 304, 115);
+		lblPointsNum.setVisible(false);
+		getContentPane().add(lblPointsNum);
+
+		lblAverageTime = new JLabel("Average Time");
+		lblAverageTime.setHorizontalAlignment(SwingConstants.CENTER);
+		lblAverageTime.setForeground(Color.WHITE);
+		lblAverageTime.setFont(new Font("Lucida Grande", Font.PLAIN, 17));
+		lblAverageTime.setBounds(60, 475, 379, 86);
+		lblAverageTime.setVisible(false);
+		getContentPane().add(lblAverageTime);
 
 		//display the GUI
 		setVisible (true);
@@ -80,6 +163,12 @@ public class QuizGUI extends JFrame {
 
 		//set the size of the questions to the size of the questions array of the quiz object
 		sizeOfQuestions = q.getQuestions().size();
+
+		//set total questions in data class to the value of the total number of questions
+		Data.totalQuestions = sizeOfQuestions;
+
+		//set the time limit of the data class to the time limit specified in this class
+		Data.timeLimit = timeLimit;
 
 		//loop through the questions of the quiz
 		for (int i = 0; i < sizeOfQuestions; i++) {
@@ -95,6 +184,9 @@ public class QuizGUI extends JFrame {
 
 				//call the true and false GUI and pass in the particular true or false question
 				tF = new QuestionTFGUI ((QuestionTF) q.getQuestions().get(i));
+
+				//set the question number on the window
+				tF.setQuestionNum (i+1);
 
 				//hide the window only for the first iteration
 				if (i == 0) 
@@ -142,6 +234,9 @@ public class QuizGUI extends JFrame {
 				//call the multiple choice GUI and pass in the particular multiple choice question
 				mC = new QuestionMCGUI ((QuestionMC) q.getQuestions().get(i));
 
+				//set the question number on the window
+				mC.setQuestionNum (i+1);
+
 				//hide the window only for the first iteration
 				if (i == 0) 
 					setVisible(false);
@@ -188,6 +283,9 @@ public class QuizGUI extends JFrame {
 				//call the checkbox GUI and pass in the particular checkbox question
 				cB = new QuestionCBGUI ((QuestionCB) q.getQuestions().get(i));
 
+				//set the question number on the window
+				cB.setQuestionNum (i+1);
+
 				//hide the window only for the first iteration
 				if (i == 0) 
 					setVisible(false);
@@ -230,7 +328,47 @@ public class QuizGUI extends JFrame {
 			}
 			}
 		}
+		setVisible(true);
+
+		//hide the title and display all the results information
+		lblTitle.setVisible(false);
+		lblCorrect.setText("Correct Answers: " + Data.correct);
+		lblWrong.setText("Wrong Answers: " + Data.incorrect);
+		lblAverageTime.setText("Average Time: " + Data.getAverageTime() + " secs");
+		lblPointsNum.setText(Integer.toString(Data.getPoints()));
+		
+		Data.accounts.getStats(Data.userName).setAverageTime(Data.getAverageTime());
+		
+
+		lblResults.setVisible(true);
+		lblPoints.setVisible(true);
+		lblWrong.setVisible(true);
+		lblCorrect.setVisible(true);
+		lblAverageTime.setVisible(true);
+		lblPointsNum.setVisible(true);
+		lblMoreInfo.setVisible(true);
+		btnHome.setVisible(true);
+
 		//JOptionPane.showMessageDialog(null, "Total Points: " + Data.getPoints());
+	}
+	//method to read seconds limit from file
+	public int readSecondsLimitFromFile ()  {
+		try {
+			BufferedReader f = new BufferedReader (new FileReader ("time.txt"));
+			return Integer.parseInt(f.readLine());
+		}
+		catch (IOException e) {
+			return 0;
+		}
+	}
+	//method to check what buttons pressed
+	public void actionPerformed (ActionEvent e) { 
+		try {
+			new HomeMenuGUI ();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 	}
 	//create an object of the quiz GUI and pass in American test file to test if it works
 	public static void main(String[] args) throws InterruptedException {

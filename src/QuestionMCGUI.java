@@ -14,6 +14,7 @@ import java.awt.event.*;
  * 
  * 		Functions
  * 			setTimerTitle (String txt) //method to set the timer title
+ *  		setQuestionNum (String txt) //method to set the question number
  * 			void updateProgressBar (int maxValue, int currentValue) //method to update the progress bar by passing 
  * 																	in the maximum value and the value that should be displayed
  * 			public void viewAnswer () //method to display the correct answer
@@ -31,6 +32,10 @@ public class QuestionMCGUI extends JFrame implements ActionListener{
 
 
 	//---[Variable Declaration]------
+	//new colours for green and red
+	private Color green = new Color (0,178,51);
+	private Color red = new Color (178,0,0);
+	
 	//array of buttons for options
 	private JButton [] btnOptions; 
 
@@ -55,8 +60,8 @@ public class QuestionMCGUI extends JFrame implements ActionListener{
 	//variable for the answer
 	private String answer = "";
 
-	//label for count down timer and question title
-	private JLabel lblTimer, lblTitle;
+	//label for count down timer, question title and question number
+	private JLabel lblTimer, lblTitle, lblQuestionNum;
 
 	//progress bar to show countdown graphically
 	private JProgressBar progress;
@@ -73,6 +78,7 @@ public class QuestionMCGUI extends JFrame implements ActionListener{
 
 	public QuestionMCGUI(QuestionMC mcQ) throws InterruptedException {
 		setSize(500,700);
+		getContentPane().setBackground(new Color(201,77,63));
 		getContentPane().setLayout(null);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -137,11 +143,22 @@ public class QuestionMCGUI extends JFrame implements ActionListener{
 		//create timer label for count down and center text
 		lblTimer = new JLabel("");
 		lblTimer.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTimer.setBounds(218, 31, 61, 16);
+		lblTimer.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+		lblTimer.setForeground(Color.WHITE);
+		lblTimer.setBounds(218, 40, 61, 20);
 		getContentPane().add(lblTimer);
+
+		//create question number label
+		lblQuestionNum = new JLabel ("Results");
+		lblQuestionNum.setHorizontalAlignment(SwingConstants.CENTER);
+		lblQuestionNum.setForeground(Color.WHITE);
+		lblQuestionNum.setFont(new Font("Lucida Grande", Font.PLAIN, 25));
+		lblQuestionNum.setBounds(0, 60, 500, 50);
+		getContentPane().add(lblQuestionNum);
 
 		//create question title and center text
 		lblTitle = new JLabel("Question Title");
+		lblTitle.setForeground(Color.WHITE);
 		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTitle.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		lblTitle.setBounds(32, 86, 443, 139);
@@ -152,6 +169,7 @@ public class QuestionMCGUI extends JFrame implements ActionListener{
 		p = new JPanel();
 		p.setLayout(new GridLayout (optionSize,1,5,5)); 
 		p.setBounds(32, 237, 443, 393);
+		p.setBackground(new Color(201,77,63));
 		getContentPane().add(p);
 
 		//create an array of buttons
@@ -193,6 +211,11 @@ public class QuestionMCGUI extends JFrame implements ActionListener{
 		lblTimer.setText(txt);
 	}
 
+	//method to set the question number
+	public void setQuestionNum (int num) { 
+		lblQuestionNum.setText("Question " + num);
+	}
+
 	//method to update the progress bar by passing in the maximum value and the value that should be displayed
 	public void updateProgressBar (int maxValue, int currentValue) {
 		progress.setMaximum(maxValue);
@@ -208,7 +231,7 @@ public class QuestionMCGUI extends JFrame implements ActionListener{
 		//and make it green
 		for (int i = 0; i < optionSize; i++) {
 			if (btnOptions[i].getText().equals(answer)) {
-				btnOptions[i].setBackground(Color.GREEN);
+				btnOptions[i].setBackground(green);
 			}
 		}
 	}
@@ -237,17 +260,22 @@ public class QuestionMCGUI extends JFrame implements ActionListener{
 				if (mcQ.checkAnswer(btnOptions[i].getText())) {
 					//System.out.println("Correct answer");
 					incorrect = false;
-					btnOptions[i].setBackground(Color.GREEN);
+					Data.correct++;//add to correct variable in data class
+					btnOptions[i].setBackground(green);
 					timer.start(); //delay to see chosen answer
 
-					//enhanced if statement (if timer is greater than 20 seconds add 5 points, else 10 points
-					//Data.addPoints(Integer.parseInt(lblTimer.getText())>20? 5: 10);
+					//enhanced if statement (if timer is greater than 15 seconds add 10 points, else 5 points
+					Data.addPoints(Integer.parseInt(lblTimer.getText())>15? 10: 5);
+
+					//add the time by subtracting the time limit by the current time
+					Data.addTime(Data.timeLimit - Integer.parseInt(lblTimer.getText()));
 				}
 				else { 
 					//if wrong answer, set incorrect to true and make the specific button red
 					//System.out.println("Wrong answer");
 					incorrect = true;
-					btnOptions[i].setBackground(Color.RED);
+					Data.incorrect++;//add to incorrect variable in data class
+					btnOptions[i].setBackground(red);
 					timer.start(); //delay to see chosen answer
 				}
 			}
@@ -258,7 +286,7 @@ public class QuestionMCGUI extends JFrame implements ActionListener{
 		//create an array of options and create a new question multiple choice object
 		ArrayList<String> options = new ArrayList(Arrays.asList("Brandon", "Kevin", "Jeffrey", "Campos"));
 		QuestionMC q = new QuestionMC("Hello", options, "Kevin");
-		
+
 		//create an object of the GUI and pass in the multiple choice object
 		QuestionMCGUI qGUI = new QuestionMCGUI(q);
 	}

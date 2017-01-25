@@ -15,6 +15,7 @@ import java.awt.event.*;
  * 
  * 		Functions
  * 			setTimerTitle (String txt) //method to set the timer title
+ * 			setQuestionNum (String txt) //method to set the question number
  * 			void updateProgressBar (int maxValue, int currentValue) //method to update the progress bar by passing 
  * 																	in the maximum value and the value that should be displayed
  * 			public void viewAnswer () //method to display the correct answer
@@ -35,6 +36,10 @@ public class QuestionCBGUI extends JFrame implements ActionListener{
 	//ok button to check selected check boxes
 	private JButton btnOK;
 
+	//new colours for green and red
+	private Color green = new Color (0,178,51);
+	private Color red = new Color (178,0,0);
+	
 	//close state boolean to check if window should be closed in Quiz GUI
 	private boolean closeState = false; 
 
@@ -65,8 +70,8 @@ public class QuestionCBGUI extends JFrame implements ActionListener{
 	//variable for timer
 	private Timer timer;
 
-	//label for count down timer and question title
-	private JLabel lblTimer, lblTitle;
+	//label for count down timer, question title and question number
+	private JLabel lblTimer, lblTitle, lblQuestionNum;
 
 	//progress bar to show countdown graphically
 	private JProgressBar progress;
@@ -79,6 +84,7 @@ public class QuestionCBGUI extends JFrame implements ActionListener{
 	//default constructor to run GUI
 	public QuestionCBGUI(QuestionCB cbQ) throws InterruptedException {
 		setSize(500,700);
+		getContentPane().setBackground(new Color(201,77,63));
 		getContentPane().setLayout(null);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -145,6 +151,7 @@ public class QuestionCBGUI extends JFrame implements ActionListener{
 		p = new JPanel();
 		p.setLayout(new GridLayout (optionSize,1,5,5));
 		p.setBounds(32, 200, 443, 250);
+		p.setBackground(new Color(201,77,63));
 		getContentPane().add(p);
 
 		//create an array of check boxes with the option size 
@@ -179,9 +186,18 @@ public class QuestionCBGUI extends JFrame implements ActionListener{
 			checkBox[4].addActionListener(this);
 		}
 
+		//create question number label
+		lblQuestionNum = new JLabel ("Results");
+		lblQuestionNum.setHorizontalAlignment(SwingConstants.CENTER);
+		lblQuestionNum.setForeground(Color.WHITE);
+		lblQuestionNum.setFont(new Font("Lucida Grande", Font.PLAIN, 25));
+		lblQuestionNum.setBounds(0, 60, 500, 50);
+		getContentPane().add(lblQuestionNum);
+
 		//create question title and center text
 		lblTitle = new JLabel("");
 		lblTitle.setHorizontalAlignment(SwingConstants.LEFT);
+		lblTitle.setForeground(Color.WHITE);
 		lblTitle.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		lblTitle.setBounds(32, 86, 443, 139);
 		getContentPane().add(lblTitle);
@@ -195,8 +211,10 @@ public class QuestionCBGUI extends JFrame implements ActionListener{
 
 		//create timer label for count down and center text
 		lblTimer = new JLabel("");
-		lblTimer.setHorizontalAlignment(SwingConstants.LEFT);
-		lblTimer.setBounds(218, 31, 61, 16);
+		lblTimer.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTimer.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+		lblTimer.setForeground(Color.WHITE);
+		lblTimer.setBounds(218, 40, 61, 20);
 		getContentPane().add(lblTimer);
 
 		setVisible(true);
@@ -205,6 +223,11 @@ public class QuestionCBGUI extends JFrame implements ActionListener{
 	//method to set the timer title
 	public void setTimerTitle (String txt) { 
 		lblTimer.setText(txt);
+	}
+
+	//method to set the question number
+	public void setQuestionNum (int num) { 
+		lblQuestionNum.setText("Question " + num);
 	}
 
 	//method to update the progress bar by passing in the maximum value and the value that should be displayed
@@ -218,7 +241,7 @@ public class QuestionCBGUI extends JFrame implements ActionListener{
 			String option = checkBox[i].getText();
 
 			if (cbQ.checkSelectedItem(option)) {
-				checkBox[i].setBackground(Color.GREEN);
+				checkBox[i].setBackground(green);
 			}
 		}
 	}
@@ -255,15 +278,23 @@ public class QuestionCBGUI extends JFrame implements ActionListener{
 			//if the option selected are correct, set incorrect to false and
 			if (cbQ.checkAnswer(input))
 			{
+				//enhanced if statement (if timer is greater than 15 seconds add 10 points, else 5 points
+				Data.addPoints(Integer.parseInt(lblTimer.getText())>15? 10: 5);
+				
+				//add the time by subtracting the time limit by the current time
+				Data.addTime(Data.timeLimit - Integer.parseInt(lblTimer.getText()));
+
 				incorrect = false;
 				
+				Data.correct++;//add to correct variable in data class
+
 				//loop through selected options and make the correct options green
 				for (int i = 0; i < input.size(); i++) {
 					String selected = input.get(i);
 
 					for (int j = 0; j < optionSize; j++) {
 						if (selected.equals(checkBox[j].getText())) {
-							checkBox[j].setBackground(Color.GREEN);
+							checkBox[j].setBackground(green);
 						}
 					}
 				}
@@ -272,7 +303,9 @@ public class QuestionCBGUI extends JFrame implements ActionListener{
 			else //answers are wrong, set incorrect to true and
 			{
 				incorrect = true;
-
+				
+				Data.incorrect++;//add to incorrect variable in data class
+				
 				//loop through selected options and display the correct and incorrect answers chosen
 				for (int i = 0; i < input.size(); i++) {
 					String selected = input.get(i);
@@ -280,7 +313,7 @@ public class QuestionCBGUI extends JFrame implements ActionListener{
 					if (cbQ.checkSelectedItem(selected)) {
 						for (int j = 0; j < optionSize; j++) {
 							if (selected.equals(checkBox[j].getText())) {
-								checkBox[j].setBackground(Color.GREEN);
+								checkBox[j].setBackground(green);
 							}
 						}
 					}
@@ -288,7 +321,7 @@ public class QuestionCBGUI extends JFrame implements ActionListener{
 					{
 						for (int j = 0; j < optionSize; j++) {
 							if (selected.equals(checkBox[j].getText())) {
-								checkBox[j].setBackground(Color.RED);
+								checkBox[j].setBackground(red);
 							}
 						}
 
@@ -296,21 +329,15 @@ public class QuestionCBGUI extends JFrame implements ActionListener{
 					timer.start(); //delay to see chosen answers
 				}
 			}
-//			//enhanced for loop for print out the items of the input array
-//			for (String f: input) {
-//				System.out.print(f + ", ");
-//			}
+			//			//enhanced for loop for print out the items of the input array
+			//			for (String f: input) {
+			//				System.out.print(f + ", ");
+			//			}
 
 			//Reference for enhanced if statement
 			//https://www.youtube.com/watch?v=w41D0V-BnKQ&index=31&list=PLFE2CE09D83EE3E28
 			//System.out.println(cbQ.checkAnswer(input)?"Correct":"Wrong");
 
-			//			if (cbQ.checkAnswer(input)) {
-			//
-			//
-			//				//enhanced if statement (if timer is greater than 20 seconds add 10 points, else 5 points
-			//				//Data.addPoints(Integer.parseInt(lblTimer.getText())>20? 10: 5);
-			//			}
 		}
 	}
 
@@ -321,7 +348,7 @@ public class QuestionCBGUI extends JFrame implements ActionListener{
 		ArrayList<String> options = new ArrayList(Arrays.asList("Red","Orange","Caloon","Babarotu","Green"));
 		ArrayList<String> answers = new ArrayList(Arrays.asList("Red","Orange","Green"));
 		QuestionCB cbQ = new QuestionCB ("Which of the follow are colours?", options, answers);
-		
+
 		//create an object of the class and pass in the check box object
 		QuestionCBGUI cbGUI = new QuestionCBGUI(cbQ);
 	}
