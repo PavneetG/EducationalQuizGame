@@ -3,9 +3,8 @@
 OPEN 'Reach Trivia' Executable Jar File TO PLAY!
 
 *****************DEBUGING PROBLEMS*****************
-- When character is selected, does not run properly
-- Some characters won't run
-- Collison detection does not work properly
+- When you select the Quiz you want to play, it doesn't load
+QuizGUI properly. The whole GUI goes to sleep because of Thread.Sleep().
 
 Game: Reach Trivia Game
 
