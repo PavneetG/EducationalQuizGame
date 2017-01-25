@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
 	 */
 public class Player {
 
-	//private variables for name, user name 
+	//declaring variables for name, user name, password and Stats class 
 	private String name; 
 	
 	private String userName; 
@@ -32,9 +32,7 @@ public class Player {
 		this.picName = ""; 
 		this.password = ""; 
 	}
-
-	//Overloads Constructor initializes the customer data
-	
+	//Overloads Constructor initializes the player data
 	public Player(String name, String userName, String password, String picName, Statistics stats)
 	{
 			this.name= name; 
@@ -44,6 +42,7 @@ public class Player {
 			this.stats = new Statistics();
 	}
 	
+	//Overloads Constructor initializes the player data in different way 
 	public Player (String info)
 	{
 		String word [];
@@ -70,6 +69,7 @@ public class Player {
 		this.stats = new Statistics(data);
 	}
 	
+	//Setter and getter methods 
 	public String getName() 
 	{
 		return name;
@@ -94,11 +94,6 @@ public class Player {
 	{
 		return stats;
 	}
-	
-//	public Statistics setStats(String info) 
-//	{
-//		this.stats = new Statistics(info);
-//	}
 
 	public void setAccountpic(String picName) 
 	{
@@ -114,6 +109,11 @@ public class Player {
 	{
 	     return password; 
 	}
+	
+//	public Statistics setStats(String info) 
+//	{
+//		this.stats = new Statistics(info);
+//	}
 	
 	public String toString(){ // method to change inputed variable to full form and return a string record
 		return (getName() + ";" + getUserName() + ";" + getPassword() + ";" + getAccountpic() + ";" + getStats());
@@ -134,15 +134,15 @@ public class Player {
 				//process Record
 				Player playerRecord = new Player(playerInfo); //creating a Customer constructor 
 
-				System.out.println(playerRecord.toString()); 
+				System.out.println("Name: "+ playerRecord.getName()); //getting name
 				
-				System.out.println("Name: "+ playerRecord.getName()); 
+				System.out.println("UserName: " + playerRecord.getUserName()); //getting userName
 				
-				System.out.println("UserName: " + playerRecord.getUserName());
+				System.out.println("Password: " + playerRecord.getPassword()); //getting passowrd
 				
-				System.out.println("Password: " + playerRecord.getPassword()); 
+				System.out.println("Stats: " + playerRecord.getStats().toString()); //getting statistics 
 				
-				System.out.println("Stats: " + playerRecord.getStats()); 
+				System.out.println(playerRecord.toString());  //comverting playerrecord to string 
 	}
 
 }
