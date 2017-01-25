@@ -54,7 +54,6 @@ There are 2 ways to run it.
 2. Open the project on eclipse. Once done, open the "AccountLogin.java" class and simply
 click on the run button.
 
-
 THANKS FOR PLAYING REACH TRIVIA!
 
 Sincerly,

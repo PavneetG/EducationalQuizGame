@@ -379,7 +379,7 @@ public class QuizGUI extends JFrame implements ActionListener {
 	}
 	//create an object of the quiz GUI and pass in American test file to test if it works
 	public static void main(String[] args) throws InterruptedException {
-		QuizGUI qGUI = new QuizGUI ("American History.txt");
+		QuizGUI qGUI = new QuizGUI ("Apple.txt");
 
 	}
 }
