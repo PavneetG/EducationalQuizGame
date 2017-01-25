@@ -44,8 +44,11 @@ public class StatisticsGUI extends JFrame implements ActionListener {
 
 		Data.accounts.loadFile("Players.txt"); // loads Players.txt
 
+		setContentPane (new JLabel(new ImageIcon ("Images/stats.png")));
+		setSize(350,500); // set size of window
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
 		getContentPane().setLayout(null); // setting layout to null
+		setLocationRelativeTo(null);
 
 		String[] columns = {"Quizzes", "Total\nQuestions", "Correct Answers", "Overall %", "Average Time"}; // creating columns for JTable
 		Object [][] data = {{Data.accounts.getStats(Data.userName).getNumQuizzes(), Data.accounts.getStats(Data.userName).getNumTotal(), Data.accounts.getStats(Data.userName).getNumCorrect(),
@@ -73,8 +76,8 @@ public class StatisticsGUI extends JFrame implements ActionListener {
 		userName.setHorizontalAlignment(SwingConstants.CENTER); // centering userName
 		lblPlayerName.setHorizontalAlignment(SwingConstants.CENTER); // centering PlayerName
 
-		lblPicture.setBounds(138, 68, 60, 60); // setting bounds for button, scrollpane, and labels
-		btnBack.setBounds(10, 11, 89, 23);
+		lblPicture.setBounds(138, 79, 60, 60); // setting bounds for button, scrollpane, and labels
+		btnBack.setBounds(10, 75, 89, 23);
 		lblPlayerName.setBounds(10, 150, 324, 85);
 		scrollPane.setBounds(10, 278, 324, 44);
 		userName.setBounds(10, 232, 314, 14);
@@ -89,7 +92,7 @@ public class StatisticsGUI extends JFrame implements ActionListener {
 		
 		btnBack.addActionListener(this); // adding actionlistener to back button
 
-		setSize(350,500); // set size of window
+		
 		setVisible(true); // setting the visibility to true
 		setResizable(false); // cannot resize window
 	}

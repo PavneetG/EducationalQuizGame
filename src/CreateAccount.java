@@ -19,7 +19,7 @@ import java.awt.event.KeyEvent;
 
 public class CreateAccount extends JFrame implements ActionListener{
 
-	private JButton btnClear1, btnClear2, btnClear3, btnClear4, btnCreateAccount; // Declaring JButtons
+	private JButton btnClear1, btnClear2, btnClear3, btnClear4, btnCreateAccount, btnBack; // Declaring JButtons
 	private JRadioButton radioButton, radioButton_1, radioButton_2, radioButton_3; // Declaring JRadioButtons
 	private JTextField passwordField,userNameField,confirmPassField,nameField; // Declaring JTextFields
 	private JLabel lblPickAPicture,lblEnterAUsername,lblEnterYourName,lblEnterPassword,lblComfirmPassword, // Declaring JLabels
@@ -142,6 +142,8 @@ public class CreateAccount extends JFrame implements ActionListener{
 		 * Created JButtons with text
 		 */
 		btnCreateAccount = new JButton("Create Account!");
+		btnBack = new JButton("Back");
+		btnBack.setFont(new Font("Comic Sans MS", Font.PLAIN, 15)); // Setting font for back button
 		btnClear1 = new JButton("X");
 		btnClear2 = new JButton("X");
 		btnClear3 = new JButton("X");
@@ -150,6 +152,7 @@ public class CreateAccount extends JFrame implements ActionListener{
 		 * SetBounds for each JButton
 		 */
 		btnCreateAccount.setBounds(96, 419, 144, 41);
+		btnBack.setBounds(10, 11, 89, 23);
 		btnClear1.setBounds(284, 123, 50, 23);
 		btnClear2.setBounds(284, 62, 50, 23);
 		btnClear3.setBounds(284, 190, 50, 23);
@@ -162,6 +165,7 @@ public class CreateAccount extends JFrame implements ActionListener{
 		getContentPane().add(btnClear2);
 		getContentPane().add(btnClear3);
 		getContentPane().add(btnClear4);
+		getContentPane().add(btnBack);
 		/*
 		 * Set visibility of several buttons to false
 		 */
@@ -177,6 +181,7 @@ public class CreateAccount extends JFrame implements ActionListener{
 		btnClear2.addActionListener(this);
 		btnClear3.addActionListener(this);
 		btnClear4.addActionListener(this);
+		btnBack.addActionListener(this);
 		/*
 		 * Created JRadioButtons
 		 */
@@ -227,6 +232,13 @@ public class CreateAccount extends JFrame implements ActionListener{
 		if (e.getSource() == btnClear2) { // clears nameField
 			nameField.setText("");
 			btnClear2.setVisible(false);
+		}
+		if (e.getSource() == btnBack) { // clears nameField
+			try {
+				new AccountLogin();
+			} catch (IOException e1) {
+			}
+			dispose();
 		}
 		if (e.getSource() == btnCreateAccount) {
 			String info, password = null, pic = null, name = nameField.getText(), userName = userNameField.getText(); // created string variables with values from textfields
