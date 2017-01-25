@@ -120,21 +120,21 @@ public class QuestionCreation extends JFrame implements ActionListener {
 
 	private ArrayList<String> answersCB;
 
-	private ArrayList<String>  checkBoxAnswer = new ArrayList<String>(); 
+	private ArrayList<String> checkBoxAnswer = new ArrayList<String>(); 
 	
-	private ArrayList<String>  options = new ArrayList<String>(); 
+	private ArrayList<String> options = new ArrayList<String>(); 
 	
 	//creating array for options with box
 	private String boxOptions [] = {"Select", "True or False", "Multiple Choice", "Check Box"}; 
 
 	//creating comboBox
-	private JComboBox comboBox= new JComboBox(boxOptions);
+	private JComboBox cBQuestionType= new JComboBox(boxOptions);
 
 	//creating JLabel for question type 
 	private JLabel lblQuestionType = new JLabel("Question Type");
 
 	//creating comboBox for num of options 
-	private JComboBox comboBox_1 = new JComboBox(numOfQuestions);
+	private JComboBox cBNumQuestions = new JComboBox(numOfQuestions);
 	
 	//creating JLabel for number of options 
 	private JLabel lblNumOptions = new JLabel("# of Options");
@@ -164,20 +164,20 @@ public class QuestionCreation extends JFrame implements ActionListener {
 		checkBoxes.add(checkBox_3);
 		checkBoxes.add(checkBox_4); 
 
-		comboBox_1.setVisible(false);
+		cBNumQuestions.setVisible(false);
 		
-		comboBox_1.setActionCommand("hi");
+		cBNumQuestions.setActionCommand("hi");
 		
 		//adding buttons to group 
 		trueAndFalse.add(trueButton);
 		trueAndFalse.add(falseButton);
 
 		
-		comboBox.setActionCommand("hello");//action command for comboBox
-		comboBox.setSelectedIndex (0); //setting default selected
-		getContentPane().add(comboBox);
+		cBQuestionType.setActionCommand("hello");//action command for comboBox
+		cBQuestionType.setSelectedIndex (0); //setting default selected
+		getContentPane().add(cBQuestionType);
 		
-		comboBox_1.setSelectedItem("3"); //setting default selection
+		cBNumQuestions.setSelectedItem("3"); //setting default selection
 		
 		//creating scroll bar and adding to quesitonTitle
 		scrollBar = new JScrollPane(txtQuestionTitle);
@@ -189,9 +189,9 @@ public class QuestionCreation extends JFrame implements ActionListener {
 		//setting the x, y, width, height 
 		lblAnswer.setBounds(30, 238, 47, 20);
 		lblOptions.setBounds(31, 209, 86, 20);
-		comboBox_1.setBounds(350, 178, 56, 20);
+		cBNumQuestions.setBounds(350, 178, 56, 20);
 		lblQuestionType.setBounds(30, 178, 86, 20);
-		comboBox.setBounds(126, 178, 112, 20);
+		cBQuestionType.setBounds(126, 178, 112, 20);
 
 		txtQuestionTitle.setWrapStyleWord(true); 
 		txtQuestionTitle.setLineWrap(true);
@@ -250,7 +250,7 @@ public class QuestionCreation extends JFrame implements ActionListener {
 
 		getContentPane().add (btnConfirm);
 		
-		getContentPane().add(comboBox_1);
+		getContentPane().add(cBNumQuestions);
 		
 		getContentPane().add(lblNumOptions);
 		
@@ -267,9 +267,9 @@ public class QuestionCreation extends JFrame implements ActionListener {
 		
 		btnConfirm.addActionListener(this);
 		
-		comboBox_1.addActionListener(this);
+		cBNumQuestions.addActionListener(this);
 		
-		comboBox.addActionListener(this);
+		cBQuestionType.addActionListener(this);
 
 		setLocationRelativeTo (null);
 		
@@ -281,16 +281,16 @@ public class QuestionCreation extends JFrame implements ActionListener {
 		if (e.getActionCommand().equals("hello") || e.getActionCommand().equals("hi"))
 		{
 			//getting selected items on combox box 
-			selectedItem = (String) comboBox.getSelectedItem();
+			selectedItem = (String) cBQuestionType.getSelectedItem();
 			
-			numOfOptions = (String) comboBox_1.getSelectedItem();  
+			numOfOptions = (String) cBNumQuestions.getSelectedItem();  
 
 			//switching depending on selection item
 			switch (selectedItem)
 			{
 			case "True or False":
 			{
-				comboBox_1.setVisible(false);
+				cBNumQuestions.setVisible(false);
 				
 				questionType = 1; //setting question Type
 				
@@ -346,7 +346,7 @@ public class QuestionCreation extends JFrame implements ActionListener {
 				questionType = 2; 
 				
 				//setting bounds of new items or moving old items off screen 
-				comboBox_1.setVisible(true);
+				cBNumQuestions.setVisible(true);
 				
 				btnNext.setBounds(370, 31, 89, 23);
 				
@@ -445,7 +445,7 @@ public class QuestionCreation extends JFrame implements ActionListener {
 				questionType = 3;
 
 				//setting bounds of new items or moving old items off screen 
-				comboBox_1.setVisible(true);
+				cBNumQuestions.setVisible(true);
 				
 				checkBox.setBounds(0,0,0,0);
 				
@@ -793,6 +793,12 @@ public class QuestionCreation extends JFrame implements ActionListener {
 			}
 			
 			Data.q.writeToFile(Data.q.getQuizName(), Data.q.toString() ,false); //writing questions to file 
+			
+			try {
+				new HomeMenuGUI ();
+			} catch (IOException e1) {
+				
+			} 
 		}
 
 	}
