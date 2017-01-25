@@ -2,14 +2,11 @@
 
 OPEN 'Reach Trivia' Executable Jar File TO PLAY!
 
-<<<<<<< HEAD
-=======
 *****************DEBUGING PROBLEMS*****************
 - When you select the Quiz you want to play, it doesn't load
 QuizGUI properly. The whole GUI goes to sleep because of Thread.Sleep(). You can
 still play any quiz by passing in the quiz text file in the main method of the QuizGUI class.
 
->>>>>>> origin/master
 Game: Reach Trivia Game
 
 About the Game:
