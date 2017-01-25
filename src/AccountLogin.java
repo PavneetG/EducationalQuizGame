@@ -13,7 +13,7 @@ import java.io.*;
  * 
  * 		Functions
  * 			void actionPerformed (ActionEvent e) //method to determine what buttons pressed
- 
+
  * 		Self-Testing Main
  * 			static void main(String[] args) //create an object of the class
  */
@@ -43,16 +43,15 @@ public class AccountLogin extends JFrame implements ActionListener {
 	private PlayerAccountList accounts = new PlayerAccountList();
 
 	//----------------------------------
-	
+
 	public AccountLogin() throws IOException { //constructor for GUI
-		super("Login");  // title for the frame
-
-		setSize(350,500);
-		getContentPane().setLayout(null);
-		setLocationRelativeTo(null);
-
 		//load the different players from a file
 		accounts.loadFile("Players.txt");
+		setContentPane (new JLabel(new ImageIcon ("Images/accountlogin.png")));
+		setSize(350,500); // set size of window
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setLocationRelativeTo(null);
+		getContentPane().setLayout(null);
 
 		/*
 		 * create text user name text field add a key listener 
@@ -119,11 +118,6 @@ public class AccountLogin extends JFrame implements ActionListener {
 		lblPassword.setBounds(70, 276, 84, 14);
 		getContentPane().add(lblPassword);
 
-		//create a picture and set to image
-		picture = new JLabel(new ImageIcon("popQuiz.png"));
-		picture.setBounds(35, 0, 256, 256);
-		getContentPane().add(picture);
-
 		//create a status label
 		lblStatus = new JLabel("");
 		lblStatus.setHorizontalAlignment(SwingConstants.CENTER);
@@ -157,10 +151,9 @@ public class AccountLogin extends JFrame implements ActionListener {
 		getContentPane().add(btnClear2);
 		btnClear2.setVisible(false);
 		btnClear2.addActionListener(this);
-
-		setSize(350,500);
-		setVisible(true);
 		
+		setVisible(true);
+
 	}
 	public boolean access(){
 		if(txtUserName.getText().equalsIgnoreCase(userName) && passwordField.getText().equalsIgnoreCase(password)){

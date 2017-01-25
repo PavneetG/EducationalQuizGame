@@ -18,7 +18,7 @@ public class Settings extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
 	private JButton btnChange1, btnChange2, btnChange3, btnChange4,btnConfirm,btnBack,btnVerifyLogin, btnCancel; // declared variables as JButtons
-	private JLabel lblChange1, lblChange2, lblChange3, lblChange4, label, label_1, label_2, label_3, lblUserName, lblPassword, lblStatus, lblSeconds; // declared variables as JLabels
+	private JLabel lblChange1, lblChange2, lblChange3, lblChange4, label, label_1, label_2, label_3, lblUserName, lblPassword, lblStatus, lblSeconds, greeting; // declared variables as JLabels
 	private JTextField confirmPassField, universalField; // declared variables as JTextField
 	private JRadioButton radioButton, radioButton_1, radioButton_2, radioButton_3; // declared variables as JRadioButton
 	private String name, userName, password, picName, stats; // declared variables as String
@@ -33,8 +33,10 @@ public class Settings extends JFrame implements ActionListener {
 		super("Settings");  // title for the frame
 
 		accounts.loadFile("Players.txt");
-
+		setContentPane (new JLabel(new ImageIcon ("Images/settings.png")));
+		setSize(350,500); // set size of window
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setLocationRelativeTo(null);
 		getContentPane().setLayout(null);
 		/*
 		 * Creted JButtons with Names
@@ -68,7 +70,7 @@ public class Settings extends JFrame implements ActionListener {
 		btnConfirm.setBounds(10, 349, 184, 38);
 		btnCancel.setBounds(10, 398, 184, 38);
 		btnVerifyLogin.setBounds(76, 269, 184, 38);
-		btnBack.setBounds(10, 11, 89, 23);
+		btnBack.setBounds(10, 75, 89, 23);
 		/*
 		 * Added frame for each JButton
 		 */
@@ -173,6 +175,9 @@ public class Settings extends JFrame implements ActionListener {
 		lblUserName = new JLabel("User Name");
 		lblPassword = new JLabel("Password");
 		lblSeconds = new JLabel("Seconds:");
+		greeting = new JLabel("<html>" + "Hello, " + Data.accounts.getName(Data.userName) + "<html>");
+		greeting.setHorizontalAlignment(SwingConstants.CENTER);
+		greeting.setFont(new Font("Comic Sans MS", Font.PLAIN, 25));
 		/*
 		 * SetBounds for labels
 		 */
@@ -188,6 +193,7 @@ public class Settings extends JFrame implements ActionListener {
 		lblUserName.setBounds(91, 149, 83, 14);
 		lblPassword.setBounds(91, 205, 83, 14);
 		lblSeconds.setBounds(246, 352, 86, 14);
+		greeting.setBounds(17, 120, 317, 120);
 		/*
 		 * Added labels to frame
 		 */
@@ -203,6 +209,7 @@ public class Settings extends JFrame implements ActionListener {
 		getContentPane().add(lblPassword);
 		getContentPane().add(lblStatus);
 		getContentPane().add(lblSeconds);
+		getContentPane().add(greeting);
 		/*
 		 * Creating comboBox and setting
 		 * it up
@@ -226,10 +233,11 @@ public class Settings extends JFrame implements ActionListener {
 		label_3.setVisible(false);
 		lblStatus.setVisible(false);
 		lblSeconds.setVisible(false);
-		lblStatus.setForeground(Color.RED);
+		greeting.setVisible(false);
+		lblStatus.setForeground(Color.DARK_GRAY);
 		comboBox.setVisible(false); // setting visibility for comboBox
 
-		setSize(350,500); // set size of window
+		
 		setVisible(true);
 		setResizable(false); // cannot resize window
 	}
@@ -270,6 +278,7 @@ public class Settings extends JFrame implements ActionListener {
 				lblUserName.setVisible(false);
 				lblPassword.setVisible(false);
 				btnVerifyLogin.setVisible(false);
+				greeting.setVisible(true);
 			}
 			else{
 				lblStatus.setText("Invalid UserName/Password"); // notifies user if login has failed

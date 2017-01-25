@@ -17,7 +17,6 @@ import java.awt.event.KeyEvent;
  *textfile
  */
 
-
 public class CreateAccount extends JFrame implements ActionListener{
 
 	private JButton btnClear1, btnClear2, btnClear3, btnClear4, btnCreateAccount; // Declaring JButtons
@@ -30,7 +29,11 @@ public class CreateAccount extends JFrame implements ActionListener{
 	public CreateAccount() throws IOException {
 
 		super("Create Account");  // title for the frame
+		Data.accounts.loadFile("Players.txt"); // loads the players.txt file
+		setContentPane (new JLabel(new ImageIcon ("Images/createaccount.png")));
+		setSize(350,500); // set size of window
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setLocationRelativeTo(null);
 		getContentPane().setLayout(null);
 		/*
 		 * Created JTextFields with 10 columns
@@ -185,10 +188,10 @@ public class CreateAccount extends JFrame implements ActionListener{
 		/*
 		 * SetBounds for each radiobutton
 		 */
-		radioButton.setBounds(56, 308, 28, 23);
-		radioButton_1.setBounds(127, 308, 28, 23);
-		radioButton_2.setBounds(198, 308, 28, 23);
-		radioButton_3.setBounds(266, 308, 28, 23);
+		radioButton.setBounds(56, 308, 21, 23);
+		radioButton_1.setBounds(127, 308, 21, 23);
+		radioButton_2.setBounds(198, 308, 21, 23);
+		radioButton_3.setBounds(266, 308, 21, 23);
 		/*
 		 * Added radiobuttons to frame
 		 */
@@ -204,9 +207,6 @@ public class CreateAccount extends JFrame implements ActionListener{
 		bg.add(radioButton_2);
 		bg.add(radioButton_3);
 
-		Data.accounts.loadFile("Players.txt"); // loads the players.txt file
-
-		setSize(350,500); // sets window size
 		setVisible(true);
 		setResizable(false); // cannot resize the window
 	}
