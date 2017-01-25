@@ -59,8 +59,8 @@ public class QuestionCreation extends JFrame implements ActionListener {
 
 	private Border redline = BorderFactory.createLineBorder(Color.RED,10); 
 
-	private JButton btnConfirm = new JButton ("Confirm"); 
-
+	private JButton btnConfirm = new JButton ("Confirm");
+	
 	private JTextField textField= new JTextField();
 	private JTextField textField_1= new JTextField();;
 	private JTextField textField_2= new JTextField();
@@ -81,8 +81,6 @@ public class QuestionCreation extends JFrame implements ActionListener {
 	private String correctAnswer; 
 
 	private String [] optionsAnswer = new String [4]; 
-
-	//private JButton btnPrevious = new JButton("Previous");
 
 	private JButton btnNext = new JButton("Next");
 
@@ -105,9 +103,11 @@ public class QuestionCreation extends JFrame implements ActionListener {
 	private ArrayList<String> answersCB;
 
 	private ArrayList<String>  checkBoxAnswer = new ArrayList<String>(); 
+	
 	private ArrayList<String>  options = new ArrayList<String>(); 
 
-	private String boxOptions [] = {"Select", "True or False", "Multiple Choice", "Check Box", "Ranking"}; 
+	//options for comboBox
+	private String boxOptions [] = {"Select", "True or False", "Multiple Choice", "Check Box"}; 
 
 	private JComboBox comboBox= new JComboBox(boxOptions);
 
@@ -141,11 +141,10 @@ public class QuestionCreation extends JFrame implements ActionListener {
 		comboBox.setSelectedIndex (0);
 		add(comboBox);
 
-		//setting  location of lbl answer and lbloption and btnNext and btn previous
+		//setting  location of lbl answer and lbloption and btnNext 
 		lblAnswer.setBounds(30, 238, 47, 20);
 		lblOptions.setBounds(31, 209, 86, 20);
 		btnNext.setBounds(241, 382, 89, 23);
-		//btnPrevious.setBounds(126, 382, 89, 23);
 
 		textArea.setWrapStyleWord(true);
 		textArea.setLineWrap(true);
@@ -207,7 +206,7 @@ public class QuestionCreation extends JFrame implements ActionListener {
 
 		add (btnConfirm); 
 
-		//adding action listener to combox and check boxes and button next and previous, radio buttons
+		//adding action listener to combox and check boxes and button next, radio buttons
 		checkBox.addActionListener(this);
 		checkBox_1.addActionListener (this); 
 		checkBox_2.addActionListener(this);
@@ -220,9 +219,7 @@ public class QuestionCreation extends JFrame implements ActionListener {
 		radioButton_3.addActionListener(this);
 		btnNext.addActionListener(this);
 		btnConfirm.addActionListener(this);
-		//btnPrevious.addActionListener(this);
 
-		//getContentPane().add(btnPrevious);
 		setLocationRelativeTo (null);
 		setVisible (true); 
 	}
@@ -384,7 +381,7 @@ public class QuestionCreation extends JFrame implements ActionListener {
 			checkBox_2.setEnabled(false);
 			checkBox.setEnabled(false);
 		}
-		else if (e.getSource().equals(trueButton))
+		else if (e.getSource().equals(trueButton)) //checking selected button and saving answer
 		{
 			correctAnswer = "True";
 			falseButton.setSelected(false);
@@ -420,21 +417,6 @@ public class QuestionCreation extends JFrame implements ActionListener {
 
 					//add question to quiz
 					Data.q.addQuestion(tf);
-
-					//Data.q.getQuestions().set(Data.questionNum, tf); 
-					//Data.q.getQuestions().add (Data.questionNum, tf);
-
-					//System.out.println(q.getQuestionsTF());
-					//System.out.println(questionNum);
-					//System.out.print(Data.q.getQuestions().get(questionNum));
-
-
-					//System.out.println(((QuestionTF)q.getQuestions().get(0)).getQuestion());
-					//					//format to string
-					//					String question = questionType + "|" + questionTitle + "|" + answer;
-
-					//					//add question to array list
-					//					questions.add(question);	
 				}
 
 			}
@@ -447,7 +429,6 @@ public class QuestionCreation extends JFrame implements ActionListener {
 				//getting inputs of textFields for different options 
 				String optionMC [] = {textField.getText(),textField_1.getText(),textField_2.getText(),textField_3.getText()}; 
 
-				//ArrayList<String> options = new ArrayList<String>(); // all possible options
 
 				//adding options to list
 				for (int i=0; i< optionMC.length; i++)
@@ -457,9 +438,8 @@ public class QuestionCreation extends JFrame implements ActionListener {
 
 				QuestionMC mc = new QuestionMC (questionTitle, optionslist, answer); //creating new multiple choice question
 
-				Data.q.addQuestion(mc);
+				Data.q.addQuestion(mc); //calling data class and adding question to quiz
 
-				//Data.q.getQuestions().set(Data.questionNum, mc); 
 
 			}
 			else if (selectedItem.equals("Check Box"));
@@ -528,22 +508,8 @@ public class QuestionCreation extends JFrame implements ActionListener {
 					//add question to quiz
 					Data.q.addQuestion(tf);
 
-					//Data.q.getQuestions().set(Data.questionNum, tf); 
-					//Data.q.getQuestions().add (Data.questionNum, tf);
-
-					//System.out.println(q.getQuestionsTF());
-					//System.out.println(questionNum);
-					//System.out.print(Data.q.getQuestions().get(questionNum));
-
-
-					//System.out.println(((QuestionTF)q.getQuestions().get(0)).getQuestion());
-					//					//format to string
-					//					String question = questionType + "|" + questionTitle + "|" + answer;
-
-					//					//add question to array list
-					//					questions.add(question);	
 				}
-				Data.q.writeToFile(Data.q.getQuizName(), Data.q.toString(), false);
+				Data.q.writeToFile(Data.q.getQuizName()+".txt", Data.q.toString(), false); //writing to file 
 
 			}
 			else if (selectedItem.equals("Multiple Choice"))
@@ -555,24 +521,20 @@ public class QuestionCreation extends JFrame implements ActionListener {
 				//getting inputs of textFields for different options 
 				String optionMC [] = {textField.getText(),textField_1.getText(),textField_2.getText(),textField_3.getText()}; 
 
-				//ArrayList<String> options = new ArrayList<String>(); // all possible options
-
-				//adding options to list
 				for (int i=0; i< optionMC.length; i++)
 				{
 					optionslist.add(optionMC[i]);
 				}
-
 				QuestionMC mc = new QuestionMC (questionTitle, optionslist, answer); //creating new multiple choice question
 
 				Data.q.addQuestion(mc);
 
-				//Data.q.getQuestions().set(Data.questionNum, mc); 
 
 			}
 			else if (selectedItem.equals("Check Box"));
 			{
 				questionTitle = textArea.getText(); //getting questionTitle
+				
 				//gets textFieldText for selected options 
 				options.add(textField.getText());
 				options.add(textField_1.getText());
@@ -604,89 +566,10 @@ public class QuestionCreation extends JFrame implements ActionListener {
 
 				Data.q.addQuestion(cb);
 			}
-			System.out.println(Data.q.getQuestions().get(0).toString());
-
-			//Data.q.writeToFile(Data.q.getQuizName(),Data.q.toString(),false); 
 		}
-		/*else if (e.getSource() == btnPrevious)
-		{
-			//			if (questionNum<0) {
-			//				btnPrevious.setEnabled(false);
-			//			}
-			Data.questionNum --;//subtracting from question number
-
-			type = Data.q.getQuestions().get(Data.questionNum).getType(); //getting type of question
-
-			switch (type) {
-					case 1: {
-							questionTitle = Data.q.getQuestions().get(Data.questionNum).getQuestion();//getting question title
-							boolean answer =((QuestionTF)Data.q.getQuestions().get(Data.questionNum)).getAnswer();//getting answer
-							textArea.setText(questionTitle);//setting text of question area 
-							comboBox.setSelectedItem("True or False"); 
-							if (answer == true)//setting selected answer
-							{
-								trueButton.setSelected(true);
-							}
-							else 
-							{
-								falseButton.setSelected(true);
-							}
-							break;				
-					}
-					case 2: {
-							questionTitle = ((QuestionMC)Data.q.getQuestions().get(Data.questionNum)).getQuestion();//getting question
-							answer = ((QuestionMC)Data.q.getQuestions().get(Data.questionNum)).getAnswer();//getting answer
-							optionslist = ((QuestionMC)Data.q.getQuestions().get(Data.questionNum)).getOptions();//getting options
-							comboBox.setSelectedItem("Multiple Choice");//setting selected item 
-							textArea.setText(questionTitle); //setting question title
-
-							//getting options 
-							textField.setText(optionslist.get(0).toString()); 
-							textField_1.setText(optionslist.get(1).toString());
-							textField_2.setText(optionslist.get(2).toString());
-							textField_3.setText(optionslist.get(3).toString());
-
-							System.out.println(answer);
-
-							String optionMC [] = {textField.getText(),textField_1.getText(),textField_2.getText(),textField_3.getText()}; 
-
-							//Depending on answer set selected checkbox
-							if (answer.equalsIgnoreCase(optionMC[0]) )
-							{
-								checkBox.setSelected(true);
-							}
-							else if (answer.equalsIgnoreCase(optionMC[1]))
-							{
-								checkBox_1.setSelected(true);
-							}
-							else if (answer.equalsIgnoreCase(optionMC[2]))
-							{
-								checkBox_2.setSelected(true);
-							}
-							else if (answer.equalsIgnoreCase(optionMC[3]))
-							{
-								checkBox_3.setSelected(true);
-							}
-							break;
-					}
-					case 3: {
-			//				questionTitle = ((QuestionCB)q.getQuestions().get(0)).getQuestion();
-			//				answersCB = ((QuestionCB)q.getQuestions().get(0)).getAnswers();
-			//				options = ((QuestionCB)q.getQuestions().get(0)).getOptions();
-			//				break;
-						}
-			}
-		 */
-
 	}
-
-
-
-
-
+	
 	public static void main(String[] args) {
-
-
 		QuestionCreation question = new QuestionCreation (); 
 	}
 
