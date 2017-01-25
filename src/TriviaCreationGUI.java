@@ -1,7 +1,7 @@
 //Name: Pavneet Gill 
 //Date: 2017-01-23
 //Description: This is a triviaCreationGUI which creates the quiz and sets the quiz name 
-
+//       void actionPerformed //listens to button clicks 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
@@ -25,103 +25,126 @@ import javax.swing.border.LineBorder;
 
 public class TriviaCreationGUI extends JFrame implements ActionListener {
 	
-	//creating variabiles for txt fields, options, lables 
+	//declaring variables for txt fields, options, labels 
 	private JTextField txtLabel;
+	
 	private JTextField textField;
+	
 	private JButton btnBack, btnCreate;
-	private String options [] = {"","5","6","7","8","9","10"}; 
-	private JComboBox comboBox = new JComboBox(options);
+	
+	private String options [] = {"","5","6","7","8","9","10"}; //options for comboBox
+	
+	private JComboBox comboBox = new JComboBox(options); //creating comboBox with number of questions
+	
 	private JTextField textField_1;
+	
 	private JLabel lblError; 
+	
 	private JLabel lblCategoryError; 
+	
 	private JLabel lblErrorUnselected;
 
-	/**
-	 * Launch the application.
-	 */
-
-	/**
-	 * Create the frame.
-	 */
 	public TriviaCreationGUI() {
-		getContentPane().setFont(new Font("Segoe UI", Font.PLAIN, 11));
+		
+		getContentPane().setFont(new Font("Segoe UI", Font.PLAIN, 11)); //setting font 
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
 		setSize(500,420);
+		
 		setLocationRelativeTo(null);
+		
 		getContentPane().setLayout(null);
 		
+		//creating jlabels and textfield 
 		lblError = new JLabel("");
+		
 		lblCategoryError = new JLabel("");
+		
 		lblErrorUnselected = new JLabel(""); 
 		
 		txtLabel = new JTextField();
+		
+		//setting label to non editable 
 		txtLabel.setEditable(false);
-		txtLabel.setBackground(new Color(255, 255, 255));
-		txtLabel.setFont(new Font("Yu Gothic Light", Font.PLAIN, 16));
+		
+		txtLabel.setBackground(new Color(255, 255, 255));//setting background of label 
+		
+		txtLabel.setFont(new Font("Yu Gothic Light", Font.PLAIN, 16)); //setting font of label 
+		
 		txtLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		
 		txtLabel.setText("Trivia Creation");
-		txtLabel.setBounds(0, 0, 484, 42);
+		
+		txtLabel.setBounds(0, 0, 484, 42); //setting bounds 
+		
 		getContentPane().add(txtLabel);
+		
 		txtLabel.setColumns(10);
 		
+		//creating and declaring jlabel for triviaName and setting bounds and adding to frame 
 		JLabel lblTriviaName = new JLabel("Trivia Name");
 		lblTriviaName.setFont(new Font("Segoe UI Historic", Font.PLAIN, 15));
 		lblTriviaName.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTriviaName.setBounds(10, 87, 115, 20);
 		getContentPane().add(lblTriviaName);
 		
+		//creating text field and setting bounds and adding to frame
 		textField = new JTextField();
 		textField.setBounds(35, 118, 400, 32);
 		getContentPane().add(textField);
 		textField.setColumns(10);
 		
+		//creating button and setting bounds and adding to frame
 		btnBack = new JButton("Back");
 		btnBack.setBounds(10, 53, 89, 23);
 		getContentPane().add(btnBack);
-		btnBack.addActionListener(this);
+		btnBack.addActionListener(this); //adding action listener 
 		
+		//creating and declaring jlabel for number of questions and setting bounds and adding to frame 
 		JLabel lblNumberOfQuestioms = new JLabel("Number of Question(s):");
 		lblNumberOfQuestioms.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 11));
 		lblNumberOfQuestioms.setBounds(113, 268, 133, 14);
 		getContentPane().add(lblNumberOfQuestioms);
 		
+		//adding comboBox to frame and setting bounds 
 		comboBox.setBounds(256, 265, 50, 20);
 		getContentPane().add(comboBox);
 		comboBox.setActionCommand("Question #");
 		
+		//creating btnCreate and adding it to frame and adding actionListener 
 		btnCreate = new JButton("Create");
 		btnCreate.setBounds(167, 333, 139, 36);
 		getContentPane().add(btnCreate);
 		btnCreate.addActionListener(this);
 		
-		
+		//creating a category label and adding it to frame, setting bounds and text and adding actionListener 
 		JLabel lblCategory = new JLabel("Category");
 		lblCategory.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCategory.setFont(new Font("Segoe UI Historic", Font.PLAIN, 15));
 		lblCategory.setBounds(0, 161, 115, 20);
 		getContentPane().add(lblCategory);
 		
+		//creating textField and setting bounds and adding to frame
 		textField_1 = new JTextField();
 		textField_1.setColumns(10);
 		textField_1.setBounds(35, 192, 400, 32);
 		getContentPane().add(textField_1);
 		
-		
+		//setting color of error text and adding to frame
 		lblError.setForeground(Color.RED);
-		lblError.setBackground(Color.RED);
 		getContentPane().add(lblError);
 		
 		lblCategoryError.setForeground(Color.RED);
-		lblCategoryError.setBackground(Color.RED);
 		getContentPane().add(lblCategoryError);
 		
 		lblErrorUnselected.setForeground(Color.RED);
-		lblErrorUnselected.setBackground(Color.RED);
 		getContentPane().add(lblErrorUnselected);
+		
 		setVisible (true); 
 	}
 	
-	public void actionPerformed(ActionEvent e) {
+	public void actionPerformed(ActionEvent e) { //listens to button clicked 
 		if(e.getSource() == btnBack){
 			
 			try {
@@ -136,13 +159,16 @@ public class TriviaCreationGUI extends JFrame implements ActionListener {
 			
 			String selectedItem = (String) comboBox.getSelectedItem();//getting selected item on comboBox box 
 			
+			//getting catergoryName fromTextField
 			String categoryName = textField_1.getText(); 
-			
+			//
+			//creating variable for max length 
 			int maxlength = 20; 
 			
+			//getting quizName for textField 
 			String quizName = textField.getText(); 
 			
-			
+			//checking for erros and long names than ruin gui design 
 			if ((categoryName.length() > maxlength) || (quizName.length() > maxlength) || selectedItem == "" || (categoryName.isEmpty()) || (quizName.isEmpty()))
 			{
 				if (quizName.length() > maxlength)
@@ -151,7 +177,7 @@ public class TriviaCreationGUI extends JFrame implements ActionListener {
 					
 					lblError.setBounds(167, 104, 268, 14);
 				}
-				
+				//checking if textfield is empty 
 				if (categoryName.isEmpty())
 				{
 					lblCategoryError.setText("Empty Category Name");
@@ -182,13 +208,16 @@ public class TriviaCreationGUI extends JFrame implements ActionListener {
 			}
 			else  
 			{
+				//data class and clearing questions 
 				Data.q.getQuestions().clear();
-				
+
+				//getting quizName 
 				Data.q.setQuizName(textField.getText());
 				
+				//getting category 
 				Data.q.setCategory(textField_1.getText());
 				
-				Data.totalQuestions = Integer.parseInt(selectedItem);
+				Data.totalQuestions = Integer.parseInt(selectedItem); //getting total num of questions 
 				
 				new QuestionCreation();
 				
